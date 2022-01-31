@@ -1,0 +1,457 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+.header .navbar .navbar-brand img{
+    width: 90px; 
+    height: 64px;
+    margin-left: 15%;
+}
+.header{
+    background-color: #646464;
+  
+}
+.header .navbar-nav{
+    margin-left: auto !important;
+}
+.header .navbar-nav .nav-btnn a,.btnn{
+    color: white;
+    margin: 5px;
+    padding: 30px;
+    font-size: 20px;
+}
+.header .navbar-nav .nav-btnn a:hover{
+    border: 1px solid white;
+    border-radius: 40px;
+    color: white;
+}
+.header .navbar-nav .nav-btn-blue a{
+    background-color: #29626D;
+    border-radius: 40px;
+    border: 1px solid white;
+}
+.header .navbar-nav .nav-btn-blue .btnn{
+    background-color: #29626D;
+    border-radius: 40px;
+    border: 1px solid white;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/*modal*/
+.modal-body .input-fields input{
+    width:99%;
+    
+}
+.modal-body .btn{
+    width: 100%;
+    color: white;
+    background-color: #29626D;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.modal-body .create{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.modal-body .create p{
+    margin: 0;
+}
+.modal-body .create a{
+    text-decoration: none;
+    font-weight: 600;
+    color:#29626D;
+}
+.modal-body input{
+    padding: 12px;
+}
+.main_image img{
+    height: auto;
+    width: 100vw;
+}
+
+.prices_heading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #4f4f4f;
+    margin-top: 30px;
+}
+.prices_heading h1{
+    font-size: 36px;
+}
+.prices_box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.left_line , .right_line{
+    width: 62px;
+    height: 1px;
+    background-color: #CCCCCC;
+    margin: 0px 8px;
+}
+
+.prices_card{
+    max-width: 553px;
+    align-items: center;
+    border: solid 1px #b0c9ce !important;
+    border-radius: 0 !important;
+}
+
+.prices_card .card-header{
+    background-color: #1d7a8c;
+    font-size: 28px;
+}
+.prices_card .card-title{
+    color: #646464;
+    font-size: 30px;
+    font-weight: normal;
+    margin-top: 13px;
+}
+.card_euro{
+    font-size: 48px;
+}
+.price_card_list{
+    list-style: none;
+}
+.price_card_list li{
+    display: flex;
+    color: #646464;
+}
+.price_card_list li p{
+    margin-left: 10px;
+}
+
+
+.services_cover{
+    display: flex;
+}
+.services_icon{
+    height: 108px;
+    width: 108px;
+    border: solid 1px #b0c9ce;
+}
+.services_inner{
+    width: 145px;
+    margin: 40px 3vw;
+}
+.services_content{
+    margin-top: 17px !important;
+}
+.services_content p{
+    color: #646464;
+    margin-bottom: 12px !important;
+}
+.services_content h5{
+    color: #1d7a8c;
+}
+
+.prices_areas{
+    background-color: #f6f6f6;
+    min-height: 707px;
+}
+
+.services_card{
+    background-color: transparent !important;
+    flex: none !important;
+}
+.services_card_list li{
+    margin-bottom: 14px;
+}
+.services_card_list li p{
+    font-size: 16px;
+    color: #4f4f4f;
+}
+
+.services_card h5{
+    margin-bottom: 18px;
+}
+
+.whyhelperland .prices_heading{
+    margin-bottom: 15px;
+}
+.why_cover{
+    color: #646464;
+}
+.why_left , .why_right{
+    width: 360px;
+    margin: 0 45px;
+}
+
+.why_left p , .why_right p{
+    font-size: 14px;
+    margin-top: 13px;
+}
+
+.left_up , .right_up{
+    margin-bottom: 40px;
+}
+
+a{ text-decoration: none;}
+
+a:hover{
+    text-decoration: none !important; 
+}
+
+li{ list-style: none; }
+
+.nav-btn a{
+    border: 1px solid #fff;
+    border-radius: 100px;
+    margin: 0 15px;
+    padding: 5px 10px;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.nav-btn-blue a{
+    border: 1px solid #fff;
+    border-radius: 100px;
+    margin: 0 15px;
+    padding: 5px 10px;
+    outline: none;
+    color: #fff;
+    background-color: #29626D;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+.nav-btnn a{
+    margin: 0 5px;
+    padding: 5px 15px;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.nav-tabs .nav-item{
+    width: calc(100%/2);
+}
+
+.nav-tabs .nav-link{
+    text-align: center;
+    background: #f6f6f6;
+    display: inline-block !important;
+    color: #646464 !important;
+    font-weight: bold;
+    line-height: 40px;
+    border: none !important;
+}
+
+.nav-tabs .nav-link.active{
+    background-color: #1d7a8c !important;
+    color: white !important;
+}
+
+.navbar .navbar-nav{
+    margin-left: auto;
+}
+.navbar .navbar-nav .nav-btnn a{
+    color: #f1f1f1;
+}
+@media (max-width: 1197px){
+    .navbar_book , .navbar_prices , .navbar_helper , .navbar_login{
+        border: none;
+        background-color: #525252;
+        margin: 10px 0;
+        padding: 0;
+    }
+    .navbar_login ,.navbar_helper{
+        border: 1px solid #fff;
+        padding: 10px 20px;
+        margin: 5px 0px;
+    }
+    .nav-item{
+        width: fit-content;
+    }
+    .navbar_list{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .navbar_list ul{
+        margin: 0 !important;
+    }
+    .navbar_list ul li a{
+        padding: 10px 0;
+    }
+}
+.email_form{
+    padding: 50px 0;
+  }
+  
+  .email_heading{
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .email_input{
+    border: solid 1px #565656;
+    padding: 10px 40px 10px 22px;
+  }
+  
+  .email_input ::placeholder{
+    font-size: 14px;
+    color: #565656;
+  }
+  
+  .email_btn{
+    background-color: #ff7b6d !important;
+    padding: 10px 18px !important;
+    font-size: 14px !important;
+  }
+  
+  
+  .footer_section{
+    background-color: #111111;
+  }
+  
+  .footer_main{
+    min-height: 130px;
+    height: fit-content;
+  }
+  .footer_inner{
+    min-width: 85vw;
+    border-bottom: 1px solid #424242;
+    min-height: 130px;
+  }
+  .footer_mid ul li{
+    margin: 15px;
+    list-style: none;
+  }
+  .footer_mid ul li a{
+    color: #f1f1f1;
+    font-size: 14px;
+  }
+  .footer_right{
+    min-width: 106px;
+  }
+  
+  .footer_end{
+    height: 63px;
+    min-height: fit-content;
+  }
+  
+  .footer_end p{
+    color: #9ba0a3;
+    font-size: 14px;
+  }
+  .footer_end p span a{
+    color: #9ba0a3;
+  }
+  
+  @media (max-width: 768px){
+    .footer_mid ul{
+        display: grid !important;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 0px 10px;
+        padding: 20px 0 !important;
+        margin: 0;
+    }
+    .footer_inner{
+        flex-direction: column;
+        height: fit-content !important;
+        padding: 20px 0px;
+        justify-content: space-between !important;
+    }
+  }
+  
+  
+  @media (max-width: 425px){
+    .footer_end{
+        flex-direction: column;
+        padding: 0 10px;
+    }
+    .footer_mid ul{
+        grid-template-columns: 1fr 1fr;
+    }
+    .email_form input{
+        width: 200px;
+    }
+  }
+@media (max-width: 1024px){
+    .why_cover{
+        height: fit-content;
+        flex-direction: column;
+    }
+    .why_left , .why_right{
+        margin: 0px 0px;
+    }
+    .left_up , .right_up , .left_down , .right_down{
+        margin-bottom: 25px;
+        text-align: center !important;
+    }
+    /* .why_cover br{
+        display: none;  
+    } */
+    .services_inner{
+        width: fit-content;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+
+}
+
+@media(max-width: 768px){
+    .services_cover{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+    }
+    .prices_areas .card-group{
+        flex-direction: column;
+    }
+
+    .footer_mid ul{
+        display: grid !important;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 0px 10px;
+        padding: 20px 0 !important;
+        margin: 0;
+    }
+    .footer_main{
+        flex-direction: column;
+        height: fit-content !important;
+        padding: 20px 0px;
+        justify-content: space-between !important;
+    }
+    .services_cover{
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+    }
+}
+
+@media (max-width : 425px){
+    .why_left , .why_right{
+        width: fit-content;
+    }
+    .why_mid img{
+        max-width: 95vw;
+    }
+}
+
+
+

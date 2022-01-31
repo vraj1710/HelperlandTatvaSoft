@@ -1,0 +1,216 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    overflow-x: hidden;
+}
+body{
+    height: fit-content;
+}
+
+.admin-nav{
+    background-color: #1FB6FF;
+}
+.admin-nav p{
+    font-weight: 600;
+    font-size: 35px;
+    color: white;
+    margin-bottom: 0;
+}
+.admin-nav .nav-right img{
+    padding: 10px;
+}
+
+.admin-nav .nav-right a{
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+}
+
+.main-admin{
+    background-color: #0000001A;
+}
+.main-admin .left-block{
+    background-color: white;
+    width: 273px;
+    position: relative;
+    box-shadow:10px 0px 10px #D4D4D4;
+}
+.main-admin .left-block ul{
+    padding-left: 0;
+}
+.main-admin .left-block li{
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #cecaca;
+}
+.main-admin .left-block li a:hover{
+    color: #1FB6FF;
+}
+.main-admin .left-block li a{
+    text-decoration: none;
+    color: #646464;
+}
+.main-admin .left-block li .dropdown button{
+    padding: 0;
+}
+
+
+.main-admin .right-block{
+    width: 100%;
+   
+}
+.main-admin .right-block .manage h3{
+    color: #646464;
+    height: 27px;
+    font-weight: 700;
+}
+.main-admin .right-block .manage a{
+    background-color: #1FB6FF;
+    padding: 7px;
+    border-radius: 5px;
+}
+.main-admin .right-block .form{
+    background-color: white;
+    height: fit-content;
+    
+}
+.main-admin .right-block .form select{
+    width: 180px;
+    padding: 10px;
+    margin: 8px;
+    border:1px solid #A0A0A0;
+    border-radius: 5px;
+}
+
+.main-admin .right-block .form input{
+    width: 180px;
+    padding: 10px;
+    margin: 8px;
+    border:1px solid #A0A0A0;
+    border-radius: 5px;
+}
+.main-admin .right-block .form .search{
+    background-color: #1FB6FF;
+    border: #1FB6FF;
+    color: white;
+    border-radius: 5px;
+} 
+.main-admin .right-block .form .clear{
+    background-color: white;
+    border:1px solid #A0A0A0;
+    border-radius: 5px;
+}
+.main-admin .right-block .form a button{
+    padding: 10px;
+    width: 100px;
+    margin: 10px;
+}
+
+.main-admin .right-block .table thead{
+    background-color: #646464;
+    border-bottom: 0.5px solid #646464;
+}
+.main-admin .right-block .table thead td{
+    font-weight: 600;
+    font-size: 20px;
+    color: #646464; 
+}
+
+.main-admin .right-block .table td{
+    color: #646464;
+}
+
+.main-admin .right-block .table thead td img{
+ padding-left: 7px;
+}
+
+.main-admin .right-block .table tbody tr img{
+    padding-right: 5px;
+}
+.main-admin .right-block .table {
+    border: 1px solid #0000001A;
+    background-color: white;
+}
+.main-admin .right-block .table .sp_icon{
+    padding: 8px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+.main-admin .right-block .table .new{
+    background-color: #F2BB37;
+    border: 1px solid #F2BB37;
+    width: 100px;
+    padding: 5px;
+    color: white;
+}
+.main-admin .right-block .table .pending{
+    background-color: #1FB6FF;
+    border: 1px solid #1FB6FF;
+    width: 100px;
+    padding: 5px;
+    color: white;
+}
+.main-admin .right-block .table .completed{
+    background-color: #67B644;
+    border: 1px solid #67B644;
+    width: 100px;
+    padding: 5px;
+    color: white;
+}
+
+.main-admin .right-block .table .cancelled{
+    background-color: #FF6B6B;
+    border: 1px solid #FF6B6B;
+    width: 100px;
+    padding: 5px;
+    color: white;
+}
+.main-admin .right-block .table tr td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.main-admin .right-block .table tr{
+    border-bottom: 1px solid #0000001A;
+    padding: 40px;
+}
+
+.main-admin .right-block .option{
+   background-color: white;
+   padding: 10px;
+   margin-bottom: 10px;
+}
+.main-admin .right-block .option span{
+    font-size: 20px;
+}
+.main-admin .right-block footer{
+    color: #A2A6A8;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+h5 , h4 {
+    color: grey;
+    font-weight: bold;
+}
+.height{
+  min-height: 46px;
+  padding: 10px;
+}
+.border{
+  border: 1px solid #e1e1e1;
+  color: #646464;
+}
+label{
+  color: #646464;
+}
+.bond{
+    font-weight: 550;
+}
+.updateBtn{
+  color: white;
+  background-color: #1fb6ff;
+}

@@ -1,0 +1,250 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+       ViewData["Title"] = "aboutus";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="~/css/about.css">
+    <title>about</title>
+</head>
+
+<body>
+    <div class="header navbar-nav" id="topheader navbar">
+        <nav class="navbar navbar-expand-xl navbar-light" id="navbar">
+            <a class="navbar-brand" href="homepage.html">
+                <img src="~/lib/images/white-logo-transparent-background@2x.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div class="nav-btn-blue nav-btnn">
+                            <a class="nav-link py-3" href="#">Book now</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btnn">
+                            <a class="nav-link py-3" asp-action="home" asp-controller="prices">Prices & services</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btnn">
+                            <a class="nav-link py-3" href="#">warrenty</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btnn">
+                            <a class="nav-link py-3" href="#">Blog</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btnn">
+                            <a class="nav-link py-3" asp-controller="home" asp-action="contactus">Contact</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btn-blue nav-btnn">
+                            <a class="nav-link py-3" href="#" data-toggle="modal" data-target="#staticBackdrop">Login</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-btn-blue nav-btnn ">
+                            <a class="nav-link py-3" asp-controller="home" asp-action="becomeahelper">Become a Helper</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+
+
+
+    <!    <!--login Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-2 input-fields">
+                        <input type="email" name="email" placeholder="E-mail" id="email">
+                    </div>
+                    <div class="m-2 input-fields">
+                        <input type="password" name="password" placeholder="password" id=password>
+                    </div>
+                    <div class="m-2">
+                        <input type="checkbox" id="option-a">
+                        <label for="option-a">Remember me</label>
+                    </div>
+                    <div>
+                        <button class="btn">LOGIN</button>
+                    </div>
+                    <div class="text-center create">
+                        <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">forget password</a>
+                        <p>Don't have an account?</p>
+                        <a href="#">create an account</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--Forgot password Modal -->
+
+    <div class="modal fade" id="forgot_password" data-dismiss="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-2 input-fields">
+                        <input type="email" name="email" placeholder="E-mail" id="email">
+                    </div>
+
+
+                    <div>
+                        <button class="btn">send</button>
+                    </div>
+                    <div class="text-center create">
+                        <a href="#">Login now</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <section class="abt-img">
+        <img src="~/lib/images/hero-banner-img.png" alt="">
+    </section>
+
+    <section class="container text-center">
+        <h4>A Few words about us</h4>
+        <img src="images/forma-1-copy-5.png" alt="">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie convallis tempor. Duis vestibulum vel risus condimentum dictum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus quis enim orci. Fusce risus lacus, sollicitudin eu magna sed, pharetra sodales libero. Proin tincidunt vel erat id porttitor. Donec tristique est arcu, sed dignissim velit vulputate ultricies. Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
+        <p>In hac habitasse platea dictumst. Vivamus eget mauris eget nisl euismod volutpat sed sed libero. Quisque sit amet lectus ex. Ut semper ligula et mauris tincidunt hendrerit. Aenean ut rhoncus orci, vel elementum turpis. Donec tempor aliquet magna eu fringilla. Nam lobortis libero ut odio finibus lobortis. In hac habitasse platea dictumst. Mauris a hendrerit felis. Praesent ac vehicula ipsum, at porta tellus. Sed dolor augue, posuere sed neque eget, aliquam ultricies velit. Sed lacus elit, tincidunt et massa ac, vehicula placerat lorem.</p>
+
+        <h4>Our Story</h4>
+        <img src="images/forma-1-copy-5.png" alt="">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum at assumenda maxime fugit nostrum, repudiandae molestiae ex modi, recusandae voluptatibus quasi aliquid suscipit error, nemo obcaecati. Veritatis voluptatibus accusamus laboriosam, corrupti illum suscipit illo neque obcaecati commodi veniam voluptates impedit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis iusto rerum sit unde praesentium beatae alias neque repellat iste soluta fugit assumenda repudiandae, voluptatum pariatur tenetur vero illum adipisci molestias!</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusantium quibusdam dicta nostrum eligendi doloremque temporibus. Quas at eaque odio facere saepe cupiditate quia veniam?</p>
+    </section>
+
+
+
+    <section class="our-news-letter">
+        <div class="container text-center">
+
+            <h2>GET OUR NEWSLETTER</h2>
+            <div class="form-row d-flex justify-content-center align-items-center">
+                <div class="form-group">
+                    <label for="email" style="display: none;">YOUR EMAIL</label>
+                    <input type="text" placeholder="YOUR EMAIL" id="email" class="form-control">
+                </div>
+                <div class="btn-wrapper">
+                    <button class="red-btn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 footer-widget">
+                        <a href="#" title="Helper Hand">
+                            <img src="~/lib/images/white-logo-transparent-background.png" alt="Helper Hand">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 footer-widget">
+                        <ul class="footer-navigation d-flex justify-content-center">
+                            <li>
+                                <a title="Home" asp-controller="home" asp-action="index">Home</a>
+                            </li>
+                            <li>
+                                <a title="About" asp-controller="home" asp-action="aboutus">About</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Testimonials">Testimonials</a>
+                            </li>
+                            <li>
+                                <a title="FAQS" asp-controller="home" asp-action="faq">FAQS</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Impressum">Impressum</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 footer-widget">
+                        <ul class="social-media-list d-flex justify-content-end">
+                            <li>
+                                <a href="#" target="_blank" title="Facebook">
+                                    <img src="~/lib/images/ic-facebook.png" alt="Facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" title="Instagram">
+                                    <img src="~/lib/images/ic-instagram.png" alt="Instagram">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p>©2018 Helperland. All rights reserved <a href="#" title="Privacy Policy">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+            integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+            crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

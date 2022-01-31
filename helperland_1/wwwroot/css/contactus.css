@@ -1,0 +1,353 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.header .navbar .navbar-brand img {
+    width: 90px;
+    height: 64px;
+    margin-left: 15%;
+}
+
+.header {
+    background-color: #646464;
+}
+
+    .header .navbar-nav {
+        margin-left: auto !important;
+    }
+
+        .header .navbar-nav .nav-btnn a, .btnn {
+            color: white;
+            margin: 5px;
+            padding: 30px;
+            font-size: 20px;
+        }
+
+            .header .navbar-nav .nav-btnn a:hover {
+                border: 1px solid white;
+                border-radius: 40px;
+                color: white;
+            }
+
+        .header .navbar-nav .nav-btn-blue a {
+            background-color: #29626D;
+            border-radius: 40px;
+            border: 1px solid white;
+        }
+
+        .header .navbar-nav .nav-btn-blue .btnn {
+            background-color: #29626D;
+            border-radius: 40px;
+            border: 1px solid white;
+            color: white;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+/*modal*/
+.modal-body .input-fields input {
+    width: 99%;
+}
+
+.modal-body .btn {
+    width: 100%;
+    color: white;
+    background-color: #29626D;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.modal-body .create {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+    .modal-body .create p {
+        margin: 0;
+    }
+
+    .modal-body .create a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #29626D;
+    }
+
+.modal-body input {
+    padding: 12px;
+}
+
+.container .card .card-text {
+    margin-bottom: 0px;
+}
+
+.container .card {
+    margin: 2%;
+}
+
+.contactus-dec-img img {
+    width: 100vw;
+    height: auto;
+}
+
+.contactus {
+    flex: none !important;
+}
+
+.contact-us-1 {
+    padding-top: 35px;
+}
+
+    .contact-us-1 h2 {
+        color: #4F4F4F;
+        font-weight: 600;
+        height: 40px;
+    }
+
+    .contact-us-1 .container {
+        padding-top: 50px;
+        padding-bottom: 80px;
+        border-bottom: 1px solid #E1E1E1;
+    }
+
+
+        .contact-us-1 .container .card {
+            border: none;
+        }
+
+.contact-form .container {
+    width: 45%;
+    padding-top: 100px;
+}
+
+    .contact-form .container h4 {
+        color: #4F4F4F;
+        font-weight: 700;
+    }
+
+    .contact-form .container .form1 .part1 input {
+        width: 100%;
+        padding: 5px;
+        margin: 10px;
+    }
+
+    .contact-form .container .form1 input, select, textarea {
+        border: 1px solid #C8C8C8;
+        border-radius: 3px;
+    }
+
+    .contact-form .container .form1 .part2 {
+        flex-direction: column;
+        padding: 5px;
+        margin: 10px;
+    }
+
+        .contact-form .container .form1 .part2 select {
+            padding: 5px;
+        }
+
+    .contact-form .container button {
+        background-color: #1D7A8C;
+        color: white;
+        width: 25%;
+        border-radius: 30px;
+        font-weight: 500;
+    }
+
+
+
+.google-map img {
+    width: 100vw;
+    height: auto;
+    padding-top: 150px;
+    padding-bottom: 20px;
+}
+
+
+
+.our-news-letter {
+    padding-bottom: 55px;
+    background: #ffffff;
+    margin-top: 5%;
+}
+
+    .our-news-letter .container {
+        position: relative;
+        max-width: 1420px;
+    }
+
+    .our-news-letter a {
+        display: inline-block;
+    }
+
+    .our-news-letter h2 {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .our-news-letter .form-row .form-control {
+        border-radius: 20px;
+        border: solid 1px #565656;
+        background-color: #f4f5f8;
+        color: #565656;
+        font-size: 14px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 22px;
+    }
+
+        .our-news-letter .form-row .form-control:focus {
+            box-shadow: none;
+        }
+
+    .our-news-letter .btn-wrapper {
+        margin-left: 11px;
+    }
+
+.red-btn {
+    background-color: #FF7B6D;
+    font-size: 14px;
+    line-height: 37px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 88px;
+    transition: 0.3s all;
+}
+
+    .red-btn:hover {
+        background-color: #eb6e61;
+        color: #fff;
+    }
+
+
+.site-footer .container {
+    max-width: 1420px;
+}
+
+.site-footer .footer-top {
+    background: #111111;
+    padding: 27px 0;
+}
+
+.site-footer a {
+    display: inline-block;
+}
+
+.site-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .site-footer ul.footer-navigation li a:hover, .site-footer ul.social-media-list a:hover {
+        opacity: 0.8;
+    }
+
+    .site-footer ul.footer-navigation {
+        flex-wrap: wrap;
+    }
+
+        .site-footer ul.footer-navigation li + li {
+            margin-left: 30px;
+        }
+
+        .site-footer ul.footer-navigation li a {
+            color: #F1F1F1;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            line-height: 2.14;
+            transition: opacity 0.3s;
+        }
+
+    .site-footer ul.social-media-list li {
+        text-align: center;
+    }
+
+    .site-footer ul.social-media-list a {
+        width: 20px;
+        height: 20px;
+        transition: opacity 0.3s;
+    }
+
+    .site-footer ul.social-media-list li:last-child {
+        margin-left: 20px;
+    }
+
+.site-footer .footer-bottom {
+    background: #292929;
+    padding: 19px 0;
+    position: relative;
+}
+
+    .site-footer .footer-bottom p {
+        color: #f1f1f1;
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+
+        .site-footer .footer-bottom p a {
+            text-decoration: none;
+            color: #6EABEF;
+        }
+
+
+@media(max-width:1130px) {
+    .contact-form .container {
+        width: 55%;
+    }
+}
+
+@media(max-width:993px) {
+    .site-footer .footer-widget {
+        text-align: center;
+    }
+
+    .site-footer ul.social-media-list {
+        margin-top: 10px;
+        justify-content: center !important;
+    }
+}
+
+@media(max-width:730px) {
+    .contact-us-1 .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-form .container {
+        width: 70%;
+    }
+
+    .contactus-dec-img img {
+        height: 180px;
+    }
+}
+
+@media(max-width:550px) {
+    .contact-form .container {
+        width: 98%;
+    }
+
+    .site-footer .footer-top img {
+        display: none;
+    }
+
+    .site-footer ul.footer-navigation li {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+
+        .site-footer ul.footer-navigation li + li {
+            margin-left: 0;
+        }
+}

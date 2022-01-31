@@ -1,0 +1,310 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    overflow-x: hidden;
+}
+
+
+.service-head{
+    background-image: url(../images/become-a-pro-banner.png);
+    background-size: cover;
+}
+.service-head .scroll-link-wrapper .scroll-link img{
+    border: 2px solid white;
+    padding: .5%;
+    border-radius: 50%;
+    margin: 2%;
+ }
+.header .navbar .navbar-brand img{
+    width: 156px; 
+    height: 120px;
+}
+.header .navbar-nav{
+    margin-left: auto !important;
+}
+.header .navbar-nav .nav-btnn a{
+    color: white;
+    margin: 5px;
+    padding: 30px;
+    font-size: 20px;
+}
+.header .navbar-nav .nav-btnn a:hover{
+    border: 1px solid white;
+    border-radius: 40px;
+    color: white;
+}
+.header .navbar-nav .nav-btn-blue a{
+   
+    border-radius: 40px;
+    border: 1px solid white;
+}
+.header .navbar a img{
+    margin-left: 50%;
+}
+
+.header .navbar-nav .dropdown{
+  margin: 15px;
+}
+
+
+/*modal*/
+.modal-body .input-fields input{
+    width:99%;
+    
+}
+.modal-body .btn{
+    width: 100%;
+    color: white;
+    background-color: #29626D;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.modal-body .create{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.modal-body .create p{
+    margin: 0;
+}
+.modal-body .create a{
+    text-decoration: none;
+    font-weight: 600;
+    color:#29626D;
+}
+.modal-body input{
+    padding: 12px;
+}
+
+.registration-form .container{
+    width: 26%;
+    background-color: white;
+}
+
+.registration-form .container h4{
+    color: #525252;
+    font-weight: 700;
+    padding: 15px;
+}
+
+.registration-form .container .form1{
+    text-align: left;
+}
+.registration-form .container .form1 input{
+    margin: 1%;
+}
+.registration-form .container .form1 label em{
+    color: #1FB6FF;
+}
+
+.registration-form .container .form1 .robot{
+    border: 1px solid #A0A0A0;
+    width: 60%;
+    background: #F4F5F8; 
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+.registration-form .container .form1 .robot #option-c{
+    width: 25px;
+    height: 25px;
+    justify-content: center;
+
+}
+.registration-form .container .form1 .robot #option-c img{
+    text-align: right;
+}
+
+.registration-form .container button{
+    border-radius: 23px;
+    background-color:#1D7A8C;
+    padding: 10px;
+    color: white;
+    border: 1px solid #1D7A8C;
+    margin: 7%;
+}
+.registration-form .container .form1 #Firstname,#phone,#Lastname,#email,#password,#confirm-password{
+    width: 98%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #A0A0A0;
+}
+
+
+
+
+.contact-mid{
+    background: #F4F5F8;
+
+}
+
+.contact-mid .container .hiw h2{
+    font-size: 50px;
+    font-weight: 700;
+    color: #525252;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+.contact-mid .container .hiw .left-block{
+    color: #525252;
+    text-align: left;
+    padding-left: 15%;
+    
+}
+.contact-mid .container .hiw h3{
+    font-weight: 700;
+}
+
+.contact-mid .container .hiw a{
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    padding-left: 30%;
+    color: #525252;
+    padding-top: 3%;
+}
+.contact-mid .container .hiw a em{
+    margin-left: 2%;
+}
+.contact-mid .container .hiw .image-wrapper img{
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+
+.our-news-letter{
+     padding-bottom: 55px; 
+     background: #F4F5F8; 
+     margin-top: 5%;
+    }
+.our-news-letter .container { position: relative; max-width: 1420px; }
+.our-news-letter a { display: inline-block; }
+.our-news-letter h2 { font-size: 18px; margin-bottom: 16px; }
+.our-news-letter .form-row .form-control { border-radius: 20px; border: solid 1px #565656; background-color: #f4f5f8; color: #565656; font-size: 14px; height: 40px; line-height: 40px; padding: 0 22px; }
+.our-news-letter .form-row .form-control:focus { box-shadow: none; }
+.our-news-letter .btn-wrapper { margin-left: 11px; }
+.red-btn { background-color: #FF7B6D; font-size: 14px; line-height: 37px; height: 40px; border-radius: 20px; border: none; outline: none; color: #fff; width: 88px; transition: 0.3s all; }
+.red-btn:hover { background-color: #eb6e61; color: #fff; }
+
+
+.site-footer .container {
+     max-width: 1420px;
+ }
+.site-footer .footer-top {
+     background: #111111; 
+     padding: 27px 0; 
+}
+.site-footer a { 
+    display: inline-block;
+}
+.site-footer ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+.site-footer ul.footer-navigation li a:hover, .site-footer ul.social-media-list a:hover {
+    opacity: 0.8; 
+}
+.site-footer ul.footer-navigation {
+    flex-wrap: wrap;
+}
+.site-footer ul.footer-navigation li+li {
+    margin-left: 30px; 
+}
+.site-footer ul.footer-navigation li a {
+     color: #F1F1F1;
+     text-decoration: none;
+     text-transform: uppercase; 
+     font-size: 14px; 
+     line-height: 2.14; 
+     transition: opacity 0.3s; 
+}
+.site-footer ul.social-media-list li {
+    text-align: center;
+}
+.site-footer ul.social-media-list a { 
+    width: 20px; 
+    height: 20px; 
+    transition: opacity 0.3s;
+}
+.site-footer ul.social-media-list li:last-child {
+    margin-left: 20px;
+}
+.site-footer .footer-bottom {
+    background: #292929; 
+    padding: 19px 0; 
+    position: relative; 
+}
+.site-footer .footer-bottom p { 
+    color: #f1f1f1; 
+    margin-bottom: 0; 
+    font-size: 14px; 
+}
+.site-footer .footer-bottom p a { 
+    text-decoration: none; 
+    color: #6EABEF;
+}
+
+@media (max-width:1145px){
+    .registration-form .container{
+        width: 60%;
+    }
+}
+@media(max-width:992px){
+    .service-head .header .navbar img{
+        height: 70px;
+        width: 90px;
+    }
+    .registration-form .container{
+        width: 77%;
+    }
+
+    .contact-mid .container .hiw .left-block{
+        order: 2;
+        text-align: center;
+        padding-left: 0%;
+        margin-bottom: 15px;
+    }
+    .contact-mid .container .hiw .image-wrapper{
+        order: 1;
+        margin-bottom: 15px;
+    }
+    .site-footer .footer-top img{
+        display: none;
+    }
+}
+
+
+@media (max-width:479px) {
+    .service-head .header .navbar img{
+        height: 70px;
+        width: 90px;
+    }
+    .registration-form .container{
+        width: 77%;
+    }
+
+    .contact-mid .container .hiw .left-block{
+        order: 2;
+        text-align: center;
+        padding-left: 0%;
+        margin-bottom: 15px;
+    }
+    .contact-mid .container .hiw .image-wrapper{
+        order: 1;
+        margin-bottom: 15px;
+    }
+    .site-footer .footer-top img{
+        display: none;
+    }
+    .site-footer ul.footer-navigation li {
+        flex: 0 0 100%;
+        max-width: 100%; 
+        text-align: center;}
+        .site-footer ul.footer-navigation li+li {
+            margin-left: 0;
+        }
+}

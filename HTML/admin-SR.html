@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="css/admin-SR.css">
+    <title>Admin service request</title>
+</head>
+
+<body>
+    <header class="admin-nav">
+        <nav class="navbar">
+            <div class="container-fluid align-items-center">
+                <p>helperland</p>
+                <div class="nav-right">
+                    <a href="#"><img src="images/admin-user.png" alt="">james smith <img src="images/logout.png"
+                            alt=""></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <section class="main-admin d-flex">
+        <div class="left-block">
+            <ul>
+                <li>
+                    <a href="#" id="service-management">Service-management</a>
+                </li>
+                <li>
+                    <a href="#" id="role-management">Role Management</a>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" id="">Coupon Code Management</a>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Coupon Codes</a></li>
+                            <li><a class="dropdown-item" href="#">Usage History</a></li>
+                           
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" id="">Escalation Management</a>
+                </li>
+                <li>
+                    <a href="#" id="">Service request</a>
+                </li>
+                <li>
+                    <a href="#" id="">Service Providers</a>
+                </li>
+                <li>
+                    <a href="#" id="">user management</a>
+                </li>
+                <li>
+                 
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" id="">Finance Modules</a>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">All Transactions </a></li>
+                            <li><a class="dropdown-item" href="#">Generate Payment </a></li>
+                            <li><a class="dropdown-item" href="#">Customer Invoices </a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" id="">Zip Code Management</a>
+                </li>
+                <li>
+                    <a href="#" id="">Rating Management</a>
+                </li>
+                <li>
+                    <a href="#" id="">Inquiry Management</a>
+                </li>
+                <li>
+                    <a href="#" id="">Newsletter Management</a>
+                </li>
+                <li>
+                   
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" id="">Content Management</a>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Blogs </a></li>
+                            <li><a class="dropdown-item" href="#">FAQS</a></li>
+                          
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="right-block mx-3">
+            <div class="manage d-flex justify-content-between my-4 ">
+                <h3>Service Requests</h3>      
+            </div>
+            <div class="form my-4">
+
+                <input type="number" name="service-id" placeholder="service-id" id="service-id">
+              
+                <input type="text" name="customer" placeholder="customer" id="customer">
+
+                    <select name="userrole" id="service-provider" >
+                        <option value="" disabled selected>service-provider</option>
+                        <option value="option-1">option-1</option>
+                        <option value="option-2">option-2</option>
+                        <option value="option-3">option-3</option>
+                        <option value="option-4">option-4</option>
+                    </select>
+            
+                    
+                    <select name="status" id="status">
+                        <option value="" disabled selected>status</option>
+                        <option value="new">new</option>
+                        <option value="pending">pending</option>
+                        <option value="completed">completed</option>
+                        <option value="cancelled">cancelled</option>
+                    </select>
+
+                <input type="date" name="from-date" placeholder="from-date" id="from-date">
+                <input type="date" name="to-date" placeholder="to-date" id="to-date">
+
+                <a href="#"><button class="search">Search</button></a>
+                <a href="#"><button class="clear">Clear</button></a>
+            </div>
+            <div>
+                <table class="table my-4">
+                    <thead class="table-light">
+                        <tr>
+                            <td>service id<img src="images/sort.png" alt=""></td>
+                            <td>service date<img src="images/sort.png" alt=""></td>
+                            <td>customer details<img src="images/sort.png" alt=""></td>
+                            <td>service provider<img src="images/sort.png" alt=""></td>
+                            <td>status<img src="images/sort.png" alt=""></td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>321614</td>
+                            <td><img src="images/calendar2.png" alt="">09/04/2018 <br>
+                            <img src="images/layer-14.png" alt="">12:00-18:00</td>
+                            <td>david bough <br> <img src="images/layer-15.png" alt="">Musterstrabe 5,12345 Bonn</td>
+                            <td>
+                                <div class="d-flex">
+                                    <div
+                                        class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="images/cap.png" alt="" height="20" width="30">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <p class="mb-0">Lyum Watson</p>
+                                        <div class="d-flex align-items-center">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                            <p class="mb-0">5</p>
+                                        </div>
+                                    </div>
+                                </div>
+               
+                            <td><button class="new">new</button> </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item"  href="#EditReschedule"  data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                        <li><button class="dropdown-item" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>321614</td>
+                            <td><img src="images/calendar2.png" alt="">09/04/2018 <br>
+                            <img src="images/layer-14.png" alt="">12:00-18:00</td>
+                            <td>david bough <br> <img src="images/layer-15.png" alt="">Musterstrabe 5,12345 Bonn</td>
+                            <td>
+                                <div class="d-flex">
+                                    <div
+                                        class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="images/cap.png" alt="" height="20" width="30">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <p class="mb-0">Lyum Watson</p>
+                                        <div class="d-flex align-items-center">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                            <p class="mb-0">5</p>
+                                        </div>
+                                    </div>
+                                </div>
+               
+                            <td><button class="pending">pending</button></td>
+                            
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" href="#EditReschedule"  data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                        <li><button class="dropdown-item" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>321614</td>
+                            <td><img src="images/calendar2.png" alt="">09/04/2018 <br>
+                            <img src="images/layer-14.png" alt="">12:00-18:00</td>
+                            <td>david bough <br> <img src="images/layer-15.png" alt="">Musterstrabe 5,12345 Bonn</td>
+                            <td>
+                                <div class="d-flex">
+                                    <div
+                                        class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="images/cap.png" alt="" height="20" width="30">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <p class="mb-0">Lyum Watson</p>
+                                        <div class="d-flex align-items-center">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star2.png" alt="">
+                                            <p class="mb-0">4</p>
+                                        </div>
+                                    </div>
+                                </div>
+               
+                            <td><button class="completed">completed</button> </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" href="#EditReschedule"  data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                        <li><button class="dropdown-item" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>321614</td>
+                            <td><img src="images/calendar2.png" alt="">09/04/2018 <br>
+                            <img src="images/layer-14.png" alt="">12:00-18:00</td>
+                            <td>david bough <br> <img src="images/layer-15.png" alt="">Musterstrabe 5,12345 Bonn</td>
+                            <td>
+                                <div class="d-flex">
+                                    <div
+                                        class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="images/cap.png" alt="" height="20" width="30">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <p class="mb-0">Lyum Watson</p>
+                                        <div class="d-flex align-items-center">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                            <p class="mb-0">5</p>
+                                        </div>
+                                    </div>
+                                </div>
+               
+                            <td><button class="cancelled">cancelled</button> </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" href="#EditReschedule"  data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                        <li><button class="dropdown-item" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        
+                        <tr>
+                            <td>321614</td>
+                            <td><img src="images/calendar2.png" alt="">09/04/2018 <br>
+                            <img src="images/layer-14.png" alt="">12:00-18:00</td>
+                            <td>david bough <br> <img src="images/layer-15.png" alt="">Musterstrabe 5,12345 Bonn</td>
+                            <td>
+                                <div class="d-flex">
+                                    <div
+                                        class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="images/cap.png" alt="" height="20" width="30">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <p class="mb-0">Lyum Watson</p>
+                                        <div class="d-flex align-items-center">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star2.png" alt="">
+                                            <p class="mb-0">4</p>
+                                        </div>
+                                    </div>
+                                </div>
+               
+                            <td><button class="completed">completed</button> </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" href="#EditReschedule"  data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                        <li><button class="dropdown-item" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>321614</td>
+                            <td><img src="images/calendar2.png" alt="">09/04/2018 <br>
+                            <img src="images/layer-14.png" alt="">12:00-18:00</td>
+                            <td>david bough <br> <img src="images/layer-15.png" alt="">Musterstrabe 5,12345 Bonn</td>
+                            <td>
+                                <div class="d-flex">
+                                    <div
+                                        class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
+                                        <img src="images/cap.png" alt="" height="20" width="30">
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <p class="mb-0">Lyum Watson</p>
+                                        <div class="d-flex align-items-center">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                           <img src="images/star1.png" alt="">
+                                            <p class="mb-0">5</p>
+                                        </div>
+                                    </div>
+                                </div>
+               
+                            <td><button class="new">new</button> </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><button class="dropdown-item" href="#EditReschedule"  data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                        <li><button class="dropdown-item" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                
+                    </tbody>
+
+
+                </table>
+
+                <div class="d-flex justify-content-between option">
+                    <div class="dropdown">
+                        <span>show &nbsp;</span>
+                       
+                    <select name="userrole" id="service-provider" style="width: 50px;" >
+                        <option value="" selected>10</option>
+                        <option value="option-1">1</option>
+                        <option value="option-2">2</option>
+                        <option value="option-3">3</option>
+                        <option value="option-4">4</option>
+                    </select>
+                        <span> &nbsp;entries &nbsp;</span>
+                    </div>
+
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination ">
+                            <li class="page-item disabled">
+                                <a class="page-link">&laquo;</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+            <footer> ©2018 Helperland. All rights reserved. </footer>
+        </div>
+    </section>
+
+    <div class="EditReschedulePopUp">
+        <div class="modal fade" id="EditReschedule" aria-hidden="true" aria-labelledby="editReschedule" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editReschedule">Edit Service Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex editRescheduleModal p-4">
+                        <form action="">
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="editDateModal" class="control-label fw-bold">Date</label>
+                                        <input type="date" value="23/12/2021" name="editDateModal" class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="editDateTime" class="control-label fw-bold">Time</label>
+                                        <select name="editDateTime" id="" class="height border">
+                                            <option value="8:00">8:00</option>
+                                            <option value="9:00">9:00</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="11:00">11:00</option>
+                                            <option value="12:00">12:00</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="" class="control-label fw-bold mb-2">Service Address</label>
+                            <div class="row mb-3">
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="streetNameModal" class="control-label bond">Street name</label>
+                                        <input type="text" name="streetNameModal"  class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="houseNumberEdit" class="control-label bond">House number</label>
+                                        <input type="text" name="houseNumberEdit"  class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="postalCodeEdit" class="control-label bond">Postal code</label>
+                                        <input type="text" name="postalCodeEdit"  class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="cityEdit" class="control-label bond">City</label>
+                                        <select id="cityNames" name="cityNames" class="height border">
+                                            <option value="TD" disabled selected>Ahmedabad</option>
+                                            <option value="delhi">Delhi</option>
+                                            <option value="bangalore">Bangalore</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="" class="control-label fw-bold mb-2">Invoice Address</label>
+                            <div class="row mb-3">
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="streetNameModal" class="control-label bond">Street name</label>
+                                        <input type="text" name="streetNameModal" class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="houseNumberEdit" class="control-label bond">House number</label>
+                                        <input type="text" name="houseNumberEdit" class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="postalCodeEdit" class="control-label bond">Postal code</label>
+                                        <input type="text" name="postalCodeEdit" class="height border">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                    <div class="form-group d-flex flex-column">
+                                        <label for="cityEdit" class="control-label bond">City</label>
+                                        <select id="cityNames" name="cityNames" class="height border">
+                                            <option value="TD" disabled selected>Ahmedabad</option>
+                                            <option value="delhi">Delhi</option>
+                                            <option value="bangalore">Bangalore</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex flex-column mb-3">
+                                <label for="reasonScheduleEdit" class="fw-bold">Why do you want to reschedule service request?</label>
+                                <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Why do you want to reschedule service request?" class="bdr2 p-2"></textarea>
+                            </div>
+                            <div class="form-group d-flex flex-column mb-3">
+                                <label for="reasonScheduleEdit" class="fw-bold">Call Center EMP Notes</label>
+                                <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Enter notes" class="bdr2 p-2"></textarea>
+                            </div>
+                            <button type="submit" class="btn updateBtn w-100">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+</body>
+
+</html>
