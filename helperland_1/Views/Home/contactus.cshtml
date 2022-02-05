@@ -93,12 +93,12 @@
                         <label for="option-a">Remember me</label>
                     </div>
                     <div>
-                        <button class="btn">LOGIN</button>
+                        <button type="submit" class="btn">LOGIN</button>
                     </div>
                     <div class="text-center create">
                         <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">forget password</a>
                         <p>Don't have an account?</p>
-                        <a href="#">create an account</a>
+                        <a asp-controller="home" asp-action="account">create an account</a>
                     </div>
                 </div>
 
@@ -175,18 +175,22 @@
         <div class="container">
             <h4>Get in touch with us</h4>
             <form asp-controller="Home" asp-action="contactus" class="form1" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="part1 d-flex">
                     <input type="text" name="FirstName" placeholder="First name" id="FirstName" asp-for="FirstName">
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                    <input type="text" name="LastName" placeholder="Lastname" id="LastName" asp-for="LastName">
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
 
+                    <input type="text" name="LastName" placeholder="Lastname" id="LastName" asp-for="LastName">
+
+                </div>
+              
 
                 <div class="part1 d-flex">
                     <input type="number" name="PhoneNo" placeholder="phone number" id="PhoneNo" asp-for="PhoneNo">
                     <input type="email" name="Email" placeholder="E-mail" id="Email" asp-for="Email">
                 </div>
+
+            
+
                 <div class="part2 d-flex">
                     <select id="Subject" name="Subject" asp-for="Subject">
                         <option value="#">services</option>

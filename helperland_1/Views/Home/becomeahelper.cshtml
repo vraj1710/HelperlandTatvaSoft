@@ -1,4 +1,6 @@
-﻿@*
+﻿
+@model helperland_1.Models.User
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -22,7 +24,7 @@
 
 <body>
 
-    <div class="service-head" >
+    <div class="service-head">
         <div class="header position-relative container-fluid navbar-nav" id="topheader navbar">
             <nav class="navbar navbar-expand-xl navbar-light" id="navbar">
                 <a class="navbar-brand" href="#">
@@ -42,7 +44,7 @@
                         </li>
                         <li class="nav-item">
                             <div class="nav-btnn">
-                                <a class="nav-link py-3" href="#" asp-controller="home" asp-action="prices">Prices</a>
+                                <a class="nav-link py-3" asp-controller="home" asp-action="prices">Prices</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -57,7 +59,7 @@
                         </li>
                         <li class="nav-item">
                             <div class="nav-btnn">
-                                <a class="nav-link py-3" href="#">Contactus</a>
+                                <a class="nav-link py-3" asp-controller="home" asp-action="contactus">Contactus</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -67,7 +69,7 @@
                         </li>
                         <li class="nav-item">
                             <div class="nav-btn-blue nav-btnn">
-                                <a class="nav-link py-3" href="#">Become a Helper</a>
+                                <a class="nav-link py-3" asp-controller="home" asp-action="becomeahelper">Become a Helper</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -90,26 +92,27 @@
                         <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <form class="modal-body" asp-controller = "home" asp-action = "Login">
+
                         <div class="m-2 input-fields">
-                            <input type="email" name="email" placeholder="E-mail" id="email">
+                            <input type="email" name="Email" placeholder="E-mail" id="email" asp-for="Email" required>
                         </div>
                         <div class="m-2 input-fields">
-                            <input type="password" name="password" placeholder="password" id=password>
+                            <input type="password" name="Password" placeholder="password" id=password asp-for="Password" required>
                         </div>
                         <div class="m-2">
                             <input type="checkbox" id="option-a">
                             <label for="option-a">Remember me</label>
                         </div>
                         <div>
-                            <button class="btn">LOGIN</button>
+                            <button type="submit" class="btn">LOGIN</button>
                         </div>
                         <div class="text-center create">
                             <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">forget password</a>
                             <p>Don't have an account?</p>
-                            <a href="#">create an account</a>
+                            <a asp-controller = "home" asp-action = "account">create an account</a>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             </div>
@@ -126,19 +129,19 @@
                         <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <form class="modal-body" asp-controller="home"  asp-action="ForgotPassword" method="post">
                         <div class="m-2 input-fields">
-                            <input type="email" name="email" placeholder="E-mail" id="email">
+                            <input type="email" name="Email" placeholder="E-mail" id="email" asp-for="Email">
                         </div>
 
 
                         <div>
-                            <button class="btn">send</button>
+                            <button type="submit" class="btn">send</button>
                         </div>
                         <div class="text-center create">
                             <a href="#">Login now</a>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             </div>
@@ -152,23 +155,25 @@
         <section class="registration-form">
             <div class="container text-center">
                 <h4>Register now!</h4>
-                <form action="#" class="form1">
-                    <input type="text" name="First name" placeholder="First name" id="Firstname"><br>
-                    <input type="text" name="Lastname" placeholder="Lastname" id="Lastname"><br>
-                    <input type="email" name="email" placeholder="E-mail" id="email"><br>
-                    <input type="phone" name="phone" placeholder="phone number" id="phone"><br>
-                    <input type="password" name="password" placeholder="password" id=password><br>
-                    <input type="password" name="confirm-password" placeholder="confirm-password" id="confirm-password"><br>
-                    <input type="checkbox" id="option-a">
+                <form asp-controller="Home" asp-action="becomeahelper" class="form1" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="text" name="Firstname" placeholder="First name" id="Firstname" asp-for="FirstName"><br>
+                    <input type="text" name="Lastname" placeholder="Lastname" id="Lastname" asp-for="LastName"><br>
+                    <input type="email" name="Email" placeholder="E-mail" id="Email" asp-for="Email"><br>
+                    <input type="number" name="Mobile" placeholder="phone number" id="Mobile" asp-for="Mobile"><br>
+                    <input type="password" name="Password" placeholder="password" id=Password asp-for="Password"><br>
+                    <input type="password" name="confirmpassword" placeholder="confirm-password" id="confirm-password" asp-for=" confirmpassword"><br>
+                    <input type="checkbox" id="option-a" required> 
                     <label for="option-a"> Send me newsletters from Helperland</label><br>
-                    <input type="checkbox" id="option-b">
+                    <input type="checkbox" id="option-b" required>
                     <label for="option-b"> I accept <em> terms and conditions</em> & <em>privacy policy</em></label><br>
                     <div class="robot">
-                        <input type="checkbox" id="option-c">
+                        <input type="checkbox" id="option-c" required>
                         <label for="option-c"> i'm not a robot <img src="~/lib/images/captcha.png" alt="" height="70px" width="70px"></label><br>
                     </div>
+                    <button type="submit">Get started --></button>
                 </form>
-                <button>Get started --></button>
+               
             </div>
 
         </section>
@@ -275,22 +280,22 @@
                     <div class="col-lg-8 footer-widget">
                         <ul class="footer-navigation d-flex justify-content-center">
                             <li>
-                                <a href="#" title="Home">Home</a>
+                                <a  title="Home" asp-controller="home" asp-action="index">Home</a>
                             </li>
                             <li>
-                                <a href="#" title="About">About</a>
+                                <a  title="About" asp-controller="home" asp-action="aboutus">About</a>
                             </li>
                             <li>
-                                <a href="#" title="Testimonials">Testimonials</a>
+                                <a title="Testimonials">Testimonials</a>
                             </li>
                             <li>
-                                <a href="#" title="FAQs">FAQs</a>
+                                <a  title="FAQs"asp-controller="home" asp-action="faq"> FAQs</a>
                             </li>
                             <li>
-                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                                <a title="Insurance Policy">Insurance Policy</a>
                             </li>
                             <li>
-                                <a href="#" title="Impressum">Impressum</a>
+                                <a  title="Impressum">Impressum</a>
                             </li>
                         </ul>
                     </div>

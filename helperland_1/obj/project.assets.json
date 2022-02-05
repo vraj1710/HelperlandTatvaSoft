@@ -5802,11 +5802,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vraj\\source\\repos\\helperland_1\\helperland_1.csproj",
+      "projectUniqueName": "D:\\Tatva_Helperland\\helperland_1\\helperland_1.csproj",
       "projectName": "helperland_1",
-      "projectPath": "C:\\Users\\vraj\\source\\repos\\helperland_1\\helperland_1.csproj",
+      "projectPath": "D:\\Tatva_Helperland\\helperland_1\\helperland_1.csproj",
       "packagesPath": "C:\\Users\\vraj\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vraj\\source\\repos\\helperland_1\\obj\\",
+      "outputPath": "D:\\Tatva_Helperland\\helperland_1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vraj\\AppData\\Roaming\\NuGet\\NuGet.Config",
