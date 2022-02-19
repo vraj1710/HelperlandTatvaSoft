@@ -138,6 +138,8 @@ html {
         color: white;
         border: 1px solid #1D7A8C;
         margin: 7%;
+        margin-left:35%;
+        
     }
 
      .registration-form .container .form1 #Firstname, #Mobile, #Lastname, #Email, #Password, #confirm-password {

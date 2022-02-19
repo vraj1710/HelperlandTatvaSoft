@@ -1,0 +1,67 @@
+﻿@model helperland_1.Models.User
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="modal-body" asp-controller="home" asp-action="Login">
+                    <div class="m-2 input-fields">
+                        <input type="email" name="Email" placeholder="E-mail" asp-for="Email" required />
+                    </div>
+                    <div class="m-2 input-fields">
+                        <input type="password" name="Password" placeholder="password" id=password asp-for="Password" required/>
+                    </div>
+                    <div class="m-2">
+                        <input type="checkbox" id="option-a">
+                        <label for="option-a">Remember me</label>
+                    </div>
+                    <div>
+                        <button class="btn">LOGIN</button>
+                    </div>
+                    <div class="text-center create">
+                        <a asp-action="fo" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">
+                            forget
+                            password
+                        </a>
+                        <p>Don't have an account?</p>
+                        <a asp-controller="home" asp-action="account">create an account</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+       <div class="modal fade" id="forgot_password" data-dismiss="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="modal-body" asp-controller="home" asp-action="ForgotPassword" method="post">
+                    <div class="m-2 input-fields">
+                        <input type="email" name="Email" placeholder="E-mail" asp-for="Email">
+                    </div>
+
+
+                    <div>
+                        <button type="submit" class="btn">send</button>
+                    </div>
+                    <div class="text-center create">
+                        <a href="#">Login now</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>

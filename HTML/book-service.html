@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="css/book-service.css">
-    <link rel="stylesheet" type="text/javascript" href="js/book-service.js">
-    
+    <script src="js/book-service.js"></script>
+
     <title>book service</title>
 </head>
 
@@ -23,7 +25,7 @@
                 <img src="images/white-logo-transparent-background@2x.png">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -36,7 +38,7 @@
                     </li>
                     <li class="nav-item">
                         <div class="nav-btnn">
-                            <a class="nav-link py-3" href="prices.html">Prices & services</a>
+                            <a class="nav-link py-3" asp-controller="home" asp-action="prices">Prices & services</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -51,20 +53,18 @@
                     </li>
                     <li class="nav-item">
                         <div class="nav-btnn">
-                            <a class="nav-link py-3" href="#">Contact</a>
+                            <a class="nav-link py-3" asp-controller="home" asp-action="contactus">Contact</a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="nav-btn-blue nav-btnn">
-                            <button type="button" class="btnn nav-link py-3" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">
-                                Login
-                            </button>
+                            <a class="nav-link py-3" href="#" data-toggle="modal"
+                               data-target="#staticBackdrop">Login</a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="nav-btn-blue nav-btnn ">
-                            <a class="nav-link py-3" href="#">Become a Helper</a>
+                            <a class="nav-link py-3" asp-controller="home" asp-action="becomeahelper">Become a Helper</a>
                         </div>
                     </li>
 
@@ -77,21 +77,21 @@
 
 
 
-    <!-- Modal -->
+    <!--------------------------------- Modal ------------------------------------------->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <form class="modal-body" asp-controller="home" asp-action="Login">
                     <div class="m-2 input-fields">
-                        <input type="email" name="email" placeholder="E-mail" id="email">
+                        <input type="email" name="Email" placeholder="E-mail" id="email" asp-for="Email" required />
                     </div>
                     <div class="m-2 input-fields">
-                        <input type="password" name="password" placeholder="password" id=password>
+                        <input type="password" name="Password" placeholder="password" id=password asp-for="Password" required>
                     </div>
                     <div class="m-2">
                         <input type="checkbox" id="option-a">
@@ -101,17 +101,45 @@
                         <button class="btn">LOGIN</button>
                     </div>
                     <div class="text-center create">
-                        <a href="#">forget password</a>
+                        <a asp-action="fo" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">
+                            forget
+                            password
+                        </a>
                         <p>Don't have an account?</p>
-                        <a href="#">create an account</a>
+                        <a asp-controller="home" asp-action="account">create an account</a>
                     </div>
-                </div>
+                </form>
 
             </div>
         </div>
     </div>
 
+    <!--------------------------------- Modal ------------------------------------------->
+    <div class="modal fade" id="forgot_password" data-dismiss="modal" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="modal-body" asp-controller="home" asp-action="ForgotPassword" method="post">
+                    <div class="m-2 input-fields">
+                        <input type="email" name="Email" placeholder="E-mail" id="email" asp-for="Email">
+                    </div>
 
+
+                    <div>
+                        <button type="submit" class="btn">send</button>
+                    </div>
+                    <div class="text-center create">
+                        <a href="#">Login now</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
     <section class="image-dec">
         <img src="images/book-service-banner.jpg" alt="">
@@ -126,209 +154,310 @@
     <section class="container d-flex">
         <div class="col-lg-8 left-block">
 
-            <div>
-                <ul class="d-flex options justify-content-between">
-                    <a href="#service"  data-toggle="tab">
-                        <li><img src="images/setup-service.png" alt=""> Setup service</li>
+            <div class="list-menu">
+                <div class="list-group list-group-horizontal d-flex options mb-4" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active d-flex align-items-center" id="list-home-list" data-toggle="list"
+                       href="#list-home" role="tab" aria-controls="home">
+                        <img src="images/setup-service.png" height="40px" width="40px" alt="">
+                        <span class="nav-title mx-2">Setup service</span>
                     </a>
-                    <a href="#schedule"  data-toggle="tab">
-                        <li><img src="images/schedule.png" alt="">Schedule & Plan</li>
+                    <a class="list-group-item list-group-item-action d-flex align-items-center" id="list-profile-list" data-toggle="list"
+                       href="#list-profile" role="tab" aria-controls="profile">
+                        <img src="images/schedule.png"
+                             height="40px" width="40px" alt=""><span class="nav-title  mx-2">Schedule & Plan</span>
                     </a>
-                    <a href="#details" data-toggle="tab">
-                        <li><img src="images/details.png" alt="">Your Details</li>
+                    <a class="list-group-item list-group-item-action d-flex align-items-center" id="list-messages-list" data-toggle="list"
+                       href="#list-messages" role="tab" aria-controls="messages">
+                        <img src="images/details.png"
+                             height="40px" width="40px" alt=""><span class="nav-title mx-2"> Your Details</span>
                     </a>
-                    <a href="">
-                        <li><img src="images/payment.png" alt="">Make payment</li>
+                    <a class="list-group-item list-group-item-action d-flex align-items-center" id="list-settings-list" data-toggle="list"
+                       href="#list-settings" role="tab" aria-controls="settings">
+                        <img src="images/payment.png"
+                             height="40px" width="40px" alt=""><span class="nav-title mx-2">Make payment</span>
                     </a>
-                </ul>
-            </div>
-
-            <!--set up service-->
-            <div class="set_up_service tab-pane active" id="service">
-                <p>enter your poatal code</p>
-                <div class="d-flex">
-                    <input type="number" name="postal-code" placeholder="postal-code" id="postal-code">
-                    <button class="btn">check availability</button>
                 </div>
             </div>
 
 
-            <!--set up schedule-->
-            <div id="schedule" class="tab-pane fade">
-                
 
-                <div class="option-1">
-                    <p>Select number of rooms and bath</p>
 
-                    <div class="d-flex">
-                        <div class="m-1">
-                            <select name="bed" id="bed">
-                                <option value="1">1 bed</option>
-                                <option value="2">2 bed</option>
-                                <option value="3">3 bed</option>
-                            </select>
-                        </div>
-                        <div class="m-1">
-                            <select name="bath" id="bath">
-                                <option value="1">1 bath</option>
-                                <option value="2">2 bath</option>
-                                <option value="3">3 bath</option>
-                            </select>
-                        </div>
+            <div class="tab-content" id="nav-tabContent">
+                <!---------------------------------------set up service--------------------------------------->
+                <div class="set_up_service tab-pane fade show active" id="list-home" role="tabpanel"
+                     aria-labelledby="list-home-list">
+                    <p>enter your postal code</p>
+                    <div class="d-flex postal-code">
+                        <input type="number" name="postal-code" placeholder="postal-code" id="postal-code">
+                        <a class="btn text-center d-flex align-items-center" type="button" href="#" onclick="SearchZipCode();">check availability</a>
                     </div>
+                    <span id="message"></span>
                 </div>
 
-                <div class="option-2 d-flex">
-                    <div class="option-2a">
-                        <p>where do you need a cleaner?</p>
+
+                <!-------------------------------------set up schedule------------------------------------>
+                <div id="list-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="list-profile-list">
+
+
+                    <div class="option-1">
+                        <p>Select number of rooms and bath</p>
                         <div class="d-flex">
                             <div class="m-1">
-                                <input type="date" name="date" placeholder="date" id="date">
-
+                                <select name="bed" id="bed">
+                                    <option value="1">1 bed</option>
+                                    <option value="2">2 bed</option>
+                                    <option value="3">3 bed</option>
+                                </select>
                             </div>
                             <div class="m-1">
-                                <select name="time" id="time">
-                                    <option value="12">12:00 PM</option>
-                                    <option value="1">1:00 PM</option>
-                                    <option value="2">2:00 PM</option>
+                                <select name="bath" id="bath">
+                                    <option value="1">1 bath</option>
+                                    <option value="2">2 bath</option>
+                                    <option value="3">3 bath</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="option-2b">
-                        <p>how long do you need your cleaner to stay?</p>
-                        <div class="m-1">
-                            <select name="time" id="time">
-                                <option value="1">1 hr</option>
-                                <option value="2">2 hr</option>
-                                <option value="3">3 hr</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                    <div class="option-2 d-flex">
+                        <div class="option-2a">
+                            <p>where do you need a cleaner?</p>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <input type="date" name="date" placeholder="date" id="date">
 
-
-                <div class="option-3 ">
-                    <p>Extra services</p>
-                    <div class="services_cover align-items-center justify-content-center">
-                        <div class="services_inner d-flex flex-column align-items-center justify-content-center">
-                            <div class="services_icon rounded-circle d-flex align-items-center justify-content-center">
-                                <img src="./images/3.png" alt="">
-                            </div>
-                            <div class="services_content d-flex flex-column align-items-center justify-content-center">
-                                <p class="m-0 text-center">Inside cabinets</p>
+                                </div>
+                                <div class="m-1">
+                                    <select name="time" id="time">
+                                        <option value="12">12:00 PM</option>
+                                        <option value="1">1:00 PM</option>
+                                        <option value="2">2:00 PM</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class=" services_inner d-flex flex-column align-items-center justify-content-center">
-                            <div class="services_icon rounded-circle d-flex align-items-center justify-content-center">
-                                <img src="./images/5.png" alt="">
-                            </div>
-                            <div
-                                class="  services_content d-flex flex-column align-items-center justify-content-center">
-                                <p class="m-0 text-center">Inside fridge</p>
 
-                            </div>
-                        </div>
-                        <div class="services_inner d-flex flex-column align-items-center justify-content-center">
-                            <div class=" services_icon rounded-circle d-flex align-items-center justify-content-center">
-                                <img src="./images/4.png" alt="">
-                            </div>
-                            <div class="services_content d-flex flex-column align-items-center justify-content-center">
-                                <p class="m-0 text-center">Inside oven</p>
-
-                            </div>
-                        </div>
-                        <div class="
-          services_inner d-flex flex-column align-items-center justify-content-center
-        ">
-                            <div class=" services_icon rounded-circle d-flex align-items-center justify-content-center
-          ">
-                                <img src="./images/2.png" alt="">
-                            </div>
-                            <div class="
-            services_content d-flex flex-column align-items-center justify-content-center
-          ">
-                                <p class="m-0 text-center">Laundry wash</p>
-
-                            </div>
-                        </div>
-                        <div class="
-          services_inner d-flex flex-column align-items-center justify-content-center
-        ">
-                            <div class=" services_icon rounded-circle  d-flex align-items-center justify-content-center
-          ">
-                                <img src="./images/1.png" alt="">
-                            </div>
-                            <div class="
-            services_content d-flex flex-column align-items-center justify-content-center
-          ">
-                                <p class="m-0 text-center">Interior windows</p>
-
+                        <div class="option-2b">
+                            <p>how long do you need your cleaner to stay?</p>
+                            <div class="m-1">
+                                <select name="time" id="time">
+                                    <option value="1">1 hr</option>
+                                    <option value="2">2 hr</option>
+                                    <option value="3">3 hr</option>
+                                </select>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="option-3 ">
+                        <p>Extra services</p>
+                        <div class="services_cover align-items-center justify-content-center">
+                            <div onclick="add();total();total_p();total_pr()" id="cabinets"
+                                 class="services_inner d-flex flex-column align-items-center justify-content-center">
+                                <div class="services_icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <img id="img1" src="images/3.png" alt="">
+                                </div>
+                                <div class="services_content d-flex flex-column align-items-center justify-content-center">
+                                    <p class="m-0 text-center">Inside cabinets</p>
+                                </div>
+                            </div>
+                            <div onclick="add1();total();total_p();total_pr()" id="fridge"
+                                 class=" services_inner d-flex flex-column align-items-center justify-content-center">
+                                <div class="services_icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <img id="img2" src="images/5.png" alt="">
+                                </div>
+                                <div class="  services_content d-flex flex-column align-items-center justify-content-center">
+                                    <p class="m-0 text-center">Inside fridge</p>
+
+                                </div>
+                            </div>
+                            <div onclick="add2();total();total_p();total_pr()" id="oven"
+                                 class="services_inner d-flex flex-column align-items-center justify-content-center">
+                                <div class=" services_icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <img id="img3" src="images/4.png" alt="">
+                                </div>
+                                <div class="services_content d-flex flex-column align-items-center justify-content-center">
+                                    <p class="m-0 text-center">Inside oven</p>
+
+                                </div>
+                            </div>
+                            <div onclick="add3();total();total_p();total_pr()" id="wash"
+                                 class="services_inner d-flex flex-column align-items-center justify-content-center">
+                                <div class=" services_icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <img id="img4" src="images/2.png" alt="">
+                                </div>
+                                <div class="services_content d-flex flex-column align-items-center justify-content-center">
+                                    <p class="m-0 text-center">Laundry wash</p>
+
+                                </div>
+                            </div>
+                            <div onclick="add4();total();total_p();total_pr()" id="windows"
+                                 class="services_inner d-flex flex-column align-items-center justify-content-center">
+                                <div class=" services_icon rounded-circle  d-flex align-items-center justify-content-center">
+                                    <img id="img5" src="images/1.png" alt="">
+                                </div>
+                                <div class="services_content d-flex flex-column align-items-center justify-content-center">
+                                    <p class="m-0 text-center">Interior windows</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="option-4">
+                        <p>comments</p>
+                        <textarea name="" id="" cols="30" rows="5" placeholder=""></textarea> <br>
+                        <input type="checkbox" id="option-a">
+                        <label for="option-a">i have pets at home</label>
+                    </div>
+                    <div class="option-5">
+                        <button class="btn m-1">continue</button>
+                    </div>
+
                 </div>
 
-                <div class="option-4">
-                    <p>comments</p>
-                    <textarea name="" id="" cols="30" rows="5" placeholder=""></textarea> <br>
-                    <input type="checkbox" id="option-a">
-                    <label for="option-a">i have pets at home</label>
+                <!-----------------------------------details------------------------------->
+                <div id="list-messages" class="tab-pane fade" role="tabpanel" aria-labelledby="list-messages-list">
+                    <p class="details">enter your contact details,so we can serve you in a better way</p>
+                    <div class="address align-middle">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
+                                   value="option1">
+                            <label class="form-check-label" for="inlineRadio1">
+                                <p>
+                                    address : ahmedabad123 <br>
+                                    phone number:313173783
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="address">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
+                                   value="option1">
+                            <label class="form-check-label" for="inlineRadio1">
+                                <p>
+                                    address : ahmedabad123 <br>
+                                    phone number:313173783
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="my-4">
+                        <button class="btnn" onclick="show_hide()">+ Add new address</button>
+                    </div>
+
+
+
+                    <div class="new-address my-4" id="image">
+                        <form class="row g-3">
+                            <div class="col-md-6">
+                                <label for="street-name" class="form-label">street name</label>
+                                <input type="text" class="form-control" id="street-name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="house-number" class="form-label">House number</label>
+                                <input type="text" class="form-control" id="house-number">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="postal-code" class="form-label">postal code</label>
+                                <input type="text" class="form-control" id="postal-code">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">city</label>
+                                <input type="text" class="form-control" id="city">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phonenumber" class="form-label">phone number</label>
+                                <input type="number" class="form-control" id="phonenumber">
+                            </div>
+
+                            <div class="row my-4">
+                                <div class="col-md-2 my-1">
+                                    <button type="submit" class="btn1">Save</button>
+                                </div>
+                                <div class="col-md-2 my-1">
+                                    <button type="submit" onclick="hide()" class="btn2">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div class="option-5">
+                        <button class="btn m-4">continue</button>
+                    </div>
+
+
+
+
                 </div>
-                <div class="option-5">
-                    <button class="btn m-1">continue</button>
+
+
+                <!---------------------------------make payment------------------------------------>
+                <div id="list-settings" class="tab-pane fade" role="tabpanel" aria-labelledby="list-messages-list">
+                    <p class="details">Pay securely with Helperland payment gateway</p>
+                    <label for="exampleInputPassword1" class="form-label">Promo code (optional)</label>
+                    <div class="d-flex promocode">
+                        <div>
+                            <input type="number" class="form-control" placeholder="Promo code (optional)"
+                                   id="exampleInputPassword1">
+                        </div>
+                        <div class="apply">
+                            <a href="">Apply</a>
+                        </div>
+
+                    </div>
+
+
+                    <div class="CCdetails">
+                        <div class="row col-sm-9">
+                            <div class="col-sm-7">
+                                <input type="tel" placeholder="Card Number" maxlength="16">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="month" placeholder="MM/YY">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="tel" placeholder="Cvv" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="accepted text-end justify-content-end">
+                        <p>Accepted cards</p>
+                        <div class="d-flex justify-content-end">
+                            <img src="images/visa.png" alt="" width="65px" height="40px">
+                            <img src="images/master.jfif" alt="" width="65px" height="40px">
+                            <img src="images/american-exp.png" alt="" width="65px" height="40px">
+                        </div>
+                    </div>
+
+
+
+                    <div class="condition form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <p class="form-check-label" for="defaultCheck1">
+                            I accep the <span>terms & conditions</span>,the <span>cancellation policy</span> and the
+                            <span>privacy policy</span>.i confirm that Helperland
+                            starts to execute the contract before the expiry of the withdrawl period and i lose my right
+                            of withdrawl as a
+                            consumer with full performance of the contract.
+                        </p>
+                    </div>
+
+                    <div class="option-5">
+                        <button class="btn m-4">Complete Booking</button>
+                    </div>
+
                 </div>
+
 
             </div>
-
-            <!--details-->
-            <div id="details" class="tabpanel fade">
-                <p>enter your contact details,so we can serve you in a better way</p>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1"><p>address : ahmedabad123 <br>
-                        phone number:313173783</p></label>
-                    </div>  
-                </div>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1"><p>address : ahmedabad123 <br>
-                        phone number:313173783</p></label>
-                    </div>  
-                </div>
-                <div>
-                    <div>
-                        <input type="text" name="street_name" placeholder="street name" id="street_name">
-                        <input type="text" name="house_number" placeholder="house number" id="house_number">
-                    </div> 
-                    <div>
-                        <input type="number" name="postal-code" placeholder="postal code" id="postal_code">
-                        <input type="text" name="city" placeholder="city" id="city">
-                    </div>   
-                    <div>
-                        <input type="number" name="phone_number" placeholder="phone number" id="phone_number">
-                    </div>
-                    <div>
-                        <button>save</button>
-                        <button>cancel</button>
-                    </div>
-                    <p>your favourite service provider</p>
-                    <div>
-                        <p>you can choose your favorite privider from the below list</p>
-                        <div class="">
-                            <img src="images/cap.png" alt="">
-                            <p>sandip patel</p>
-                        </div>
-                    </div>
-                    <div>
-                        <button>select</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <div class="col-lg-4 right-block">
@@ -338,8 +467,7 @@
                 </div>
                 <div class="card-body">
                     <div class="line-0">
-                        <p> 01/01/2018 @4:00 pm </p>
-                        <p> 1 bed,1 bath</p>
+                        <p> 01/01/2018 4:00 pm </p>
                     </div>
 
                     <div class="line-1">
@@ -349,39 +477,39 @@
                             <p>3 hrs</p>
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <p>inside cabinets(extras)</p>
-                            <p>30 mins</p>
+                        <strong>Extras</strong>
+                        <div id="extra" class="d-flex justify-content-between">
                         </div>
+                        <div id="extra1" class="d-flex justify-content-between">
+                        </div>
+                        <div id="extra2" class="d-flex justify-content-between">
+                        </div>
+                        <div id="extra3" class="d-flex justify-content-between">
+                        </div>
+                        <div id="extra4" class="d-flex justify-content-between">
+                        </div>
+
                     </div>
                     <div class=" line-2 d-flex justify-content-between">
                         <p>total service time</p>
-                        <p>3.5 hrs</p>
+                        <p><span id="total_time">0</span>hrs</p>
                     </div>
                     <div class="line-3">
                         <div class="d-flex justify-content-between">
                             <p>per cleaning</p>
-                            <p>$87</p>
+                            <p>$<span id="total_price_1"></span></p>
+
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Discount</p>
-                            <p>-$27</p>
-                        </div>
+
                     </div>
                     <div class="line-4">
                         <div class="d-flex justify-content-between ">
                             <p>total payment</p>
-                            <span>$63</span>
+                            <p>$<span id="total_price_2"></span></p>
                         </div>
                     </div>
 
-                    <div class="line-5 d-flex justify-content-between">
-                        <p>Effective price</p>
-                        <span>$50.4</span>
-                    </div>
-                    <div class="line-6">
-                        <p> <span>*</span> you will save 20% according to ESTG</p>
-                    </div>
+
                 </div>
                 <div class="card-footer py-3">
                     &#128512; see what is always included
@@ -395,82 +523,92 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                aria-controls="flush-collapseOne">
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
                                 Accordion Item #1
                             </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Placeholder content for this accordion, which is intended to
                                 demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion
-                                body.</div>
+                                body.
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                aria-controls="flush-collapseTwo">
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
                                 Accordion Item #2
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                             aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Placeholder content for this accordion, which is intended to
                                 demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion
-                                body. Let's imagine this being filled with some actual content.</div>
+                                body. Let's imagine this being filled with some actual content.
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                aria-controls="flush-collapseThree">
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
                                 Accordion Item #3
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                             aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Placeholder content for this accordion, which is intended to
                                 demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion
                                 body. Nothing more exciting happening here in terms of content, but just filling up the
                                 space to make it look, at least at first glance, a bit more representative of how this
-                                would look in a real-world application.</div>
+                                would look in a real-world application.
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingfour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapsefour" aria-expanded="false"
-                                aria-controls="flush-collapsefour">
+                                    data-bs-target="#flush-collapsefour" aria-expanded="false"
+                                    aria-controls="flush-collapsefour">
                                 Accordion Item #4
                             </button>
                         </h2>
                         <div id="flush-collapsefour" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingfour" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                             aria-labelledby="flush-headingfour" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Placeholder content for this accordion, which is intended to
                                 demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion
                                 body. Nothing more exciting happening here in terms of content, but just filling up the
                                 space to make it look, at least at first glance, a bit more representative of how this
-                                would look in a real-world application.</div>
+                                would look in a real-world application.
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingfive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapsefive" aria-expanded="false"
-                                aria-controls="flush-collapsefive">
+                                    data-bs-target="#flush-collapsefive" aria-expanded="false"
+                                    aria-controls="flush-collapsefive">
                                 Accordion Item #5
                             </button>
                         </h2>
                         <div id="flush-collapsefive" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingfive" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">Placeholder content for this accordion, which is intended to
+                             aria-labelledby="flush-headingfive" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                Placeholder content for this accordion, which is intended to
                                 demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion
                                 body. Nothing more exciting happening here in terms of content, but just filling up the
                                 space to make it look, at least at first glance, a bit more representative of how this
-                                would look in a real-world application.</div>
+                                would look in a real-world application.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -508,22 +646,22 @@
                     <div class="col-lg-8 footer-widget">
                         <ul class="footer-navigation d-flex justify-content-center">
                             <li>
-                                <a href="#" title="Home">Home</a>
+                                <a title="Home" asp-controller="home" asp-action="index">Home</a>
                             </li>
                             <li>
-                                <a href="#" title="About">About</a>
+                                <a title="About" asp-controller="home" asp-action="aboutus">About</a>
                             </li>
                             <li>
-                                <a href="#" title="Testimonials">Testimonials</a>
+                                <a title="Testimonials">Testimonials</a>
                             </li>
                             <li>
-                                <a href="#" title="FAQs">FAQs</a>
+                                <a title="FAQs" asp-controller="home" asp-action="faq">FAQs</a>
                             </li>
                             <li>
-                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                                <a title="Insurance Policy">Insurance Policy</a>
                             </li>
                             <li>
-                                <a href="#" title="Impressum">Impressum</a>
+                                <a title="Impressum">Impressum</a>
                             </li>
                         </ul>
                     </div>
@@ -551,18 +689,20 @@
         </div>
     </footer>
 
+ 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
-        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
-        crossorigin="anonymous"></script>
+            integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+            crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

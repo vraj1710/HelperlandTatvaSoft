@@ -1,5 +1,6 @@
 ﻿using helperland_1.Data;
 using helperland_1.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,9 +17,9 @@ namespace helperland_1.Controllers
     public class HomeController : Controller
     {
 
-        private readonly Helperland_newContext _DbContext;
+        private readonly helperlandContext _DbContext;
 
-        public HomeController(Helperland_newContext DbContext)
+        public HomeController(helperlandContext DbContext)
         {
             _DbContext = DbContext;
         }
@@ -45,14 +46,16 @@ namespace helperland_1.Controllers
         }
 
         [HttpPost]
-        public IActionResult contactus(Contactu contactu)
+        public IActionResult contactus(ContactU contactu)
         {
 
             if (ModelState.IsValid)
+
             {
-                _DbContext.Contactus.Add(contactu);
+                _DbContext.ContactUs.Add(contactu);
                 _DbContext.SaveChanges();
                 return RedirectToAction("contactus");
+               
             }
 
             return View();
@@ -76,8 +79,8 @@ namespace helperland_1.Controllers
         [HttpPost]
         public IActionResult account(User user)
         {
-
-            if (ModelState.IsValid)
+            var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email));
+            if (ModelState.IsValid && get_user == null)
             {
                 User u = new User();
                 u.FirstName = user.FirstName;
@@ -86,19 +89,24 @@ namespace helperland_1.Controllers
                 u.Password = user.Password;
                 u.Mobile = user.Mobile;
                 u.UserTypeId = 1;
+                u.CreatedDate = user.CreatedDate;
                 _DbContext.Users.Add(u);
                 _DbContext.SaveChanges();
                 return RedirectToAction("faq");
             }
-
-            return View();
+            else
+            {
+                ViewBag.Error = TempData["error"];
+                return View();
+            }
 
         }
 
         [HttpPost]
         public IActionResult becomeahelper(User user)
         {
-            if (ModelState.IsValid)
+            var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email));
+            if (ModelState.IsValid && get_user==null)
             {
                 User u = new User();
                 u.FirstName = user.FirstName;
@@ -111,7 +119,11 @@ namespace helperland_1.Controllers
                 _DbContext.SaveChanges();
                 return RedirectToAction("faq");
             }
-            return View();
+            else
+            {
+                ViewBag.Error = TempData["error"];
+                return View();
+            }
         }
 
         [HttpPost]
@@ -120,11 +132,12 @@ namespace helperland_1.Controllers
             var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email) && p.Password.Equals(user.Password));
             if (get_user != null)
             {
+              //  HttpContext.Session.SetInt32("userid",get_user.UserId);
                 return RedirectToAction("aboutus");
             }
             else
             {
-
+                TempData["error"]="wrong user id and password";
                 return RedirectToAction("Index");
             }
         }
@@ -183,49 +196,73 @@ namespace helperland_1.Controllers
         public IActionResult resetpassword(User user)
         {
 
+            User userData = _DbContext.Users.Where(x => x.UserId == user.UserId).FirstOrDefault();
+            userData.Password = user.Password;
+            _DbContext.Users.Update(userData);
+            _DbContext.SaveChanges();
+            return RedirectToAction("aboutus");
 
-          //  var get_user = _DbContext.Users.Where(p => p.Email == user.Email).FirstOrDefault();
-
-                
-            
-               
-                _DbContext.Users.Update(user);
-                _DbContext.SaveChanges();
-                return RedirectToAction("aboutus");
-            
-
-
-
-            //using ()
-            //{
-            //    var user = context.RegisterUsers.Where(a => a.ResetPasswordCode == user.ResetCode).FirstOrDefault();
-            //    if (user != null)
-            //    {
-            //        you can encrypt password here, we are not doing it
-            //        user.Password = user.NewPassword;
-            //        make resetpasswordcode empty string now
-            //        user.ResetPasswordCode = "";
-            //        to avoid validation issues, disable it
-            //        context.Configuration.ValidateOnSaveEnabled = false;  
-            //        context.SaveChanges();
-            //        MailMessage = "New password updated successfully";
-            //    }
-            //}
-            //
-            //    using (User u = new User())
-            //{
-            //    var user = dc.Users.Where(a => a.ResetPasswordCode == u.ResetCode).FirstOrDefault();
-            //    if (user != null)
-            //    {
-            //        user.Password = Crypto.Hash(model.NewPassword);
-            //        user.ResetPasswordCode = "";
-            //        dc.Configuration.ValidateOnSaveEnabled = false;
-            //        dc.SaveChanges();
-            //        message = "New password updated successfully";
-            //    }
-            //}
         }
 
+        public IActionResult bookservice()
+        {
+            //var userid = HttpContext.Session.GetInt32("userid");
+            //if (userid != null)
+            //{
+                return View();
+            //}
+            //return RedirectToAction("index");
+         
+        }
+
+
+        public IActionResult address()
+        {
+
+            List<UserAddress> u = _DbContext.UserAddresses.Where(x => x.UserId == 3).ToList();
+            System.Threading.Thread.Sleep(2000);
+            return View(u);
+        }
+
+        [HttpPost]
+        public string address([FromBody] UserAddress address)
+        {
+            address.UserId = 3;
+            _DbContext.UserAddresses.Add(address);
+            _DbContext.SaveChanges();
+            return "true";
+        }
+
+        [HttpPost]
+        public string Zipcode(string zip)
+        {
+            var isvalid = _DbContext.Users.Where(x => x.ZipCode == zip).FirstOrDefault();
+            string a;
+            if (isvalid != null)
+            {
+                 a = "true";
+            }
+            else
+            {
+                 a = "false";
+            }
+            return a;
+        }
+
+       
+        public string savebooking([FromBody] ServiceRequest book)
+        {
+            book.UserId = 3;
+            book.ServiceId = 8211;
+            
+            _DbContext.ServiceRequests.Add(book);
+            _DbContext.SaveChanges();
+            string message = "true";
+            return message;
+           
+        }
+     
+      
 
     }
 }

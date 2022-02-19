@@ -1,4 +1,5 @@
 ﻿
+
 @model helperland_1.Models.User
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +23,7 @@
     <title>service</title>
 </head>
 
-<body>
+<body class="p-0">
 
     <div class="service-head">
         <div class="header position-relative container-fluid navbar-nav" id="topheader navbar">
@@ -82,107 +83,110 @@
             </nav>
         </div>
 
+        <!--------------------------------- Modal ------------------------------------------->
+        <partial name="~/Views/Shared/_loginmodal.cshtml">
 
-        <!--login Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            <!--------------------------------- Modal ------------------------------------------->
+            <!--login Modal -->
+            <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form class="modal-body" asp-controller="home" asp-action="Login">
+
+                            <div class="m-2 input-fields">
+                                <input type="email" name="Email" placeholder="E-mail" id="email" required>
+                            </div>
+                            <div class="m-2 input-fields">
+                                <input type="password" name="Password" placeholder="password" id="password" required>
+                            </div>
+                            <div class="m-2">
+                                <input type="checkbox" id="option-a">
+                                <label for="option-a">Remember me</label>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn">LOGIN</button>
+                            </div>
+                            <div class="text-center create">
+                                <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">forget password</a>
+                                <p>Don't have an account?</p>
+                                <a asp-controller="home" asp-action="account">create an account</a>
+                            </div>
+                        </form>
+
                     </div>
-                    <form class="modal-body" asp-controller = "home" asp-action = "Login">
+                </div>
+            </div>-->
 
-                        <div class="m-2 input-fields">
-                            <input type="email" name="Email" placeholder="E-mail" id="email" asp-for="Email" required>
+
+            <!--Forgot password Modal -->
+
+            <!--<div class="modal fade" id="forgot_password" data-dismiss="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="m-2 input-fields">
-                            <input type="password" name="Password" placeholder="password" id=password asp-for="Password" required>
+                        <form class="modal-body" asp-controller="home" asp-action="ForgotPassword" method="post">
+                            <div class="m-2 input-fields">
+                                <input type="email" name="Email" placeholder="E-mail" id="email">
+                            </div>
+
+
+                            <div>
+                                <button type="submit" class="btn">send</button>
+                            </div>
+                            <div class="text-center create">
+                                <a href="#">Login now</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>-->
+
+
+
+
+
+
+            <section class="registration-form">
+                <div class="container text-center">
+                    <h4>Register now!</h4>
+                    <form asp-controller="Home" asp-action="becomeahelper" class="form1" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="text" name="Firstname" placeholder="First name" id="Firstname" asp-for="FirstName"><br>
+                        <input type="text" name="Lastname" placeholder="Lastname" id="Lastname" asp-for="LastName"><br>
+                        <input type="email" name="Email" placeholder="E-mail" id="Email" asp-for="Email"><br>
+                        <input type="number" name="Mobile" placeholder="phone number" id="Mobile" asp-for="Mobile"><br>
+                        <input type="password" name="Password" placeholder="password" id=Password asp-for="Password"><br>
+                        <input type="password" name="Confirmpassword" placeholder="confirm-password" id="confirm-password" asp-for=" Confirmpassword"><br>
+                        <input type="checkbox" id="option-a" required>
+                        <label for="option-a"> Send me newsletters from Helperland</label><br>
+                        <input type="checkbox" id="option-b" required>
+                        <label for="option-b"> I accept <em> terms and conditions</em> & <em>privacy policy</em></label><br>
+                        <div class="robot">
+                            <input type="checkbox" id="option-c" required>
+                            <label for="option-c"> i'm not a robot <img src="~/lib/images/captcha.png" alt="" height="70px" width="70px"></label><br>
                         </div>
-                        <div class="m-2">
-                            <input type="checkbox" id="option-a">
-                            <label for="option-a">Remember me</label>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn">LOGIN</button>
-                        </div>
-                        <div class="text-center create">
-                            <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">forget password</a>
-                            <p>Don't have an account?</p>
-                            <a asp-controller = "home" asp-action = "account">create an account</a>
-                        </div>
+                        <button type="submit">Get started --></button>
                     </form>
 
                 </div>
+
+            </section>
+
+            <div class="scroll-link-wrapper text-center">
+                <a href="#" title="Scroll Down" class="scroll-link">
+                    <img src="~/lib/images/shape-1.png" alt="Scroll-down">
+                </a>
             </div>
-        </div>
-
-
-        <!--Forgot password Modal -->
-
-        <div class="modal fade" id="forgot_password" data-dismiss="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form class="modal-body" asp-controller="home"  asp-action="ForgotPassword" method="post">
-                        <div class="m-2 input-fields">
-                            <input type="email" name="Email" placeholder="E-mail" id="email" asp-for="Email">
-                        </div>
-
-
-                        <div>
-                            <button type="submit" class="btn">send</button>
-                        </div>
-                        <div class="text-center create">
-                            <a href="#">Login now</a>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-        <section class="registration-form">
-            <div class="container text-center">
-                <h4>Register now!</h4>
-                <form asp-controller="Home" asp-action="becomeahelper" class="form1" method="post">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <input type="text" name="Firstname" placeholder="First name" id="Firstname" asp-for="FirstName"><br>
-                    <input type="text" name="Lastname" placeholder="Lastname" id="Lastname" asp-for="LastName"><br>
-                    <input type="email" name="Email" placeholder="E-mail" id="Email" asp-for="Email"><br>
-                    <input type="number" name="Mobile" placeholder="phone number" id="Mobile" asp-for="Mobile"><br>
-                    <input type="password" name="Password" placeholder="password" id=Password asp-for="Password"><br>
-                    <input type="password" name="confirmpassword" placeholder="confirm-password" id="confirm-password" asp-for=" confirmpassword"><br>
-                    <input type="checkbox" id="option-a" required> 
-                    <label for="option-a"> Send me newsletters from Helperland</label><br>
-                    <input type="checkbox" id="option-b" required>
-                    <label for="option-b"> I accept <em> terms and conditions</em> & <em>privacy policy</em></label><br>
-                    <div class="robot">
-                        <input type="checkbox" id="option-c" required>
-                        <label for="option-c"> i'm not a robot <img src="~/lib/images/captcha.png" alt="" height="70px" width="70px"></label><br>
-                    </div>
-                    <button type="submit">Get started --></button>
-                </form>
-               
-            </div>
-
-        </section>
-
-        <div class="scroll-link-wrapper text-center">
-            <a href="#" title="Scroll Down" class="scroll-link">
-                <img src="~/lib/images/shape-1.png" alt="Scroll-down">
-            </a>
-        </div>
     </div>
 
     <section class="contact-mid">
