@@ -1,6 +1,7 @@
 using helperland_1.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,7 @@ namespace helperland_1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();
+            services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
             services.AddControllersWithViews();
             services.AddDbContext<helperlandContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Myconnection")));
         }
@@ -46,7 +48,8 @@ namespace helperland_1
 
             app.UseAuthorization();
 
-           // app.UseSession();
+            app.UseSession();
+
 
             app.UseEndpoints(endpoints =>
             {

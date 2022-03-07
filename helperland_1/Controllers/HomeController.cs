@@ -55,7 +55,7 @@ namespace helperland_1.Controllers
                 _DbContext.ContactUs.Add(contactu);
                 _DbContext.SaveChanges();
                 return RedirectToAction("contactus");
-               
+
             }
 
             return View();
@@ -106,7 +106,7 @@ namespace helperland_1.Controllers
         public IActionResult becomeahelper(User user)
         {
             var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email));
-            if (ModelState.IsValid && get_user==null)
+            if (ModelState.IsValid && get_user == null)
             {
                 User u = new User();
                 u.FirstName = user.FirstName;
@@ -129,34 +129,44 @@ namespace helperland_1.Controllers
         [HttpPost]
         public IActionResult Login(User user)
         {
-            var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email) && p.Password.Equals(user.Password));
+            //  var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email) && p.Password.Equals(user.Password));
+            var get_user = _DbContext.Users.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
             if (get_user != null)
             {
-              //  HttpContext.Session.SetInt32("userid",get_user.UserId);
+                HttpContext.Session.SetInt32("userid", get_user.UserId);
+                HttpContext.Session.SetString("username", get_user.FirstName + " " + get_user.LastName);
                 return RedirectToAction("aboutus");
             }
             else
             {
-                TempData["error"]="wrong user id and password";
+                TempData["error"] = "wrong user id and password";
                 return RedirectToAction("Index");
             }
+        }
+
+        public IActionResult logout()
+        {
+            HttpContext.Session.Remove("userid");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public IActionResult ForgotPassword(User model)
         {
-
-            string resetCode = Guid.NewGuid().ToString();
-            var verifyUrl = "/Account/ResetPassword/" + resetCode;
-            // var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-            var X = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(model.Email)).UserId;
-            string baseUrl = string.Format("{0}://{1}",
-                       HttpContext.Request.Scheme, HttpContext.Request.Host);
-            var activationUrl = $"{baseUrl}/home/resetpassword?UserId={X}";
-
-            var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(model.Email));
+            var get_user = _DbContext.Users.Where(p => p.Email == model.Email).FirstOrDefault();
             if (get_user != null)
             {
+
+                string resetCode = Guid.NewGuid().ToString();
+                var verifyUrl = "/Account/ResetPassword/" + resetCode;
+                // var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+                var X = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(model.Email)).UserId;
+                string baseUrl = string.Format("{0}://{1}",
+                           HttpContext.Request.Scheme, HttpContext.Request.Host);
+                var activationUrl = $"{baseUrl}/home/resetpassword?UserId={X}";
+
+
+
                 MailMessage ms = new MailMessage();
                 ms.To.Add(model.Email);
                 ms.From = new MailAddress("180320107554.ce.vraj@gmail.com");
@@ -179,14 +189,15 @@ namespace helperland_1.Controllers
             }
             else
             {
-                ViewBag.Message = "verify your email";
-                return RedirectToAction("aboutus");
+                TempData["error"] = "wrong email";
+                //ViewBag.Message = "verify your email";
+                return RedirectToAction("index");
             }
 
         }
 
 
-        public IActionResult resetpassword(int UserId) 
+        public IActionResult resetpassword(int UserId)
         {
             User user = _DbContext.Users.Where(x => x.UserId == UserId).FirstOrDefault();
             return View(user);
@@ -206,20 +217,27 @@ namespace helperland_1.Controllers
 
         public IActionResult bookservice()
         {
-            //var userid = HttpContext.Session.GetInt32("userid");
-            //if (userid != null)
-            //{
+            var userid = HttpContext.Session.GetInt32("userid");
+            if (userid != null)
+            {
                 return View();
-            //}
-            //return RedirectToAction("index");
-         
+            }
+            else
+            {
+                TempData["error"] = "please login first";
+
+                return RedirectToAction("index");
+            }
         }
+
+
 
 
         public IActionResult address()
         {
+            var a = (int)HttpContext.Session.GetInt32("userid");
 
-            List<UserAddress> u = _DbContext.UserAddresses.Where(x => x.UserId == 3).ToList();
+            List<UserAddress> u = _DbContext.UserAddresses.Where(x => x.UserId == a).ToList();
             System.Threading.Thread.Sleep(2000);
             return View(u);
         }
@@ -227,7 +245,7 @@ namespace helperland_1.Controllers
         [HttpPost]
         public string address([FromBody] UserAddress address)
         {
-            address.UserId = 3;
+            address.UserId = (int)HttpContext.Session.GetInt32("userid");
             _DbContext.UserAddresses.Add(address);
             _DbContext.SaveChanges();
             return "true";
@@ -240,29 +258,253 @@ namespace helperland_1.Controllers
             string a;
             if (isvalid != null)
             {
-                 a = "true";
+                a = "true";
             }
             else
             {
-                 a = "false";
+                a = "false";
             }
             return a;
         }
 
-       
+
         public string savebooking([FromBody] ServiceRequest book)
         {
-            book.UserId = 3;
+            //string one = "2019-02-06";
+            //string two = book.Time;
+            //DateTime newDateTime = Convert.ToDateTime(book.Date).Add(TimeSpan.Parse(book.Time));
+            //book.ServiceStartDate = newDateTime;
+            book.UserId = (int)HttpContext.Session.GetInt32("userid");
             book.ServiceId = 8211;
-            
             _DbContext.ServiceRequests.Add(book);
             _DbContext.SaveChanges();
-            string message = "true";
-            return message;
-           
+
+            var address = _DbContext.UserAddresses.Where(x => x.AddressId == book.AddId).FirstOrDefault();
+            var email = _DbContext.Users.Where(x => x.UserId == book.UserId).FirstOrDefault();
+
+            ServiceRequestAddress u = new ServiceRequestAddress();
+            u.ServiceRequestId = book.ServiceRequestId;
+            u.AddressLine1 = address.AddressLine1;
+            u.AddressLine2 = address.AddressLine2;
+            u.City = address.City;
+            u.Email = email.Email;
+            u.Mobile = address.Mobile;
+            u.State = address.State;
+            u.PostalCode = address.PostalCode;
+            _DbContext.ServiceRequestAddresses.Add(u);
+            _DbContext.SaveChanges();
+
+            book.ServiceId = 1000 + book.ServiceRequestId;
+            _DbContext.ServiceRequests.Update(book);
+            _DbContext.SaveChanges();
+
+
+            ServiceRequestExtra extra = new ServiceRequestExtra();
+            extra.ServiceRequestId = book.ServiceRequestId;
+            extra.ServiceExtraId = book.extraId;
+            _DbContext.ServiceRequestExtras.Add(extra);
+            _DbContext.SaveChanges();
+
+
+            var query = from p in _DbContext.Users
+                        where p.UserTypeId == 2
+                        select p.Email;
+
+            MailMessage ms = new MailMessage();
+
+            ms.From = new MailAddress("180320107554.ce.vraj@gmail.com");
+            ms.Subject = "cancel";
+            ms.Body = "service request is cancelles";
+            foreach (var item in query)
+            {
+                ms.To.Add(new MailAddress(item));
+            }
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+
+
+            NetworkCredential NetworkCred = new NetworkCredential("180320107554.ce.vraj@gmail.com", "vraj@2000");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Send(ms);
+
+
+            //  string message = "true";
+            return book.ServiceId.ToString();
+
         }
-     
-      
+
+
+
+        public IActionResult servicehistory()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+
+            //custommodal var1 = new custommodal();
+            //var1.userAddresses = _DbContext.UserAddresses.Where(x => x.UserId == a).ToList();
+            //var1.serviceRequests = _DbContext.ServiceRequests.Where(x => x.UserId == a).ToList();
+            //var1.users = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            //List<UserAddress> u = _DbContext.UserAddresses.Where(x => x.UserId == a).ToList();
+            List<ServiceRequest> x = _DbContext.ServiceRequests.Where(x => x.UserId == a && x.Status== null ).ToList();                                                                                                     
+            return View(x);
+        }
+
+
+        public IActionResult SRservicehistory()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            List<ServiceRequest> x = _DbContext.ServiceRequests.Where(x => x.UserId == a && x.Status != null).ToList();
+            return View(x);
+          
+        }
+
+        public IActionResult myseetings()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            return View(u);
+        }
+
+
+        public string savechanges([FromBody] User book)
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            u.FirstName = book.FirstName;
+            u.LastName = book.LastName;
+            u.Mobile = book.Mobile;
+            _DbContext.Users.Update(u);
+            _DbContext.SaveChanges();
+
+            HttpContext.Session.SetString("username", u.FirstName + " " + u.LastName);
+            return "true";
+        }
+
+
+        public string changepassword([FromBody] User pass)
+        {
+            if (ModelState.IsValid)
+            {
+                var a = (int)HttpContext.Session.GetInt32("userid");
+                User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+                if (u.Password == pass.Password)
+                {
+                    u.Password = pass.Newpassword;
+                    _DbContext.Users.Update(u);
+                    _DbContext.SaveChanges();
+                    return "true";
+                }
+                return "false";
+
+            }
+            return "false";
+        }
+
+
+        public IActionResult addresstab()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            List<UserAddress> u = _DbContext.UserAddresses.Where(x => x.UserId == a).ToList();
+            System.Threading.Thread.Sleep(2000);
+            return View(u);
+        }
+
+        public string deleteaddress(int del)
+        {
+            UserAddress getaddress = _DbContext.UserAddresses.Where(x => x.AddressId == del).FirstOrDefault();
+            _DbContext.UserAddresses.Remove(getaddress);
+            _DbContext.SaveChanges();
+            return "true";
+        }
+
+        public IActionResult editaddress(int edit)
+        {
+            UserAddress getaddress = _DbContext.UserAddresses.Where(x => x.AddressId == edit).FirstOrDefault();
+            return View(getaddress);
+        }
+
+        public string updateaddress([FromBody] UserAddress change)
+        {
+            UserAddress getaddress = _DbContext.UserAddresses.Where(x => x.AddressId == change.AddressId).FirstOrDefault();
+
+            getaddress.AddressLine1 = change.AddressLine1;
+            getaddress.AddressLine2 = change.AddressLine2;
+            getaddress.PostalCode = change.PostalCode;
+            getaddress.City = change.City;
+            getaddress.Mobile = change.Mobile;
+            _DbContext.UserAddresses.Update(getaddress);
+            _DbContext.SaveChanges();
+            return "true";
+
+        }
+
+        public IActionResult favpros()
+        {
+            return View();
+        }
+
+        public IActionResult Detailsmodal(int zip)
+        {
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                        join ServiceRequestAddress in _DbContext.ServiceRequestAddresses on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                        where ServiceRequest.ServiceRequestId == zip
+                        select new custommodal
+                        {
+                           ServiceRequestId = ServiceRequest.ServiceRequestId,
+                           ServiceStartDate= ServiceRequest.ServiceStartDate,
+                           SubTotal = ServiceRequest.SubTotal,
+                           AddressLine1 = ServiceRequestAddress.AddressLine1,
+                           AddressLine2 = ServiceRequestAddress.AddressLine2,
+                           Email = ServiceRequestAddress.Email,
+                           Mobile = ServiceRequestAddress.Mobile,
+                           ServiceHours = ServiceRequest.ServiceHours,
+                           HasPets = ServiceRequest.HasPets
+
+                        }).Single();
+
+
+            return View(query);
+        }
+
+        public object cancelSR([FromBody] ServiceRequest book)
+        {
+            ServiceRequest detail = _DbContext.ServiceRequests.Where(x => x.ServiceRequestId == book.ServiceRequestId).FirstOrDefault();
+            detail.Status = 0;
+            detail.Comments = book.Comments;
+            _DbContext.ServiceRequests.Update(detail);
+            _DbContext.SaveChanges();
+
+
+             var query = from u in _DbContext.Users
+                        where u.UserTypeId == 2
+                        select u.Email;
+
+            MailMessage ms = new MailMessage();
+
+            ms.From = new MailAddress("180320107554.ce.vraj@gmail.com");
+            ms.Subject = "cancel";
+            ms.Body = "service request is cancelles";
+            foreach (var item in query)
+            {
+                ms.To.Add(new MailAddress(item));
+            }
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+
+
+            NetworkCredential NetworkCred = new NetworkCredential("180320107554.ce.vraj@gmail.com", "vraj@2000");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Send(ms);
+
+            return query;
+        }
 
     }
 }

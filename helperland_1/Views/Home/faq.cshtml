@@ -29,7 +29,7 @@
 
     <div class="header navbar-nav" id="topheader navbar">
         <nav class="navbar navbar-expand-xl navbar-light" id="navbar">
-            <a class="navbar-brand" href="homepage.html">
+            <a class="navbar-brand" asp-controller="home" asp-action="index">
                 <img src="~/lib/images/white-logo-transparent-background@2x.png">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -41,7 +41,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <div class="nav-btn-blue nav-btnn">
-                            <a class="nav-link py-3" href="#">Book now</a>
+                            <a class="nav-link py-3" asp-controller="home" asp-action="bookservice">Book now</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -64,13 +64,30 @@
                             <a class="nav-link py-3" asp-controller="home" asp-action="contactus">contact</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <div class="nav-btn-blue nav-btnn">
-                            <a class="btnn nav-link py-3" href="#" data-toggle="modal" data-target="#staticBackdrop">
-                                Login
-                            </a>
-                        </div>
-                    </li>
+                    @{
+                        var userid = HttpContextAccessor.HttpContext.Session.GetInt32("userid");
+                        if (userid == null)
+                        {
+                            <li class="nav-item">
+                                <div class="nav-btn-blue nav-btnn">
+                                    <a class="btnn nav-link py-3" href="#" data-toggle="modal" data-target="#staticBackdrop">
+                                        Login
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <div class="nav-btn-blue nav-btnn">
+                                    <a class="btnn nav-link py-3"  asp-controller="home" asp-action="logout">
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    }
+
                     <li class="nav-item">
                         <div class="nav-btn-blue nav-btnn ">
                             <a class="nav-link py-3" asp-controller="Home" asp-action="becomeahelper">Become a Helper</a>
@@ -85,67 +102,8 @@
     <!--------------------------------- Modal ------------------------------------------->
     <partial name="~/Views/Shared/_loginmodal.cshtml">
 
-        <!--------------------------------- Modal ------------------------------------------->
-        <!--login Modal -->
-        <!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">LOGIN</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form class="modal-body" asp-controller="home" asp-action="Login">
-
-                        <div class="m-2 input-fields">
-                            <input type="email" name="Email" placeholder="E-mail" id="email" required>
-                        </div>
-                        <div class="m-2 input-fields">
-                            <input type="password" name="Password" placeholder="password" id=password required>
-                        </div>
-                        <div class="m-2">
-                            <input type="checkbox" id="option-a">
-                            <label for="option-a">Remember me</label>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn">LOGIN</button>
-                        </div>
-                        <div class="text-center create">
-                            <a href="#" data-toggle="modal" data-target="#forgot_password" data-dismiss="modal">forget password</a>
-                            <p>Don't have an account?</p>
-                            <a asp-controller="home" asp-action="account">create an account</a>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>-->
-        <!--Forgot password Modal -->
-        <!--<div class="modal fade" id="forgot_password" data-dismiss="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">FORGOT PASSWORD</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form class="modal-body" asp-controller="home" asp-action="ForgotPassword" method="post">
-                        <div class="m-2 input-fields">
-                            <input type="email" name="Email" placeholder="E-mail" id="email">
-                        </div>
-
-
-                        <div>
-                            <button type="submit" class="btn">send</button>
-                        </div>
-                        <div class="text-center create">
-                            <a href="#">Login now</a>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>-->
+    <!--------------------------------- Modal ------------------------------------------->
+     
 
 
 

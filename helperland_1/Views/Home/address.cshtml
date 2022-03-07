@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "address";
     Layout = null;
+
 }
 
 <!DOCTYPE html>
@@ -28,12 +29,12 @@
     @foreach (var item in Model)    
     {
         <div class="address align-middle">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
-                       value="option1">
+            <div class="form-check form-check-inline d-flex">
+                <input class="form-check-input align-items-center" type="radio" name="inlineRadioOptions" id="addressradio"
+                       value="@item.AddressId" style="height:20px; width:20px;" checked>
                 <label class="form-check-label" for="inlineRadio1">
                     <p>
-                        address : @Html.DisplayFor(modelItem => item.AddressLine1)  <br>
+                        address :<span> @Html.DisplayFor(modelItem => item.AddressLine2)</span> ,<span> @Html.DisplayFor(modelItem => item.AddressLine1)</span> <br>
                         phone number: @Html.DisplayFor(modelItem => item.Mobile)
                     </p>
                 </label>
@@ -62,9 +63,10 @@
 
     <div class="new-address my-4" id="image">
         <form class="row g-3">
+          
             <div class="col-md-6">
                 <label for="street-name" class="form-label">street name</label>
-                <input type="text" class="form-control" id="addressline1" >
+                <input type="text" class="form-control"  id="addressline1">
             </div>
             <div class="col-md-6">
                 <label for="house-number" class="form-label">House number</label>
@@ -72,15 +74,15 @@
             </div>
             <div class="col-md-6">
                 <label for="postal-code" class="form-label">postal code</label>
-                <input type="text" class="form-control" id="postal-code" >
+                <input type="text" class="form-control" id="postal-code">
             </div>
             <div class="col-md-6">
                 <label for="city" class="form-label">city</label>
-                <input type="text" class="form-control" id="city" >
+                <input type="text" class="form-control" id="city">
             </div>
             <div class="col-md-6">
                 <label for="phonenumber" class="form-label">phone number</label>
-                <input type="number" class="form-control" id="phonenumber" >
+                <input type="number" class="form-control" id="phonenumber">
             </div>
 
             <div class="row my-4">
@@ -96,11 +98,16 @@
 
 
     <div class="option-5">
-        <button class="btn m-4">continue</button>
+        <button class="btn m-4" type="button" id="cont2">continue</button>
     </div>
 
 
     <script>
+        $("#cont2").on('click', function () {
+            $("#list-settings-list").removeClass("disabled");
+            $("#list-settings-list").trigger("click");
+        });
+
         $("#save").on('click', function () {
 
             var address = {};

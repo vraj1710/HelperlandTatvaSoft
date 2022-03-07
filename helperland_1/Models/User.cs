@@ -36,6 +36,10 @@ namespace helperland_1.Models
         public string Password { get; set; }
 
         [NotMapped]
+        [Required]
+        public string Newpassword { get; set; }
+
+        [NotMapped]
         [Compare("Password", ErrorMessage = "password and confirm password do not match")]
         public string Confirmpassword { get; set; }
 

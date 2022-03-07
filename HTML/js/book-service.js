@@ -110,14 +110,13 @@ function add4() {
         return f = 0;
     }
 
-
     else {
         document.getElementById("extra4").innerHTML = "<p>Interior windows</p><p>30 mins</p>";
         document.getElementById("img5").setAttribute("src", "images/1-green.png");
         ic = ic + 0.5;
         price = price + 9;
         return f = 1;
-
+    
     }
 
 

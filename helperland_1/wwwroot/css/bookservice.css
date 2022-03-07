@@ -30,11 +30,11 @@ html {
             font-size: 20px;
         }
 
-            .header .navbar-nav .nav-btnn a:hover {
-                border: 1px solid white;
-                border-radius: 40px;
-                color: white;
-            }
+        .header .navbar-nav .nav-btnn a:hover {
+            border: 1px solid white;
+            border-radius: 40px;
+            color: white;
+        }
 
         .header .navbar-nav .nav-btn-blue a {
             background-color: #29626D;
@@ -143,15 +143,11 @@ html {
     color: rgb(85, 83, 83);
 }
 
-.set_up_service button {
-    background-color: #1d7a8c;
+.checkingavail {
+    background-color: #29626D;
     color: white;
-    width: fit-content;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: 10px;
-    border-radius: 25px;
-    font-weight: 600;
+    border-radius: 30px;
+    margin-left: 3%;
 }
 
 /*details*/
@@ -260,6 +256,19 @@ html {
     border-bottom: 1px solid gray;
 }
 
+/* success modal */
+
+#success .modal-body .p1 {
+    color: #4F4F4F;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#success .modal-body .p2 {
+    color: #4F4F4F;
+    font-size: 1rem;
+    font-weight: 400;
+}
 
 /*make payment*/
 .promocode {
@@ -285,12 +294,10 @@ html {
 .CCdetails {
     margin-top: 25px;
     margin-bottom: 25px;
-    border: 1px solid grey;
 }
 
-    .CCdetails input {
-        border: none;
-    }
+
+ 
 
 .accepted {
     padding-top: 25px;
@@ -771,10 +778,20 @@ html {
     .nav-title {
         display: none;
     }
+    .CCdetails .row {
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+    }
 }
 
 @media(max-width: 580px) {
 
+    .CCdetails .row {
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+    }
 
     .postal-code {
         flex-direction: column;

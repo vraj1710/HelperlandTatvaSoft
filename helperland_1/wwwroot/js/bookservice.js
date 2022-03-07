@@ -1,16 +1,18 @@
 ﻿var a;
 function show_hide() {
-    if (a == 1) {
-        document.getElementById("image").style.display = "none";
-        return a = 0;
-    }
+//    if (a == 1) {
+//        document.getElementById("image").style.display = "none";
+//        return a = 0;
+//    }
 
-    else {
+//    else {
         document.getElementById("image").style.display = "block";
-        return a = 1;
-    }
+    //    return a = 1;
+    //}
 }
-
+function hide() {
+    document.getElementById("image").style.display = "none";
+}
 
 
 var b, ic = 3, price = 54;
@@ -20,6 +22,8 @@ function add() {
         document.getElementById("extra").innerHTML = "";
         document.getElementById("img1").setAttribute("src", "/images/3.png");
         ic = ic - 0.5;
+        $("#cabinets").attr("target", "0");
+      
         price = price - 9;
         return b = 0;
     }
@@ -29,6 +33,7 @@ function add() {
         document.getElementById("extra").innerHTML = "<p>inside cabinet</p><p>30 mins</p>";
         document.getElementById("img1").setAttribute("src", "/images/3-green.png");
         ic = ic + 0.5;
+        $("#cabinets").attr("target", "1");
         price = price + 9;
         return b = 1;
     }
@@ -43,6 +48,7 @@ function add1() {
     if (c == 1) {
         document.getElementById("extra1").innerHTML = "";
         document.getElementById("img2").setAttribute("src", "/images/5.png");
+        $("#fridge").attr("target", "0");
         ic = ic - 0.5;
         price = price - 9;
         return c = 0;
@@ -52,6 +58,7 @@ function add1() {
     else {
         document.getElementById("extra1").innerHTML = "<p>inside fridge</p><p>30 mins</p>";
         document.getElementById("img2").setAttribute("src", "/images/5-green.png");
+        $("#fridge").attr("target", "2");
         ic = ic + 0.5;
         price = price + 9;
         return c = 1;
@@ -64,6 +71,7 @@ function add2() {
     if (d == 1) {
         document.getElementById("extra2").innerHTML = "";
         document.getElementById("img3").setAttribute("src", "/images/4.png");
+        $("#oven").attr("target", "0");
         ic = ic - 0.5;
         price = price - 9;
         return d = 0;
@@ -73,6 +81,7 @@ function add2() {
     else {
         document.getElementById("extra2").innerHTML = "<p>inside oven</p><p>30 mins</p>";
         document.getElementById("img3").setAttribute("src", "/images/4-green.png");
+        $("#oven").attr("target", "3");
         ic = ic + 0.5;
         price = price + 9;
         return d = 1;
@@ -85,6 +94,7 @@ function add3() {
     if (e == 1) {
         document.getElementById("extra3").innerHTML = "";
         document.getElementById("img4").setAttribute("src", "/images/2.png");
+        $("#wash").attr("target", "0");
         ic = ic - 0.5;
         price = price - 9;
         return e = 0;
@@ -94,6 +104,7 @@ function add3() {
     else {
         document.getElementById("extra3").innerHTML = "<p>Laundry wash</p><p>30 mins</p>";
         document.getElementById("img4").setAttribute("src", "/images/2-green.png");
+        $("#wash").attr("target", "4");
         ic = ic + 0.5;
         price = price + 9;
         return e = 1;
@@ -105,6 +116,7 @@ function add4() {
     if (f == 1) {
         document.getElementById("extra4").innerHTML = "";
         document.getElementById("img5").setAttribute("src", "/images/1.png");
+        $("#windows").attr("target", "0");
         ic = ic - 0.5;
         price = price - 9;
         return f = 0;
@@ -114,6 +126,7 @@ function add4() {
     else {
         document.getElementById("extra4").innerHTML = "<p>Interior windows</p><p>30 mins</p>";
         document.getElementById("img5").setAttribute("src", "/images/1-green.png");
+        $("#windows").attr("target", "5");
         ic = ic + 0.5;
         price = price + 9;
         return f = 1;
@@ -138,57 +151,6 @@ function total_pr() {
 
 
 
-
-// compare zipcode with our database
-
-//function SearchZipCode() {
-
-//    var zipcode = $("#postal-code").val();;
-   
-
-   
-   
-
-
-//    $.ajax({
-//        url: '@Url.Action("Zipcode")',
-//        type: 'post',
-//        data: JSON.stringify(zipcode),
-//        //  data: '{booking: ' + JSON.stringify(booking) + '}',
-//        dataType: 'json',
-
-//        contentType: 'application/json',
-       
-
-
-//        //    success: function (response) {
-//        //    var message = $("#message");
-//        //    if (response) {
-//        //        //zip available.
-//        //        message.css("color", "green");
-//        //        message.html("service is available");
-//        //    }
-//        //    else {
-//        //        //zip not available.
-//        //        message.css("color", "red");
-//        //        message.html("service is NOT available");
-//        //        alert("error is their");
-//        //    }
-
-//        success: function (resp) {
-       
-//             $("#successMessage").show();
-//             var html = "<p>congratulation</p>";
-//             $("#successMessage").html(html).fadeOut(7000);
-//        },
-//        error: function (err) {
-//             alert("error is their");
-//        }
-//    });
-
-
-
-//}
 
 
 

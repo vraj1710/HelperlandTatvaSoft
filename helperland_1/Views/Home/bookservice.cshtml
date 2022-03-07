@@ -28,7 +28,7 @@
 
     <div class="header navbar-nav" id="topheader navbar">
         <nav class="navbar navbar-expand-xl navbar-light" id="navbar">
-            <a class="navbar-brand" href="homepage.html">
+            <a class="navbar-brand" asp-controller="home" asp-action="index">
                 <img src="~/lib/images/white-logo-transparent-background@2x.png">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -40,7 +40,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <div class="nav-btn-blue nav-btnn">
-                            <a class="nav-link py-3" href="#">Book now</a>
+                            <a class="nav-link py-3" asp-controller="home" asp-action="bookservice">Book now</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -63,17 +63,34 @@
                             <a class="nav-link py-3" asp-controller="home" asp-action="contactus">Contact</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <div class="nav-btn-blue nav-btnn">
-                            <a class="nav-link py-3" href="#" data-toggle="modal"
-                               data-target="#staticBackdrop">Login</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-btn-blue nav-btnn ">
-                            <a class="nav-link py-3" asp-controller="home" asp-action="becomeahelper">Become a Helper</a>
-                        </div>
-                    </li>
+
+                    @{
+                        var userid = HttpContextAccessor.HttpContext.Session.GetInt32("userid");
+                        if (userid == null)
+                        {
+                            <li class="nav-item">
+                                <div class="nav-btn-blue nav-btnn">
+                                    <a class="nav-link py-3" href="#" data-toggle="modal" data-target="#staticBackdrop">Login</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="nav-btn-blue nav-btnn ">
+                                    <a class="nav-link py-3" asp-controller="home" asp-action="becomeahelper">Become a Helper</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <div class="nav-btn-blue nav-btnn">
+                                    <a class="nav-link py-3"  asp-controller="home" asp-action="logout">Logout</a>
+                                </div>
+                            </li>      
+                        }
+
+                    }
+
+
 
                 </ul>
             </div>
@@ -115,12 +132,12 @@
                         <img src="~/lib/images/schedule.png"
                              height="40px" width="40px" alt=""><span class="nav-title  mx-2">Schedule & Plan</span>
                     </a>
-                    <a class="list-group-item list-group-item-action d-flex align-items-center " id="list-messages-list" data-toggle="list"
+                    <a class="list-group-item list-group-item-action d-flex align-items-center disabled" id="list-messages-list" data-toggle="list"
                        href="#list-messages" role="tab" aria-controls="messages">
                         <img src="~/lib/images/details.png"
                              height="40px" width="40px" alt=""><span class="nav-title mx-2"> Your Details</span>
                     </a>
-                    <a class="list-group-item list-group-item-action d-flex align-items-center " id="list-settings-list" data-toggle="list"
+                    <a class="list-group-item list-group-item-action d-flex align-items-center disabled" id="list-settings-list" data-toggle="list"
                        href="#list-settings" role="tab" aria-controls="settings">
                         <img src="~/lib/images/payment.png"
                              height="40px" width="40px" alt=""><span class="nav-title mx-2">Make payment</span>
@@ -140,7 +157,7 @@
                     <div>
                     <div class="d-flex postal-code">
                         <input type="number" name="postal-code" placeholder="postal-code" id="postal-code">
-                        <input class="btn text-center d-flex align-items-center" type="button"  id="zip" value="check availibility">
+                        <input class="btn text-center d-flex align-items-center checkingavail" type="button"  id="zip" value="check availibility">
                     </div>
                     <div id="message" style="display:none; color: green;"></div>
                     </div>
@@ -176,15 +193,11 @@
                             <p>where do you need a cleaner?</p>
                             <div class="d-flex">
                                 <div class="m-1">
-                                    <input type="date" name="date" placeholder="date" id="date">
+                                    <input type="date" name="date" placeholder="date" id="date" required>
 
                                 </div>
                                 <div class="m-1">
-                                    <select name="time" id="time1">
-                                        <option value="12" selected>12:00 PM</option>
-                                        <option value="1">1:00 PM</option>
-                                        <option value="2">2:00 PM</option>
-                                    </select>
+                                    <input type="time" placeholder="time" id="time">
                                 </div>
                             </div>
                         </div>
@@ -209,7 +222,7 @@
                     <div class="option-3 ">
                         <p>Extra services</p>
                         <div class="services_cover align-items-center justify-content-center">
-                            <div onclick="add();total();total_p();total_pr()" id="cabinets"
+                            <div onclick="add();total();total_p();total_pr()" id="cabinets" target="0"
                                  class="services_inner d-flex flex-column align-items-center justify-content-center">
                                 <div class="services_icon rounded-circle d-flex align-items-center justify-content-center">
                                     <img id="img1" src="~/lib/images/3.png" alt="">
@@ -218,7 +231,7 @@
                                     <p class="m-0 text-center">Inside cabinets</p>
                                 </div>
                             </div>
-                            <div onclick="add1();total();total_p();total_pr()" id="fridge"
+                            <div onclick="add1();total();total_p();total_pr()" id="fridge" target="0"
                                  class=" services_inner d-flex flex-column align-items-center justify-content-center">
                                 <div class="services_icon rounded-circle d-flex align-items-center justify-content-center">
                                     <img id="img2" src="~/lib/images/5.png" alt="">
@@ -228,7 +241,7 @@
 
                                 </div>
                             </div>
-                            <div onclick="add2();total();total_p();total_pr()" id="oven"
+                            <div onclick="add2();total();total_p();total_pr()" id="oven" target="0"
                                  class="services_inner d-flex flex-column align-items-center justify-content-center">
                                 <div class=" services_icon rounded-circle d-flex align-items-center justify-content-center">
                                     <img id="img3" src="~/lib/images/4.png" alt="">
@@ -238,7 +251,7 @@
 
                                 </div>
                             </div>
-                            <div onclick="add3();total();total_p();total_pr()" id="wash"
+                            <div onclick="add3();total();total_p();total_pr()" id="wash" target="0"
                                  class="services_inner d-flex flex-column align-items-center justify-content-center">
                                 <div class=" services_icon rounded-circle d-flex align-items-center justify-content-center">
                                     <img id="img4" src="~/lib/images/2.png" alt="">
@@ -248,7 +261,7 @@
 
                                 </div>
                             </div>
-                            <div onclick="add4();total();total_p();total_pr()" id="windows"
+                            <div onclick="add4();total();total_p();total_pr()" id="windows" target="0"
                                  class="services_inner d-flex flex-column align-items-center justify-content-center">
                                 <div class=" services_icon rounded-circle  d-flex align-items-center justify-content-center">
                                     <img id="img5" src="~/lib/images/1.png" alt="">
@@ -262,12 +275,12 @@
 
                     <div class="option-4">
                         <p>comments</p>
-                        <textarea name="" id="" cols="30" rows="5" placeholder=""></textarea> <br>
-                        <input type="checkbox" id="option-a" value="true">
+                        <textarea name="" id="comment" cols="30" rows="5" placeholder=""></textarea> <br>
+                        <input type="checkbox" id="forpets">
                         <label for="option-a">i have pets at home</label>
                     </div>
                     <div class="option-5">
-                        <button class="btn m-1">continue</button>
+                        <button class="btn m-1" type="button" id="cont1">continue</button>
                     </div>
 
                 </div>
@@ -275,8 +288,6 @@
                 <!-----------------------------------details------------------------------->
                 <div id="list-messages" class="tab-pane fade" role="tabpanel" aria-labelledby="list-messages-list">
                     
-
-
 
 
                 </div>
@@ -299,14 +310,14 @@
 
 
                     <div class="CCdetails">
-                        <div class="row col-sm-9">
-                            <div class="col-sm-7">
+                        <div class="row col-sm-12">
+                            <div class="col-sm-4 my-2">
                                 <input type="tel" placeholder="Card Number" maxlength="16">
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4 my-2">
                                 <input type="month" placeholder="MM/YY">
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4 my-2">
                                 <input type="tel" placeholder="Cvv" maxlength="3">
                             </div>
                         </div>
@@ -326,7 +337,7 @@
 
 
                     <div class="condition form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
                         <p class="form-check-label" for="defaultCheck1">
                             I accep the <span>terms & conditions</span>,the <span>cancellation policy</span> and the
                             <span>privacy policy</span>.i confirm that Helperland
@@ -337,7 +348,31 @@
                     </div>
 
                     <div class="option-5">
-                        <button class="btn m-4" id="completebooking" >Complete Booking</button>
+                        <button class="btn m-4" id="completebooking">Complete Booking</button>
+                    </div>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" id="successmodal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#success" style="display:none">
+                        success
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="success" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="success" aria-hidden="true">
+                        <div class="modal-dialog  modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img class="my-4" src="~/lib/images/greentick.png" alt="" style="height: 90px; width: 90px;">
+                                    <p class="p1">booking has been done successfully</p>
+                                    <p class="p2">service request id: <span id="vraj"></span></p>
+                                    <button type="button" class="btn mx-2" data-bs-dismiss="modal" style="width: fit-content; padding-left: 20px; padding-right: 20px;">ok</button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -498,7 +533,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">For more help</a>
+                <a asp-controller="home" asp-action="faq">For more help</a>
             </div>
         </div>
     </section>
@@ -600,10 +635,15 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
     <script>
-
+ 
         $(document).on("click", "#list-messages-list",function(){
             $("#list-messages").html("Loading Addresses...")
             .load('@Url.Action("address", "Home")');
+        });
+        $("#cont1").on('click', function () {
+            $("#list-messages-list").removeClass("disabled");
+      
+            $("#list-messages-list")[0].click();
         });
 
        $("#zip").on('click',function(){
@@ -612,7 +652,6 @@
 
             $.ajax
             ({
-
                 url: '@Url.Action("Zipcode")/'+ $("#postal-code").val(),
                 type: 'post',
                 data: {
@@ -648,13 +687,21 @@
 
         $("#completebooking").on('click', function () {
 
+       
             var book = {};
+            book.Comments = $("#comment").val();
+            book.extraId = parseInt($("#cabinets").attr("target") + $("#fridge").attr("target") + $("#oven").attr("target") + $("#wash").attr("target") + $("#windows").attr("target"));
+           
+           // DateTime newDateTime = Convert.ToDateTime(one).Add(TimeSpan.Parse(two));
+            book.AddId = parseInt($("#addressradio:checked").val());
             book.ZipCode = $("#postal-code").val();
+           // book.Date = parseInt($("#date").val());
+          //  book.Time = parseInt($("#time").val());
             book.ServiceStartDate = $("#date").val();
             book.SubTotal = parseFloat($("#total_price_1").text());
             book.TotalCost =parseFloat($("#total_price_2").text());
-            book.ServiceHours = ic;
-        //  book.HasPets = $("option-a").val();
+            book.ServiceHours = parseFloat($("#total_time").text());
+            book.HasPets = $("#forpets").is(":checked");
             console.log(book);
             $.ajax({
 
@@ -665,7 +712,10 @@
                 data: JSON.stringify(book),
 
                 success: function (resp) {
-                    alert("Data has been added successfully.");
+                    $("#vraj").html(resp);
+                    $("#successmodal").trigger("click");
+                 // alert("Data has been added successfully.");
+
                 },
                 error: function (err) {
                     alert("Error while inserting data");

@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+    var x = @Model.HasPets;
+}
+@model helperland_1.Models.custommodal
+
+<div class="CalLeft">
+    <h4>@Model.ServiceStartDate.ToShortDateString() 09:00 -14:30</h4>
+    <p><b>Duration:</b>@Model.ServiceHours hrs</p>
+    <hr>
+    <p><b>Service Id:</b>@Model.ServiceId </p>
+    <p><b>Extras:</b>Inside cabinets, Inside fridge, Inside oven, Laundry wash & dry, Interior windows</p>
+    <p>
+        <b>Net Amount:</b>
+        <spna class="currency fw-bolder">@Model.SubTotal €</spna>
+    </p>
+    <hr>
+    <p><b>Service Address:</b>@Model.AddressLine2 , @Model.AddressLine1 </p>
+    <p><b>Billing Address:</b>@Model.AddressLine2 , @Model.AddressLine1 </p>
+    <p><b>Phone:</b>+49 @Model.Mobile</p>
+    <p><b>email:</b>@Model.Email</p>
+    <hr>
+    <p><b></b></p>
+    <div>
+        <p>Hello</p>
+    </div>
+    
+    @if (x == true)
+    {
+        <p>I have pets at home:</p>
+
+    }
+    else
+    {
+        <p>I don't have pets at home:</p>
+    }
+</div>

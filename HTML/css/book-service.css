@@ -255,7 +255,18 @@ html {
 .favourite {
     border-bottom: 1px solid gray;
 }
+/* success modal */
 
+#success .modal-body .p1{
+    color: #4F4F4F;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+#success .modal-body .p2{
+    color: #4F4F4F;
+    font-size: 1rem;
+    font-weight: 400;
+}
 
 /*make payment*/
 .promocode {
@@ -281,12 +292,12 @@ html {
 .CCdetails {
     margin-top: 25px;
     margin-bottom: 25px;
-    border: 1px solid grey;
+   
 }
 
-    .CCdetails input {
+    /* .CCdetails input {
         border: none;
-    }
+    }  */
 
 .accepted {
     padding-top: 25px;
@@ -767,10 +778,21 @@ html {
     .nav-title {
         display: none;
     }
+    .CCdetails .row{
+        flex-direction: column;
+      display: flex;
+      align-items: center;
+
+    }
 }
 
 @media(max-width: 580px) {
 
+    .CCdetails .row{
+        flex-direction: column;     
+        display: flex;
+        align-items: center;
+    }
 
     .postal-code {
         flex-direction: column;

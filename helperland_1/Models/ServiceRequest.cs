@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -13,10 +15,21 @@ namespace helperland_1.Models
             ServiceRequestAddresses = new HashSet<ServiceRequestAddress>();
             ServiceRequestExtras = new HashSet<ServiceRequestExtra>();
         }
+        [NotMapped]
+        public int extraId { get; set; }
+        [NotMapped]
+        public int AddId { get; set; }
 
+        [NotMapped]
+        public int Date { get; set; }
+
+        [NotMapped]
+        public string Time { get; set; }
         public int ServiceRequestId { get; set; }
         public int UserId { get; set; }
         public int ServiceId { get; set; }
+
+        [DisplayFormat(DataFormatString ="{0:MM/dd/yyyy}")]
         public DateTime ServiceStartDate { get; set; }
         public string ZipCode { get; set; }
         public decimal? ServiceHourlyRate { get; set; }
