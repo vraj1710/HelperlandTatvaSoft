@@ -1,0 +1,27 @@
+﻿@model helperland_1.Models.upcomingservicelist
+
+<div class="col-sm-6">
+    <div class="vr">
+        <p class="m-0 font-weight-bold">10/02/2012 12:00-1:00</p>
+        <p><span>Duration : </span> @Model.ServiceHours hrs</p>
+    </div>
+    <div class="vr">
+        <p><span>ServiceId : </span> @Model.ServiceId</p>
+        <p><span>Extras : </span></p>
+        <p><span>Total Payment : </span>$@Model.SubTotal</p>
+    </div>
+    <div class="vr">
+        <p><span>Customer Name : </span>@Model.FirstName @Model.LastName</p>
+        <p><span>Service Address : </span>@Model.AddressLine2, @Model.AddressLine1</p>
+        <p><span>Distance : </span>27m</p>
+    </div>
+    <div class="vr">
+        <p><span>comments</span></p>
+        <p>@Model.Comments</p>
+    </div>
+   
+</div>
+<div class="col-sm-6">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.697915724384!2d72.49824711400726!3d23.034861321651203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8352e403437b%3A0xdc9d4dae36889fb9!2sTatvaSoft!5e0!3m2!1sen!2sin!4v1646805036684!5m2!1sen!2sin"
+            width="100%" height="400px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>

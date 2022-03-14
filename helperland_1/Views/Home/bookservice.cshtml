@@ -193,7 +193,7 @@
                             <p>where do you need a cleaner?</p>
                             <div class="d-flex">
                                 <div class="m-1">
-                                    <input type="date" name="date" placeholder="date" id="date" required>
+                                    <input type="date" id="txtDate" name="txtDate" placeholder="date">
 
                                 </div>
                                 <div class="m-1">
@@ -633,7 +633,10 @@
             crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("txtDate")[0].setAttribute('min', today);
+    </script>
     <script>
  
         $(document).on("click", "#list-messages-list",function(){
@@ -692,12 +695,13 @@
             book.Comments = $("#comment").val();
             book.extraId = parseInt($("#cabinets").attr("target") + $("#fridge").attr("target") + $("#oven").attr("target") + $("#wash").attr("target") + $("#windows").attr("target"));
            
-           // DateTime newDateTime = Convert.ToDateTime(one).Add(TimeSpan.Parse(two));
+            //DateTime newDateTime = Convert.ToDateTime(one).Add(TimeSpan.Parse(two));
             book.AddId = parseInt($("#addressradio:checked").val());
             book.ZipCode = $("#postal-code").val();
-           // book.Date = parseInt($("#date").val());
-          //  book.Time = parseInt($("#time").val());
-            book.ServiceStartDate = $("#date").val();
+            //book.Date = $("#txtDate").val();
+            //book.Time = $("#time").val();
+            book.Date = $("#txtDate").val() +" "+ $("#time").val();
+            //book.ServiceStartDate = $("#txtDate").val();
             book.SubTotal = parseFloat($("#total_price_1").text());
             book.TotalCost =parseFloat($("#total_price_2").text());
             book.ServiceHours = parseFloat($("#total_time").text());

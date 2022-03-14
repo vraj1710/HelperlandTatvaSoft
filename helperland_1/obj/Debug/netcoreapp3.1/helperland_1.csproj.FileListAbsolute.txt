@@ -648,3 +648,13 @@ D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\favpro
 D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\addresstab.cshtml.g.cs
 D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\editaddress.cshtml.g.cs
 D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\Detailsmodal.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\upcomingservice.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\upcomingsetting.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\upcomingservicetab.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\blockcustomer.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\ratings.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\USservicehistory.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_popup.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_firsttabpopup.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_upcomingshpopup.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ratespmodel.cshtml.g.cs

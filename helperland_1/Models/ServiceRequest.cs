@@ -14,6 +14,7 @@ namespace helperland_1.Models
             Ratings = new HashSet<Rating>();
             ServiceRequestAddresses = new HashSet<ServiceRequestAddress>();
             ServiceRequestExtras = new HashSet<ServiceRequestExtra>();
+   
         }
         [NotMapped]
         public int extraId { get; set; }
@@ -21,7 +22,16 @@ namespace helperland_1.Models
         public int AddId { get; set; }
 
         [NotMapped]
-        public int Date { get; set; }
+        public string Date { get; set; }
+
+        [NotMapped]
+        public int QualityOfService { get; set; }
+        [NotMapped]
+        public int Friendly { get; set; }
+        [NotMapped]
+        public int OnTimeArrival { get; set; }
+        [NotMapped]
+        public int Ratee { get; set; }
 
         [NotMapped]
         public string Time { get; set; }

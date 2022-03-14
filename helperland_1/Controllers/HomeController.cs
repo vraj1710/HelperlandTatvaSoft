@@ -131,12 +131,29 @@ namespace helperland_1.Controllers
         {
             //  var get_user = _DbContext.Users.FirstOrDefault(p => p.Email.Equals(user.Email) && p.Password.Equals(user.Password));
             var get_user = _DbContext.Users.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
+
             if (get_user != null)
             {
-                HttpContext.Session.SetInt32("userid", get_user.UserId);
-                HttpContext.Session.SetString("username", get_user.FirstName + " " + get_user.LastName);
-                return RedirectToAction("aboutus");
+                if (get_user.UserTypeId == 1)
+                {
+                    HttpContext.Session.SetInt32("userid", get_user.UserId);
+                    HttpContext.Session.SetString("username", get_user.FirstName + " " + get_user.LastName);
+                    HttpContext.Session.SetInt32("usertypeid", get_user.UserTypeId);
+                    return RedirectToAction("index");
+                }
+                else if (get_user.UserTypeId == 2)
+                {
+                    HttpContext.Session.SetInt32("userid", get_user.UserId);
+                    HttpContext.Session.SetString("username", get_user.FirstName + " " + get_user.LastName);
+                    HttpContext.Session.SetInt32("usertypeid", get_user.UserTypeId);
+                    return RedirectToAction("upcomingsetting");
+                }
+                else
+                {
+                    return RedirectToAction("aboutus");
+                }
             }
+
             else
             {
                 TempData["error"] = "wrong user id and password";
@@ -245,7 +262,10 @@ namespace helperland_1.Controllers
         [HttpPost]
         public string address([FromBody] UserAddress address)
         {
-            address.UserId = (int)HttpContext.Session.GetInt32("userid");
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            address.UserId = a;
+            address.Email = u.Email;
             _DbContext.UserAddresses.Add(address);
             _DbContext.SaveChanges();
             return "true";
@@ -272,10 +292,13 @@ namespace helperland_1.Controllers
         {
             //string one = "2019-02-06";
             //string two = book.Time;
+           //var xx = book.Date;
             //DateTime newDateTime = Convert.ToDateTime(book.Date).Add(TimeSpan.Parse(book.Time));
             //book.ServiceStartDate = newDateTime;
+           // DateTime orderDateTime = xx.ToDateTime(book.Time);
             book.UserId = (int)HttpContext.Session.GetInt32("userid");
             book.ServiceId = 8211;
+            book.ServiceStartDate =DateTime.Parse(book.Date);
             _DbContext.ServiceRequests.Add(book);
             _DbContext.SaveChanges();
 
@@ -348,7 +371,7 @@ namespace helperland_1.Controllers
             //var1.serviceRequests = _DbContext.ServiceRequests.Where(x => x.UserId == a).ToList();
             //var1.users = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
             //List<UserAddress> u = _DbContext.UserAddresses.Where(x => x.UserId == a).ToList();
-            List<ServiceRequest> x = _DbContext.ServiceRequests.Where(x => x.UserId == a && x.Status== null ).ToList();                                                                                                     
+            List<ServiceRequest> x = _DbContext.ServiceRequests.Where(x => x.UserId == a && x.Status == null).ToList();
             return View(x);
         }
 
@@ -356,9 +379,28 @@ namespace helperland_1.Controllers
         public IActionResult SRservicehistory()
         {
             var a = (int)HttpContext.Session.GetInt32("userid");
-            List<ServiceRequest> x = _DbContext.ServiceRequests.Where(x => x.UserId == a && x.Status != null).ToList();
-            return View(x);
-          
+            //List<ServiceRequest> x = _DbContext.ServiceRequests.Where(x => x.UserId == a && x.Status != null).ToList();
+
+            var query = from sr in _DbContext.ServiceRequests
+                        join user in _DbContext.Users on sr.ServiceProviderId equals user.UserId into x
+                        from user in x.DefaultIfEmpty()
+                        join r in _DbContext.Ratings on sr.ServiceRequestId equals r.ServiceRequestId into abc
+                        from rate in abc.DefaultIfEmpty()
+                        where sr.UserId == a && sr.Status != null
+                        select new Ratingcustom
+                        {
+                            ServiceId=sr.ServiceId,
+                            ServiceStartDate = sr.ServiceStartDate,
+                            Ratings = rate == null ? 0 : rate.Ratings,
+                            TotalCost = sr.TotalCost,
+                            Status = sr.Status,
+                            ServiceProviderId = sr.ServiceProviderId,
+                            ServiceRequestId = sr.ServiceRequestId,
+                            FirstName = user == null ? "" : user.FirstName,
+                            LastName = user == null ? "" : user.LastName
+                        };
+            return View(query);
+
         }
 
         public IActionResult myseetings()
@@ -386,21 +428,19 @@ namespace helperland_1.Controllers
 
         public string changepassword([FromBody] User pass)
         {
-            if (ModelState.IsValid)
-            {
-                var a = (int)HttpContext.Session.GetInt32("userid");
-                User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
-                if (u.Password == pass.Password)
-                {
-                    u.Password = pass.Newpassword;
-                    _DbContext.Users.Update(u);
-                    _DbContext.SaveChanges();
-                    return "true";
-                }
-                return "false";
 
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            if (u.Password == pass.Password)
+            {
+                u.Password = pass.Newpassword;
+                _DbContext.Users.Update(u);
+                _DbContext.SaveChanges();
+                return "true";
             }
             return "false";
+
+
         }
 
 
@@ -449,21 +489,21 @@ namespace helperland_1.Controllers
         public IActionResult Detailsmodal(int zip)
         {
             var query = (from ServiceRequest in _DbContext.ServiceRequests
-                        join ServiceRequestAddress in _DbContext.ServiceRequestAddresses on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
-                        where ServiceRequest.ServiceRequestId == zip
-                        select new custommodal
-                        {
-                           ServiceRequestId = ServiceRequest.ServiceRequestId,
-                           ServiceStartDate= ServiceRequest.ServiceStartDate,
-                           SubTotal = ServiceRequest.SubTotal,
-                           AddressLine1 = ServiceRequestAddress.AddressLine1,
-                           AddressLine2 = ServiceRequestAddress.AddressLine2,
-                           Email = ServiceRequestAddress.Email,
-                           Mobile = ServiceRequestAddress.Mobile,
-                           ServiceHours = ServiceRequest.ServiceHours,
-                           HasPets = ServiceRequest.HasPets
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         where ServiceRequest.ServiceRequestId == zip
+                         select new custommodal
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             SubTotal = ServiceRequest.SubTotal,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             Email = ServiceRequestAddress.Email,
+                             Mobile = ServiceRequestAddress.Mobile,
+                             ServiceHours = ServiceRequest.ServiceHours,
+                             HasPets = ServiceRequest.HasPets
 
-                        }).Single();
+                         }).Single();
 
 
             return View(query);
@@ -478,7 +518,7 @@ namespace helperland_1.Controllers
             _DbContext.SaveChanges();
 
 
-             var query = from u in _DbContext.Users
+            var query = from u in _DbContext.Users
                         where u.UserTypeId == 2
                         select u.Email;
 
@@ -505,6 +545,456 @@ namespace helperland_1.Controllers
 
             return query;
         }
+
+
+
+        public IActionResult upcomingservice()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+
+
+            //var query = (from ServiceRequest in _DbContext.ServiceRequests
+            //             join ServiceRequestAddress in _DbContext.ServiceRequestAddresses on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+            //             where ServiceRequest.ServiceRequestId == zip
+            //             select new custommodal
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+                         on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+                         where ServiceRequest.ZipCode == u.ZipCode && ServiceRequest.ServiceProviderId == null 
+                         select new upcomingservicelist
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceId = ServiceRequest.ServiceId,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             FirstName = user.FirstName,
+                             LastName = user.LastName,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             ZipCode = ServiceRequest.ZipCode,
+                             SubTotal = ServiceRequest.SubTotal,
+                             City = ServiceRequestAddress.City
+                         }).ToList();
+
+            return View(query);
+        }
+
+        public IActionResult _firsttabpopup(int id)
+        {
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+                         on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+                         where ServiceRequest.ServiceRequestId == id
+                         select new upcomingservicelist
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceId = ServiceRequest.ServiceId,
+                             ServiceHours = ServiceRequest.ServiceHours,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             FirstName = user.FirstName,
+                             LastName = user.LastName,
+                             Comments = ServiceRequest.Comments,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             ZipCode = ServiceRequest.ZipCode,
+                             SubTotal = ServiceRequest.SubTotal,
+                             City = ServiceRequestAddress.City
+                         }).Single();
+
+            return PartialView(query);
+
+        }
+
+
+        //0 = cancel
+        //1 = complete
+        //2 = pending
+        public string acceptservice(int id)
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User user = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            // var x = user.Email;
+            ServiceRequest sr = _DbContext.ServiceRequests.Where(x => x.ServiceRequestId == id).FirstOrDefault();
+            sr.ServiceProviderId = a;
+            sr.Status = 2;
+            sr.SpacceptedDate = DateTime.Now;
+            _DbContext.ServiceRequests.Update(sr);
+            _DbContext.SaveChanges();
+
+            var query = from u in _DbContext.Users
+                        where u.UserTypeId == 2 && u.Email != user.Email
+                        select u.Email;
+
+            MailMessage ms = new MailMessage();
+
+            ms.From = new MailAddress("180320107554.ce.vraj@gmail.com");
+            ms.Subject = "accept";
+            ms.Body = "service request is accept";
+            foreach (var item in query)
+            {
+                ms.To.Add(new MailAddress(item));
+            }
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+
+
+            NetworkCredential NetworkCred = new NetworkCredential("180320107554.ce.vraj@gmail.com", "vraj@2000");
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Send(ms);
+
+            return "true";
+        }
+
+        public IActionResult upcomingsetting()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+
+            USmysetting var1 = new USmysetting();
+            var1.Users = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            var1.UserAddresses = _DbContext.UserAddresses.Where(x => x.UserId == a).FirstOrDefault();
+            return View(var1);
+        }
+        [HttpPost]
+        public IActionResult upcomingsetting(USmysetting detail)
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            var y = HttpContext.Request.Form["radioInput"];
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            u.Gender = Int16.Parse(y);
+            u.FirstName = detail.Users.FirstName;
+            u.LastName = detail.Users.LastName;
+            u.Mobile = detail.Users.Mobile;
+            u.ZipCode = detail.UserAddresses.PostalCode;
+            u.DateOfBirth = detail.Users.DateOfBirth;
+            _DbContext.Users.Update(u);
+            _DbContext.SaveChanges();
+
+
+
+            UserAddress add = _DbContext.UserAddresses.Where(x => x.UserId == a).FirstOrDefault();
+            if (add != null)
+            {
+
+                add.AddressLine1 = detail.UserAddresses.AddressLine1;
+                add.AddressLine2 = detail.UserAddresses.AddressLine2;
+                add.City = detail.UserAddresses.City;
+                add.PostalCode = detail.UserAddresses.PostalCode;
+                add.Mobile = detail.Users.Mobile;
+                _DbContext.UserAddresses.Update(add);
+                _DbContext.SaveChanges();
+            }
+            else
+            {
+                UserAddress ua = new UserAddress();
+                ua.UserId = a;
+                ua.AddressLine1 = detail.UserAddresses.AddressLine1;
+                ua.AddressLine2 = detail.UserAddresses.AddressLine2;
+                ua.City = detail.UserAddresses.City;
+                ua.PostalCode = detail.UserAddresses.PostalCode;
+                ua.Mobile = detail.Users.Mobile;
+                ua.Email = u.Email;
+                _DbContext.UserAddresses.Add(ua);
+                _DbContext.SaveChanges();
+
+            }
+
+            HttpContext.Session.SetString("username", u.FirstName + " " + u.LastName);
+            TempData["error"] = "updated";
+            return View();
+
+            //userData.Password = user.Password;s
+            //_DbContext.Users.Update(userData);
+            //_DbContext.SaveChanges();
+        }
+
+        public string USchangepassword([FromBody] User pass)
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+            if (u.Password == pass.Password)
+            {
+                u.Password = pass.Newpassword;
+                _DbContext.Users.Update(u);
+                _DbContext.SaveChanges();
+                return "true";
+            }
+            return "false";
+
+        }
+
+        public IActionResult upcomingservicetab()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            User u = _DbContext.Users.Where(x => x.UserId == a).FirstOrDefault();
+
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+                         on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+                         where ServiceRequest.ServiceProviderId == a && ServiceRequest.Status == 2
+                         select new upcomingservicelist
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceId = ServiceRequest.ServiceId,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             FirstName = user.FirstName,
+                             LastName = user.LastName,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             ZipCode = ServiceRequest.ZipCode,
+                             SubTotal = ServiceRequest.SubTotal,
+                             City = ServiceRequestAddress.City
+                         }).ToList();
+            return View(query);
+        }
+
+
+        public string cancelservicerequest(int id)
+        {
+            // var a = (int)HttpContext.Session.GetInt32("userid");
+            ServiceRequest sr = _DbContext.ServiceRequests.Where(x => x.ServiceRequestId == id).FirstOrDefault();
+            sr.ServiceProviderId = null;
+            sr.SpacceptedDate = DateTime.Now;
+            sr.Status = null;
+            _DbContext.ServiceRequests.Update(sr);
+            _DbContext.SaveChanges();
+
+            return "true";
+        }
+
+        public IActionResult blockcustomer()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            //var query = (from ServiceRequest in _DbContext.ServiceRequests
+            //             join User in _DbContext.Users
+            //             on ServiceRequest.UserId equals User.UserId 
+            //             where ServiceRequest.ServiceProviderId == a
+            //             select new blockcustom
+            //             {
+            //                 FirstName=User.FirstName,
+            //                 LastName=User.LastName
+            //             }).ToList();
+            //return View(query);
+
+            //var query = (from ServiceRequest in _DbContext.ServiceRequests
+            //             join User in _DbContext.Users
+            //             on ServiceRequest.UserId equals User.UserId
+            //             join FavoriteAndBlocked in _DbContext.FavoriteAndBlockeds
+            //             on ServiceRequest.UserId equals FavoriteAndBlocked.TargetUserId into abc
+            //             from FavoriteAndBlocked in abc.DefaultIfEmpty()
+            //             where ServiceRequest.ServiceProviderId == a
+            //             select new blockcustom
+            //             {
+            //                 FirstName = User.FirstName,
+            //                 LastName = User.LastName,
+            //                 IsBlocked = FavoriteAndBlocked.IsBlocked,
+            //                 UserId = User.UserId
+
+            //             }).ToList();
+
+            var query= (from user in _DbContext.Users
+                       join FavoriteAndBlocked in _DbContext.FavoriteAndBlockeds
+                       on user.UserId equals FavoriteAndBlocked.TargetUserId
+                       where FavoriteAndBlocked.UserId == a
+                       select new blockcustom
+                        {
+                            Id=FavoriteAndBlocked.Id,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            IsBlocked = FavoriteAndBlocked.IsBlocked,
+                            UserId = user.UserId
+                        }).ToList();
+
+            return View(query);
+        }
+        public IActionResult USservicehistory()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+                         on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+                         where ServiceRequest.ServiceProviderId == a && ServiceRequest.Status == 1
+                         select new upcomingservicelist
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceId = ServiceRequest.ServiceId,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             FirstName = user.FirstName,
+                             LastName = user.LastName,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             ZipCode = ServiceRequest.ZipCode,
+                             SubTotal = ServiceRequest.SubTotal,
+                             City = ServiceRequestAddress.City
+                         }).ToList();
+            return View(query);
+        }
+
+        public IActionResult _upcomingshpopup(int id)
+        {
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+                         on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+                         where ServiceRequest.ServiceRequestId == id
+                         select new upcomingservicelist
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceId = ServiceRequest.ServiceId,
+                             ServiceHours = ServiceRequest.ServiceHours,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             FirstName = user.FirstName,
+                             LastName = user.LastName,
+                             Comments = ServiceRequest.Comments,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             ZipCode = ServiceRequest.ZipCode,
+                             SubTotal = ServiceRequest.SubTotal,
+                             City = ServiceRequestAddress.City
+                         }).Single();
+
+            return PartialView(query);
+           
+        }
+        public IActionResult ratings()
+        {
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            //from ServiceRequest in _DbContext.ServiceRequests
+            //join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+            //on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+            //join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+            //where ServiceRequest.ServiceProviderId == a
+            //select new upcomingservicelist
+            var query = (from User in _DbContext.Users
+                         join Rating in _DbContext.Ratings
+                         on User.UserId equals Rating.RatingFrom
+                         join ServiceRequest in _DbContext.ServiceRequests
+                         on Rating.ServiceRequestId equals ServiceRequest.ServiceRequestId
+                         where Rating.RatingTo == a
+                         select new Ratingcustom
+                         {
+                             ServiceId = ServiceRequest.ServiceId,
+                             FirstName = User.FirstName,
+                             LastName = User.LastName,
+                             RatingDate = (DateTime)Rating.RatingDate,
+                             Ratings = Rating.Ratings,
+                             Comments = Rating.Comments
+                         }).ToList();
+
+            return View(query);
+        }
+
+        public IActionResult _popup(int id)
+        {
+            //UserAddress getaddress = _DbContext.UserAddresses.Where(x => x.AddressId == id).FirstOrDefault();
+            //return View(getaddress);
+            var query = (from ServiceRequest in _DbContext.ServiceRequests
+                         join ServiceRequestAddress in _DbContext.ServiceRequestAddresses
+                         on ServiceRequest.ServiceRequestId equals ServiceRequestAddress.ServiceRequestId
+                         join user in _DbContext.Users on ServiceRequest.UserId equals user.UserId
+                         where ServiceRequest.ServiceRequestId == id
+                         select new upcomingservicelist
+                         {
+                             ServiceRequestId = ServiceRequest.ServiceRequestId,
+                             ServiceId = ServiceRequest.ServiceId,
+                             ServiceHours = ServiceRequest.ServiceHours,
+                             ServiceStartDate = ServiceRequest.ServiceStartDate,
+                             FirstName = user.FirstName,
+                             LastName = user.LastName,
+                             Comments = ServiceRequest.Comments,
+                             AddressLine1 = ServiceRequestAddress.AddressLine1,
+                             AddressLine2 = ServiceRequestAddress.AddressLine2,
+                             ZipCode = ServiceRequest.ZipCode,
+                             SubTotal = ServiceRequest.SubTotal,
+                             City = ServiceRequestAddress.City
+                         }).Single();
+
+            return PartialView(query);
+        }
+
+        public string completeservice(int id)
+        {
+            ServiceRequest sr = _DbContext.ServiceRequests.Where(x => x.ServiceRequestId == id).FirstOrDefault();
+            sr.Status = 1;
+            _DbContext.ServiceRequests.Update(sr);
+            _DbContext.SaveChanges();
+
+            var aa = _DbContext.FavoriteAndBlockeds.Where(x => x.UserId == sr.ServiceProviderId && x.TargetUserId == sr.UserId).FirstOrDefault();
+
+            if(aa==null)
+            {
+                FavoriteAndBlocked fav = new FavoriteAndBlocked();
+                fav.UserId = (int)sr.ServiceProviderId;
+                fav.TargetUserId = sr.UserId;
+                fav.IsFavorite = false;
+                fav.IsBlocked = false;
+                _DbContext.FavoriteAndBlockeds.Add(fav);
+                _DbContext.SaveChanges();
+            }
+
+
+            return "true";
+        }
+
+        public IActionResult blockcust(int id)
+        {
+            var b = _DbContext.FavoriteAndBlockeds.Where(x => x.Id == id).FirstOrDefault();
+            b.IsBlocked =true;
+            _DbContext.FavoriteAndBlockeds.Update(b);
+            _DbContext.SaveChanges();
+            return RedirectToAction("blockcustomer");
+        }
+
+        public IActionResult unblockcust(int id)
+        {
+            var b = _DbContext.FavoriteAndBlockeds.Where(x => x.Id == id).FirstOrDefault();
+            b.IsBlocked = false;
+            _DbContext.FavoriteAndBlockeds.Update(b);
+            _DbContext.SaveChanges();
+            return RedirectToAction("blockcustomer");
+          
+        }
+
+        public IActionResult _ratespmodel(int spid)
+        {
+            User u = _DbContext.Users.Where(x => x.UserId == spid).FirstOrDefault();
+            return PartialView(u);
+        }
+
+        public string rateserviceprovider([FromBody] Rating rate)
+        {
+
+            var a = (int)HttpContext.Session.GetInt32("userid");
+            Rating r = _DbContext.Ratings.Where(x => x.ServiceRequestId == rate.ServiceRequestId).FirstOrDefault();
+
+            if (r != null)
+            {
+                r.Ratings = rate.Ratings;
+                r.Comments = rate.Comments;
+                r.Friendly = rate.Friendly;
+                r.OnTimeArrival = rate.OnTimeArrival;
+                r.QualityOfService = rate.QualityOfService;
+                r.RatingDate = DateTime.Now;
+                _DbContext.Ratings.Update(r);
+            }
+            else
+            {
+                rate.RatingFrom = a;
+                rate.RatingDate = DateTime.Now;
+                _DbContext.Ratings.Add(rate);
+            }
+            _DbContext.SaveChanges();
+            return "true";
+        }
+
 
     }
 }
