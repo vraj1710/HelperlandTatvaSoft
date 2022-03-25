@@ -8,11 +8,62 @@
 @model helperland_1.Models.custommodal
 
 <div class="CalLeft">
-    <h4>@Model.ServiceStartDate.ToShortDateString() 09:00 -14:30</h4>
+    <h4>@Model.ServiceStartDate.ToShortDateString() @Model.ServiceStartDate.ToShortTimeString()</h4>
     <p><b>Duration:</b>@Model.ServiceHours hrs</p>
     <hr>
     <p><b>Service Id:</b>@Model.ServiceId </p>
-    <p><b>Extras:</b>Inside cabinets, Inside fridge, Inside oven, Laundry wash & dry, Interior windows</p>
+    @*<p><b>Extras:</b>Inside cabinets, Inside fridge, Inside oven, Laundry wash & dry, Interior windows</p>*@
+
+
+    @{
+
+        int num = Model.ServiceExtraId;
+        String s = num.ToString();
+        String vr = "";
+        for (int i = 0; i < 5; i++)
+        {
+
+            String ch = s.Substring(i, 1);
+            int xx = int.Parse(ch);
+            Console.WriteLine(ch);
+            Console.WriteLine(xx);
+
+            switch (xx)
+            {
+                case 0:
+                    vr = vr + " ";
+                    break;
+
+                case 1:
+                    vr = vr +" ,"+ "Inside cabinets";
+                    break;
+
+                case 2:
+                    vr = vr + " ," + "Inside fridge";
+                    break;
+                case 3:
+                    vr = vr + " ," + "Inside oven";
+                    break;
+                case 4:
+                    vr = vr + " ," + "Laundry wash & dry";
+                    break;
+                case 5:
+                    vr = vr + " ," + "Interior windows";
+                    break;
+                default:
+                    vr = "error";
+                    break;
+            }
+
+
+        }
+    }
+
+    <p>
+        <b>Extras: @vr</b>
+
+
+    </p>
     <p>
         <b>Net Amount:</b>
         <spna class="currency fw-bolder">@Model.SubTotal €</spna>
@@ -27,14 +78,18 @@
     <div>
         <p>Hello</p>
     </div>
-    
+
     @if (x == true)
     {
-        <p>I have pets at home:</p>
+        <p style="margin-bottom: 16px;">I have pets at home:</p>
 
     }
     else
     {
-        <p>I don't have pets at home:</p>
+        <p style="margin-bottom: 16px;">I don't have pets at home:</p>
     }
+    <span class="main-btn  text-center mb-3" style="margin-top:20px;">
+        <a data-dismiss="modal" data-toggle="modal" data-target="#rescheduleClick" srid="@Model.ServiceRequestId" role="button" class="reschedule-btn rounded-pill text-light text-decoration-none">Reschedule</a>
+        <a data-dismiss="modal" data-toggle="modal" data-target="#cancelClick" srid="@Model.ServiceRequestId" role="button" class="cancel1 rounded-pill text-light text-decoration-none cancel-btn">Cancel</a>
+    </span>
 </div>

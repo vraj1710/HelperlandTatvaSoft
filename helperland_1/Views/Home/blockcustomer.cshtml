@@ -166,25 +166,25 @@
                             <div class="dataOfCust mb-3 rounded-circle d-flex align-items-center justify-content-center">
                                 <img src="~/images/cap.png">
                             </div>
-                            <p class="mb-3">@item.FirstName @item.LastName @item.IsBlocked @item.Id</p>
+                            <p class="mb-3">@item.FirstName @item.LastName</p>
                             <div class="text-center d-flex flex-row">
                                 @if (item.IsBlocked == false)
                                 {
-                                <a asp-action="blockcust" asp-route-id="@item.Id">
-                                    <button role="button" class="rounded-pill text-light d-flex text-decoration-none cancel-btn px-4">
-                                        Block
-                                    </button>
-                                    
-                                </a>
+                                    <a asp-action="blockcust" asp-route-id="@item.Id">
+                                        <button role="button" class="rounded-pill text-light d-flex text-decoration-none cancel-btn px-4">
+                                            Block
+                                        </button>
+
+                                    </a>
                                 }
                                 else
                                 {
-                                <a  asp-action="unblockcust" asp-route-id="@item.Id">
-                                    <button role="button" class="rounded-pill text-light d-flex text-decoration-none cancel-btn px-4" style="background-color:black;">
-                                        UnBlock
-                                    </button>
-                                </a>
-                                  
+                                    <a asp-action="unblockcust" asp-route-id="@item.Id">
+                                        <button role="button" class="rounded-pill text-light d-flex text-decoration-none cancel-btn px-4" style="background-color:black;">
+                                            UnBlock
+                                        </button>
+                                    </a>
+
                                 }
                             </div>
                         </div>
@@ -299,6 +299,15 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
     <script type="text/javascript">
         $('#tab1').DataTable({
             "aaSorting": [],

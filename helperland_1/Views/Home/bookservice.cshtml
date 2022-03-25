@@ -718,7 +718,11 @@
                 success: function (resp) {
                     $("#vraj").html(resp);
                     $("#successmodal").trigger("click");
-                 // alert("Data has been added successfully.");
+                    setTimeout(
+                        function () {
+                            window.location.reload(true);
+                        }, 2000);
+
 
                 },
                 error: function (err) {

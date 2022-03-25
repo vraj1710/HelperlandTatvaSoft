@@ -8,7 +8,7 @@ namespace helperland_1.Models
 {
     public class custommodal
     {
-      
+        public int ServiceExtraId { get; set; }
         public int ServiceRequestId { get; set; }
         public int UserId { get; set; }
         public int ServiceId { get; set; }

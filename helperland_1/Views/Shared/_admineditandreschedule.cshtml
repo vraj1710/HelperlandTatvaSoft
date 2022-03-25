@@ -1,0 +1,98 @@
+﻿@model helperland_1.Models.upcomingservicelist
+
+<form action="">
+    <div class="row mb-3">
+        <div class="col-sm-6">
+            <div class="form-group d-flex flex-column">
+                <label for="editDateModal" class="control-label fw-bold">Date</label>
+                <input type="date" asp-for="ServiceStartDate" id="date"  class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group d-flex flex-column">
+                <label for="editDateTime" class="control-label fw-bold">Time</label>
+                @*<select name="editDateTime" id="" class="height border">
+                    <option value="8:00">8:00</option>
+                    <option value="9:00">9:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                </select>*@
+            <input type="time" class="height border" id="time" />
+            </div>
+        </div>
+    </div>
+    <label for="" class="control-label fw-bold mb-2">Service Address</label>
+    <div class="row mb-3">
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="streetNameModal" class="control-label bond">Street name</label>
+                <input type="text" asp-for="AddressLine1" id="addline1" class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="houseNumberEdit" class="control-label bond">House number</label>
+                <input type="text" asp-for="AddressLine2" id="addline2"class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="postalCodeEdit" class="control-label bond">Postal code</label>
+                <input type="text" asp-for="ZipCode" id="zipc" class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="cityEdit"  class="control-label bond">City</label>
+                @*<select id="cityNames" name="cityNames" class="height border">
+            <option value="TD" disabled selected>Ahmedabad</option>
+            <option value="delhi">Delhi</option>
+            <option value="bangalore">Bangalore</option>
+        </select>*@
+                <input type="text" asp-for="City" id="city1" class="height border">
+
+            </div>
+        </div>
+    </div>
+    <label for="" class="control-label fw-bold mb-2">Invoice Address</label>
+    <div class="row mb-3">
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="streetNameModal" class="control-label bond">Street name</label>
+                <input type="text" name="streetNameModal" class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="houseNumberEdit" class="control-label bond">House number</label>
+                <input type="text" name="houseNumberEdit" class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="postalCodeEdit" class="control-label bond">Postal code</label>
+                <input type="text" name="postalCodeEdit" class="height border">
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="form-group d-flex flex-column">
+                <label for="cityEdit" class="control-label bond">City</label>
+                <select id="cityNames" name="cityNames" class="height border">
+                    <option value="TD" disabled selected>Ahmedabad</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="bangalore">Bangalore</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group d-flex flex-column mb-3">
+        <label for="reasonScheduleEdit" class="fw-bold">Why do you want to reschedule service request?</label>
+        <textarea name="reasonScheduleEdit" id="reason" rows="3" maxlength="500" placeholder="Why do you want to reschedule service request?" class="bdr2 p-2"></textarea>
+    </div>
+    <div class="form-group d-flex flex-column mb-3">
+        <label for="reasonScheduleEdit" class="fw-bold">Call Center EMP Notes</label>
+        <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Enter notes" class="bdr2 p-2"></textarea>
+    </div>
+    <button type="button" class="btn updateBtn w-100" style="background-color: #1FB6FF; color: white; " >Update</button>
+</form>

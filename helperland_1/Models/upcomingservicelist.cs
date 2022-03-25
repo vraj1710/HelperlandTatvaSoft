@@ -10,6 +10,10 @@ namespace helperland_1.Models
         public int UserId { get; set; }    
         public string FirstName { get; set; }     
         public string LastName { get; set; }
+
+        public int usertypeid { get; set; }
+        public string spFirstName { get; set; }
+        public string spLastName { get; set; }
         public int ServiceRequestId { get; set; }    
         public int ServiceId { get; set; }
         public string Comments { get; set; }
@@ -35,5 +39,7 @@ namespace helperland_1.Models
         public string PostalCode { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
+        public string Date { get; set; }
+        public decimal? Ratings { get; set; }
     }
 }

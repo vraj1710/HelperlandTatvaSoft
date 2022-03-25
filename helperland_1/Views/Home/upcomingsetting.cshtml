@@ -208,7 +208,7 @@
                                         <label for="firstname">Mobile Number</label>
                                         <div class="d-flex">
                                             <input type="text" value="+91" readonly style="max-width: 52px;" class="ht bll pdd form-control">
-                                            <input type="text" asp-for="Users.Mobile" id="us3" class="ht bll pdd form-control">
+                                            <input type="text" asp-for="Users.Mobile" id="us3" class="ht bll pdd form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@
                                         <div class="d-flex flex-column">
                                             <label for="birthdate">Date Of Birth</label>
                                             <div class="d-flex">
-                                                <input type="date" asp-for="Users.DateOfBirth" id="us4" class="ht bll pdd form-control">
+                                                <input type="date" asp-for="Users.DateOfBirth" id="us4" class="ht bll pdd form-control" required>
                                             </div>
 
                                         </div>
@@ -246,15 +246,18 @@
                                     <div class="">
 
                                         <div class="form-check form-check-inline d-inline mx-2 ms-0">
-                                            <input class="form-check-input" type="radio" value="1" id="male" name="radioInput" checked>
+                                            @*<input class="form-check-input" type="radio" value="1" id="male" name="radioInput" checked>*@
+                                            <input class="form-check-input" type="radio" value="1" asp-for="Users.Gender">
                                             <label class="form-check-label genderrr">Male</label>
                                         </div>
                                         <div class="form-check form-check-inline d-inline mx-2">
-                                            <input class="form-check-input" type="radio" value="2" id="female" name="radioInput">
+                                            @*<input class="form-check-input" type="radio" value="2" id="female" name="radioInput">*@
+                                            <input class="form-check-input"type="radio" value="2" asp-for="Users.Gender">
                                             <label class="form-check-label genderrr" for="male">Female</label>
                                         </div>
                                         <div class="form-check form-check-inline d-inline mx-2">
-                                            <input class="form-check-input" type="radio" value="3" id="rathernottosay" name="radioInput">
+                                            @*<input class="form-check-input" type="radio" value="3" id="rathernottosay" name="radioInput">*@
+                                            <input class="form-check-input" type="radio"  value="3" asp-for="Users.Gender">
                                             <label class="form-check-label genderrr" for="rathernottosay">Rather Not To Say</label>
                                         </div>
                                     </div>
@@ -279,26 +282,26 @@
                                 <div class="col-md-4 mb-4 ">
                                     <div class="form-group d-flex flex-column">
                                         <label for="streetname">Street Name</label>
-                                        <input type="text" placeholder="Street Name" asp-for="UserAddresses.AddressLine1" id="ad1" class="ht bll pdd w-100">
+                                        <input type="text" placeholder="Street Name" asp-for="UserAddresses.AddressLine1" id="ad1" class="ht bll pdd w-100" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-4 ">
                                     <div class="form-group d-flex flex-column">
                                         <label for="housenumber">House number</label>
-                                        <input type="text" placeholder="House Number" asp-for="UserAddresses.AddressLine2" id="ad2" class="ht bll pdd w-100">
+                                        <input type="text" placeholder="House Number" asp-for="UserAddresses.AddressLine2" id="ad2" class="ht bll pdd w-100" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-4">
                                     <div class="form-group d-flex flex-column">
                                         <label for="postalcode">Postal Code</label>
-                                        <input type="text" placeholder="Postal Code" asp-for="UserAddresses.PostalCode" id="ad3" class="ht bll pdd w-100">
+                                        <input type="text" placeholder="Postal Code" asp-for="UserAddresses.PostalCode" id="ad3" class="ht bll pdd w-100" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group d-flex flex-column">
                                         <label for="city">City</label>
                                         <div class="d-inline-block">
-                                            <input type="text" asp-for="UserAddresses.City" id="ad4" class="ht bll pdd w-100" />
+                                            <input type="text" asp-for="UserAddresses.City" id="ad4" class="ht bll pdd w-100" required />
 
                                         </div>
                                     </div>
@@ -408,6 +411,15 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 
 
 
@@ -453,7 +465,11 @@
             pass.Confirmpassword = $("#confirmpassword").val();
             console.log(pass);
 
-            if (pass.Newpassword != pass.Confirmpassword) {
+            if (pass.Password == "" || pass.Newpassword == "" || pass.Confirmpassword == "") {
+                alert('cannot insert null value');
+            }
+            else if (pass.Newpassword != pass.Confirmpassword)
+            {
                 alert("password and confirm password does not match");
             }
             else

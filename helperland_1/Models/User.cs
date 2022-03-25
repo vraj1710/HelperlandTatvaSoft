@@ -32,6 +32,9 @@ namespace helperland_1.Models
         [Required]
         public string Email { get; set; }
 
+        [NotMapped]
+        public string extraEmail { get; set; }
+
         [Required]
         public string Password { get; set; }
 

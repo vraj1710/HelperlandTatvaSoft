@@ -658,3 +658,6 @@ D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_pop
 D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_firsttabpopup.cshtml.g.cs
 D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_upcomingshpopup.cshtml.g.cs
 D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ratespmodel.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\adminUM.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Home\adminSR.cshtml.g.cs
+D:\Tatva_Helperland\helperland_1\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_admineditandreschedule.cshtml.g.cs

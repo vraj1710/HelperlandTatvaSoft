@@ -118,6 +118,12 @@
             address.Mobile = $("#phonenumber").val();
             console.log(address);
 
+            if (address.AddressLine1 == "" || address.AddressLine2 == "" || address.PostalCode == "" || address.City == "" || address.Mobile == "") {
+                alert("cannot insert a null value")
+            }
+            else
+            {
+
             $.ajax({
 
                 url: '@Url.Action("address", "home")',
@@ -141,6 +147,8 @@
                 }
 
             });
+            }
+
         });
 
     </script>

@@ -112,15 +112,20 @@
                                     <h5 class="dropdown-item mb-0">welcome</h5>
                                     <strong class="dropdown-item">@username @usertypeid</strong>
                                     <div class="dropdown-divider"></div>
-                                    @if(usertypeid==1)
+                                    @if (usertypeid == 1)
                                     {
-                                    <a class="dropdown-item" asp-controller="home" asp-action="servicehistory">My dashboard</a>
-                                    <a class="dropdown-item" asp-controller="home" asp-action="myseetings">My settings</a>
+                                        <a class="dropdown-item" asp-controller="home" asp-action="servicehistory">My dashboard</a>
+                                        <a class="dropdown-item" asp-controller="home" asp-action="myseetings">My settings</a>
                                     }
-                                    @if(usertypeid==2)
+                                    @if (usertypeid == 2)
                                     {
-                                    <a class="dropdown-item" asp-controller="home" asp-action="upcomingservice">My Dashboard</a>
-                                    <a class="dropdown-item" asp-controller="home" asp-action="upcomingsetting">My Settings</a>
+                                        <a class="dropdown-item" asp-controller="home" asp-action="upcomingservice">My Dashboard</a>
+                                        <a class="dropdown-item" asp-controller="home" asp-action="upcomingsetting">My Settings</a>
+                                    }
+                                    @if (usertypeid == 3)
+                                    {
+                                        <a class="dropdown-item" asp-controller="home" asp-action="adminSR">Service Request</a>
+                                        <a class="dropdown-item" asp-controller="home" asp-action="adminUM">User management</a>
                                     }
                                     <a class="dropdown-item" asp-controller="home" asp-action="logout">logout</a>
                                 </div>
