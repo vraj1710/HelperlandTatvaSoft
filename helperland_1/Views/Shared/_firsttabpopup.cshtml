@@ -2,12 +2,57 @@
 
 <div class="col-sm-6">
     <div class="vr">
-        <p class="m-0 font-weight-bold">10/02/2012 12:00-1:00</p>
+        <p class="m-0 font-weight-bold">@Model.ServiceStartDate.ToShortDateString()</p>
         <p><span>Duration : </span> @Model.ServiceHours hrs</p>
     </div>
     <div class="vr">
         <p><span>ServiceId : </span> @Model.ServiceId</p>
-        <p><span>Extras : </span></p>
+
+        @{
+
+            int num = Model.ServiceExtraId;
+            String s = num.ToString();
+            String vr = "";
+            for (int i = 0; i < 5; i++)
+            {
+
+                String ch = s.Substring(i, 1);
+                int xx = int.Parse(ch);
+                Console.WriteLine(ch);
+                Console.WriteLine(xx);
+
+                switch (xx)
+                {
+                    case 0:
+                        vr = vr + "    ";
+                        break;
+
+                    case 1:
+                        vr = vr + "   " + "Inside-cabinets";
+                        break;
+
+                    case 2:
+                        vr = vr + "   " + "Inside-fridge";
+                        break;
+                    case 3:
+                        vr = vr + "   " + "Inside-oven";
+                        break;
+                    case 4:
+                        vr = vr + "  " + "Laundry-wash & dry";
+                        break;
+                    case 5:
+                        vr = vr + "   " + "Interior-windows";
+                        break;
+                    default:
+                        vr = "error";
+                        break;
+                }
+
+
+            }
+        }
+
+        <p><span>Extras : @vr </span></p>
         <p><span>Total Payment : </span>$@Model.SubTotal</p>
     </div>
     <div class="vr">

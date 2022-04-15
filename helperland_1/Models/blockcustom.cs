@@ -7,6 +7,8 @@ namespace helperland_1.Models
 {
     public class blockcustom
     {
+        public int totalconunt { get; set; }
+        public decimal? Ratings { get; set; }
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -26,7 +26,39 @@
     <title>Admin service request</title>
 </head>
 
-<body>
+<body class="p-0">
+    <style>
+        .refundPopModal .modal-dialog {
+            max-width: 600px;
+        }
+
+        .refundupdateBtn {
+            color: white;
+            background-color: #1fb6ff;
+        }
+
+        .va {
+            color: grey;
+        }
+        .ht {
+            min-height: 46px;
+            padding: 10px;
+        }
+
+        .bdr2 {
+            border: 1px solid #e1e1e1;
+            color: #646464;
+        }
+
+        label {
+            color: #646464;
+        }
+
+        .bld {
+            font-weight: 600;
+        }
+   
+    </style>
     <header class="admin-nav">
         <nav class="navbar">
             <div class="container-fluid align-items-center">
@@ -34,7 +66,7 @@
                 <div class="nav-right">
                     <a href="#">
                         <img src="~/images/admin-user.png" alt="">@username <img src="~/images/logout.png"
-                                                                                   alt="">
+                                                                                 alt="">
                     </a>
                 </div>
             </div>
@@ -68,13 +100,13 @@
                     <a href="#" id="">Escalation Management</a>
                 </li>
                 <li>
-                    <a href="#" id="">Service request</a>
+                    <a asp-controller="home" asp-action="adminSR">Service request</a>
                 </li>
                 <li>
                     <a href="#" id="">Service Providers</a>
                 </li>
                 <li>
-                    <a href="#" id="">user management</a>
+                    <a asp-controller="home" asp-action="adminUM">user management</a>
                 </li>
                 <li>
 
@@ -128,7 +160,7 @@
 
                 <input type="number" name="service-id" placeholder="service-id" id="service-id">
 
-                <input type="text" name="customer" placeholder="customer" id="customer">
+              
 
                 <input type="number" name="postalcode" placeholder="postal_code" id="postalcode">
 
@@ -149,8 +181,8 @@
                     <option value="cancelled">cancelled</option>
                 </select>
 
-                <input type="date" name="from-date" placeholder="from-date" id="from-date">
-                <input type="date" name="to-date" placeholder="to-date" id="to-date">
+                <input type="date" name="from-date" placeholder="from-date" id="min">
+                <input type="date" name="to-date" placeholder="to-date" id="max">
 
                 <a><button class="search" type="button" id="srch">Search</button></a>
                 <a><button class="clear" id="reset-btn">Clear</button></a>
@@ -175,8 +207,8 @@
                         <tr>
                             <td>@item.ServiceId</td>
                             <td>
-                                <img src="~/images/calendar2.png" alt="">@item.ServiceStartDate.ToShortDateString()<br>
-                                <img src="~/images/layer-14.png" alt="">12:00-18:00
+                                <img src="~/images/calendar2.png" alt="">@item.ServiceStartDate.ToString("yyyy/MM/dd")<br>
+                                @* <img src="~/images/layer-14.png" alt="">12:00-18:00*@
                             </td>
 
                             <td>
@@ -197,7 +229,7 @@
                             </td>
                             <td>@item.FirstName @item.LastName<br> <img src="~/images/layer-15.png" alt="">@item.AddressLine2 @item.AddressLine1 ,@item.ZipCode,@item.City</td>
 
-                            @if (item.Status == null)
+                            @if (item.Status == null && item.ServiceStartDate > DateTime.Now)
                             {
                                 <td></td>
                                 <td><button class="new">new</button> </td>
@@ -212,7 +244,7 @@
                                 <div class="d-flex flex-column">
                                     <p class="mb-0">@item.spFirstName @item.spLastName </p>
                                     <div class="d-flex align-items-center">
-                                        
+
                                         @for (int i = 0; i < 5; i++)
                                         {
                                             if (i < ((int)item.Ratings))
@@ -230,9 +262,9 @@
                         </td>
                         <td><button class="completed">completed</button> </td>
                     }
-                    else @if (item.Status == 2)
-                       {
-                        
+                    else @if (item.Status == 2 && item.ServiceStartDate > DateTime.Now)
+               {
+
                         <td>
                             <div class="d-flex">
                                 <div class="sp_icon me-2 rounded-circle d-flex align-items-center justify-content-center">
@@ -240,60 +272,109 @@
 
                                 </div>
                                 <div class="d-flex flex-column">
-                                   
-                                  @item.spFirstName @item.spLastName
+
+                                    @item.spFirstName @item.spLastName
                                 </div>
 
                             </div>
                         </td>
                         <td><button class="pending">pending</button> </td>
-                    }
-                    else
-                    {
+                            }
+                        else @if (item.Status == 0)
+                       {
                         <td></td>
                         <td><button class="cancelled">cancelled</button> </td>
+                        }
+                        else @if (item.Status == null && item.ServiceStartDate < DateTime.Now)
+                         {
+                            <td></td>
+                            <td><button class="bg-secondary text-light px-4 py-1 border-0">expired</button> </td>
+                         }
+                    else @if (item.Status == 2 && item.ServiceStartDate < DateTime.Now)
+               {
+                        <td></td>
+                        <td><button class="bg-secondary text-light px-4 py-1 border-0">expired</button> </td>
                     }
 
-                            <td>
-                                @if (item.Status == 1 || item.Status == 0)
-                                {
-                                    <div class="btn-group">
-                                        <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            &#8942
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
+                        <td>
+                            @if (item.Status == 1)
+                            {
+                                <div class="btn-group">
+                                    <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        &#8942
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
 
-                                            <li><button class="dropdown-item" type="button">Refund</button></li>
-                                            <li><button class="dropdown-item" type="button">Cancel</button></li>
-                                            <li><button class="dropdown-item" type="button">Change SP </button></li>
-                                            <li><button class="dropdown-item" type="button">Escalate </button></li>
-                                            <li><button class="dropdown-item" type="button">History</button></li>
-                                            <li><button class="dropdown-item" type="button">Log Download</button></li>
-                                            <li><button class="dropdown-item" type="button">Invoice</button></li>
-                                        </ul>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="btn-group">
-                                        <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            &#8942
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><button class="dropdown-item editandres" srid="@item.ServiceRequestId" data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
-                                            <li><button class="dropdown-item" type="button">Refund</button></li>
-                                            <li><button class="dropdown-item" type="button">Cancel</button></li>
-                                            <li><button class="dropdown-item" type="button">Change SP </button></li>
-                                            <li><button class="dropdown-item" type="button">Escalate </button></li>
-                                            <li><button class="dropdown-item" type="button">History</button></li>
-                                            <li><button class="dropdown-item" type="button">Log Download</button></li>
-                                            <li><button class="dropdown-item" type="button">Invoice</button></li>
-                                        </ul>
-                                    </div>
-                                }
-                            </td>
+                                        <li><button class="dropdown-item refundclass" reid="@item.ServiceRequestId" type="button">Refund</button></li>
+                                        <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                        <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                        <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                        <li><button class="dropdown-item" type="button">History</button></li>
+                                        <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                        <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                    </ul>
+                                </div>
+                            }
+                            else @if (item.Status == 0)
+                       {
+                        <div class="btn-group">
+                            <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                &#8942
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+
+
+                                <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                <li><button class="dropdown-item" type="button">History</button></li>
+                                <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                <li><button class="dropdown-item" type="button">Invoice</button></li>
+                            </ul>
+                        </div>
+                    }
+                    else @if ((item.Status == null || item.Status == 2) && item.ServiceStartDate < DateTime.Now)
+                           {
+                            <div class="btn-group">
+                                <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    &#8942
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                   @* <li><button class="dropdown-item editandres" srid="@item.ServiceRequestId" data-bs-toggle="modal" type="button">Edit & reschedule</button></li>*@
+                                  @*  <li><button class="dropdown-item" type="button">Refund</button></li>*@
+                                    <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                    <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                    <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                    <li><button class="dropdown-item" type="button">History</button></li>
+                                    <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                    <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn-group">
+                                <button type="button" class="btn dropDownBtn" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    &#8942
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><button class="dropdown-item editandres" srid="@item.ServiceRequestId" data-bs-toggle="modal" type="button">Edit & reschedule</button></li>
+                                    <li><button class="dropdown-item" type="button">Refund</button></li>
+                                    <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                    <li><button class="dropdown-item" type="button">Change SP </button></li>
+                                    <li><button class="dropdown-item" type="button">Escalate </button></li>
+                                    <li><button class="dropdown-item" type="button">History</button></li>
+                                    <li><button class="dropdown-item" type="button">Log Download</button></li>
+                                    <li><button class="dropdown-item" type="button">Invoice</button></li>
+                                </ul>
+                            </div>
+                        }
+
+                        </td>
                         </tr>
                         }
 
@@ -332,99 +413,162 @@
                     </div>
                     <div class="modal-body d-flex editRescheduleModal p-4">
                         @*<form action="">
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="editDateModal" class="control-label fw-bold">Date</label>
+                                            <input type="date" value="23/12/2021" name="editDateModal" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="editDateTime" class="control-label fw-bold">Time</label>
+                                            <select name="editDateTime" id="" class="height border">
+                                                <option value="8:00">8:00</option>
+                                                <option value="9:00">9:00</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="12:00">12:00</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label for="" class="control-label fw-bold mb-2">Service Address</label>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="streetNameModal" class="control-label bond">Street name</label>
+                                            <input type="text" name="streetNameModal" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="houseNumberEdit" class="control-label bond">House number</label>
+                                            <input type="text" name="houseNumberEdit" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="postalCodeEdit" class="control-label bond">Postal code</label>
+                                            <input type="text" name="postalCodeEdit" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="cityEdit" class="control-label bond">City</label>
+                                            <select id="cityNames" name="cityNames" class="height border">
+                                                <option value="TD" disabled selected>Ahmedabad</option>
+                                                <option value="delhi">Delhi</option>
+                                                <option value="bangalore">Bangalore</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label for="" class="control-label fw-bold mb-2">Invoice Address</label>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="streetNameModal" class="control-label bond">Street name</label>
+                                            <input type="text" name="streetNameModal" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="houseNumberEdit" class="control-label bond">House number</label>
+                                            <input type="text" name="houseNumberEdit" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="postalCodeEdit" class="control-label bond">Postal code</label>
+                                            <input type="text" name="postalCodeEdit" class="height border">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 my-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="cityEdit" class="control-label bond">City</label>
+                                            <select id="cityNames" name="cityNames" class="height border">
+                                                <option value="TD" disabled selected>Ahmedabad</option>
+                                                <option value="delhi">Delhi</option>
+                                                <option value="bangalore">Bangalore</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex flex-column mb-3">
+                                    <label for="reasonScheduleEdit" class="fw-bold">Why do you want to reschedule service request?</label>
+                                    <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Why do you want to reschedule service request?" class="bdr2 p-2"></textarea>
+                                </div>
+                                <div class="form-group d-flex flex-column mb-3">
+                                    <label for="reasonScheduleEdit" class="fw-bold">Call Center EMP Notes</label>
+                                    <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Enter notes" class="bdr2 p-2"></textarea>
+                                </div>
+                                <button type="submit" class="btn updateBtn w-100">Update</button>
+                            </form>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="refundPopModal">
+        <div class="modal fade" id="refundPop" aria-hidden="true" aria-labelledby="editRescheduleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered vertical-align-center">
+                <div class="modal-content">
+                    @*<div class="modal-header">
+                        <h4 class="modal-title fw-bold" id="editRescheduleLabel">Refund Amount</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="d-flex px-4 justify-content-between">
+                        <div class="d-flex flex-column va">
+                            <p class="mb-1">Paid Amount</p>
+                            <p class="mb-1">54,00 €</p>
+                        </div>
+                        <div class="d-flex flex-column va">
+                            <p class="mb-1">Refunded Amount</p>
+                            <p class="mb-1">0,00 €</p>
+                        </div>
+                        <div class="d-flex flex-column va">
+                            <p class="mb-1">In Balance Amount</p>
+                            <p class="mb-1">54,00 €</p>
+                        </div>
+                    </div>
+                    <div class="modal-body d-flex refundModalModal p-4 justify-content-center">
+                        <form action="">
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <div class="form-group d-flex flex-column">
-                                        <label for="editDateModal" class="control-label fw-bold">Date</label>
-                                        <input type="date" value="23/12/2021" name="editDateModal" class="height border">
+                                        <label for="amountRefundModal" class="control-label fw-bold">Amount</label>
+                                        <div class="d-flex">
+                                            <input type="text"  name="amountRefundModal" class="ht bdr2" style="max-width: 130px;">
+                                            <select  style="max-width: 130px;" class="p-1 border-none">
+                                                <option value="percentage">Percentage</option>
+                                                <option value="fixed">Fixed</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group d-flex flex-column">
-                                        <label for="editDateTime" class="control-label fw-bold">Time</label>
-                                        <select name="editDateTime" id="" class="height border">
-                                            <option value="8:00">8:00</option>
-                                            <option value="9:00">9:00</option>
-                                            <option value="10:00">10:00</option>
-                                            <option value="11:00">11:00</option>
-                                            <option value="12:00">12:00</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <label for="" class="control-label fw-bold mb-2">Service Address</label>
-                            <div class="row mb-3">
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="streetNameModal" class="control-label bond">Street name</label>
-                                        <input type="text" name="streetNameModal" class="height border">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="houseNumberEdit" class="control-label bond">House number</label>
-                                        <input type="text" name="houseNumberEdit" class="height border">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="postalCodeEdit" class="control-label bond">Postal code</label>
-                                        <input type="text" name="postalCodeEdit" class="height border">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="cityEdit" class="control-label bond">City</label>
-                                        <select id="cityNames" name="cityNames" class="height border">
-                                            <option value="TD" disabled selected>Ahmedabad</option>
-                                            <option value="delhi">Delhi</option>
-                                            <option value="bangalore">Bangalore</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <label for="" class="control-label fw-bold mb-2">Invoice Address</label>
-                            <div class="row mb-3">
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="streetNameModal" class="control-label bond">Street name</label>
-                                        <input type="text" name="streetNameModal" class="height border">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="houseNumberEdit" class="control-label bond">House number</label>
-                                        <input type="text" name="houseNumberEdit" class="height border">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="postalCodeEdit" class="control-label bond">Postal code</label>
-                                        <input type="text" name="postalCodeEdit" class="height border">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-2">
-                                    <div class="form-group d-flex flex-column">
-                                        <label for="cityEdit" class="control-label bond">City</label>
-                                        <select id="cityNames" name="cityNames" class="height border">
-                                            <option value="TD" disabled selected>Ahmedabad</option>
-                                            <option value="delhi">Delhi</option>
-                                            <option value="bangalore">Bangalore</option>
-                                        </select>
+                                        <label for="calculatedRefundModal" class="control-label fw-bold">Calculated</label>
+                                        <div class="d-flex">
+                                            <button class="border-none bdr2 p-2" type="button" style="width: 130px;">Calculate</button>
+                                            <input type="text" value="" disabled name="calculatedRefundModal" class="ht bdr2" style="max-width: 130px;">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group d-flex flex-column mb-3">
                                 <label for="reasonScheduleEdit" class="fw-bold">Why do you want to reschedule service request?</label>
-                                <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Why do you want to reschedule service request?" class="bdr2 p-2"></textarea>
+                                <textarea name="reasonScheduleEdit" id="" rows="4" maxlength="500" placeholder="Why do you want to reschedule service request?" class="bdr2 p-2"></textarea>
                             </div>
                             <div class="form-group d-flex flex-column mb-3">
                                 <label for="reasonScheduleEdit" class="fw-bold">Call Center EMP Notes</label>
                                 <textarea name="reasonScheduleEdit" id="" rows="3" maxlength="500" placeholder="Enter notes" class="bdr2 p-2"></textarea>
                             </div>
-                            <button type="submit" class="btn updateBtn w-100">Update</button>
-                        </form>*@
-                    </div>
+                            <button type="button" class="btn updateBtn w-100">Update</button>
+                        </form>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -434,7 +578,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
     <script type="text/javascript">
+         
+            var minDate, maxDate;
+
         var table = $('#tab1').DataTable({
             "aaSorting": [],
             columnDefs: [{
@@ -445,13 +594,61 @@
 
 
         $(document).on('click', "#srch", function () {
+          
+           
+     
+            console.log("mindate"+minDate);
+            console.log("maxdate"+maxDate);
+
+            // Custom filtering function which will search data in column four between two values
+            $.fn.dataTable.ext.search.push(
+                
+
+                function (settings, data, dataIndex) {
+                    minDate = $('#min').val();
+                    maxDate = $('#max').val();
+                    if (minDate == null || minDate == '') {
+                        minDate = "2000/01/01";
+                    }
+                    if (maxDate == null || maxDate == '') {
+                        maxDate = "9999/01/01";
+                    }
+
+                    var min = new Date(minDate);
+                    var max = new Date(maxDate);
+                    var date = new Date(data[1]);
+
+
+                    var tab = $('#tab1 tr').length;
+                    console.log("table length" + tab);
+
+                    console.log("min"+min);
+                    console.log("min"+max);
+                    console.log("chlae che");
+
+                    
+
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+
             table.column(0).search($("#service-id").val()).draw();
-            table.column(3).search($("#customer").val()).draw();
+            
             table.column(3).search($("#postalcode").val()).draw();
             table.column(2).search($("#service-provider option:selected").val()).draw();
             table.column(5).search($("#status option:selected").val()).draw();
+            table.column(1).draw();
+           
         });
-
+       
 
         //$('#reset-btn').click(function () {
         //    console.log('hiiii')
@@ -461,7 +658,9 @@
         //});
 
         $(document).on('click', "#reset-btn", function () {
+           
             $("#formreset")[0].reset();
+           
             $("#srch")[0].click();
             return false;
         });
@@ -501,8 +700,62 @@
             book.Comments = $("#reason").val();
             console.log(book);
 
-             $.ajax({
+            if (book.AddressLine1 == "" || book.AddressLine2 == "" || book.PostalCode == "" || book.city == "" || book.Date == "") {
+                alert('cannot insert null value');
+            }
+            else {
+                $.ajax({
                     url: '@Url.Action("adminsavechanges", "home")',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(book),
+
+                    success: function (resp) {
+                        alert("Data has been added successfully.");
+                        location.reload();
+                    },
+                    error: function (err) {
+                        alert("Error while inserting data");
+                    }
+
+                });
+            }
+        });
+    </script>
+    <script>
+        var refundID;
+        $(document).on("click", ".refundclass", function () {
+            refundID = $(this).attr("reid");
+            console.log(refundID);
+
+              $.ajax({
+                url: '@Url.Action("_refund", "home")',
+                type: 'get',
+                dataType: 'html',
+                contentType: 'application/html',
+                data: { id: refundID},
+                success: function (resp) {
+                    $("#refundPop .modal-content").html(resp);
+                    $("#refundPop").modal("show");
+                },
+                error: function (err) {
+                    alert("Error while inserting data");
+                }
+
+            });
+        });
+
+        $(document).on('click', '#refundupdate', function () {
+            var book = {};
+            book.ServiceRequestId = parseInt(refundID);
+            book.Comments = $("#commentrefund").val();
+            book.RefundedAmount = parseInt(total);
+            console.log(book);
+            console.log("id ser req"+refundID);
+
+             $.ajax({
+                    url: '@Url.Action("refundchanges", "home")',
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -519,8 +772,6 @@
                 });
         });
     </script>
-
-
 </body>
 
 

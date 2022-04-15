@@ -9,9 +9,9 @@ namespace helperland_1.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int? TargetUserId { get; set; }
+        public int TargetUserId { get; set; }
         public bool? IsFavorite { get; set; }
-        public bool? IsBlocked { get; set; }
+        public bool IsBlocked { get; set; }
 
         public virtual User TargetUser { get; set; }
         public virtual User User { get; set; }

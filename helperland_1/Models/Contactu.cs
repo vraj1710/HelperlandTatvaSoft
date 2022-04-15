@@ -17,6 +17,7 @@ namespace helperland_1.Models
         public string LastName { get; set; }
 
         [Required]
+        [RegularExpression("^[6789][0-9]{9}$", ErrorMessage = "Enter a valid mobile number")]
         public string PhoneNumber { get; set; }
 
         [Required]

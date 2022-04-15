@@ -24,6 +24,14 @@
 </head>
 <body>
     <div class="header1" id="topheader">
+        <style>
+            #mySidenav a {
+                color: grey;
+            }
+            .sidebar ul .active {
+                background-color: #115664;
+            }
+        </style>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #525252;" id="navbar11">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-controller="home" asp-action="index">
@@ -49,7 +57,7 @@
                         <a>Dashboard</a>
                         <a asp-controller="home" asp-action="upcomingservice">New Service Request</a>
                         <a asp-controller="home" asp-action="upcomingservicetab">Upcoming services</a>
-                        <a>Service Schedule</a>
+                        <a asp-controller="home" asp-action="calender">Service Schedule</a>
                         <a asp-controller="home" asp-action="USservicehistory">Service History</a>
                         <a asp-controller="home" asp-action="blockcustomer">My Ratings</a>
                         <a>Invoices</a>
@@ -134,7 +142,7 @@
                     <a class="text-light" id="Upcomingg" asp-controller="home" asp-action="upcomingservicetab">Upcoming Services</a>
                 </li>
                 <li>
-                    <a id="serviceSchedulee" class="text-light">Service Schedule</a>
+                    <a id="serviceSchedulee" class="text-light" asp-controller="home" asp-action="calender">Service Schedule</a>
                 </li>
                 <li>
                     <a id="serviceHistoryy" class="text-light" asp-controller="home" asp-action="USservicehistory">Service History</a>
@@ -142,8 +150,8 @@
                 <li>
                     <a id="ratingss" class="text-light" asp-controller="home" asp-action="ratings">My Ratings</a>
                 </li>
-                <li>
-                    <a id="blockCustomerr" class="text-light" asp-controller="home" asp-action="blockcustomer">Block Customer</a>
+                <li class="active">
+                    <a id="blockCustomerr" class="text-light " asp-controller="home" asp-action="blockcustomer">Block Customer</a>
                 </li>
                 <li>
                     <a id="invoices" class="text-light">Invoices</a>

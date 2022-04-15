@@ -18,7 +18,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <script type="text/javascript" src="~/js/upcomingservice.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
     <title>Service Provider-Upcoming Service</title>
 </head>
 <body class="p-0">
@@ -26,8 +26,13 @@
         #mySidenav a {
             color: grey;
         }
+
         .sidebar ul .active {
             background-color: #115664;
+        }
+        .sidenav{
+           z-index:999;
+
         }
     </style>
     <div class="header1" id="topheader">
@@ -56,7 +61,7 @@
                         <a>Dashboard</a>
                         <a asp-controller="home" asp-action="upcomingservice">New Service Request</a>
                         <a asp-controller="home" asp-action="upcomingservicetab">Upcoming services</a>
-                        <a asp-controller="home" asp-action="calender">Service Schedule</a>
+                        <a>Service Schedule</a>
                         <a asp-controller="home" asp-action="USservicehistory">Service History</a>
                         <a asp-controller="home" asp-action="blockcustomer">My Ratings</a>
                         <a>Invoices</a>
@@ -140,10 +145,10 @@
                 <li>
                     <a class="text-light" id="Upcomingg" asp-controller="home" asp-action="upcomingservicetab">Upcoming Services</a>
                 </li>
-                <li>
-                    <a id="serviceSchedulee" class="text-light" asp-controller="home" asp-action="calender">Service Schedule</a>
-                </li>
                 <li class="active">
+                    <a id="serviceSchedulee" class="text-light">Service Schedule</a>
+                </li>
+                <li>
                     <a id="serviceHistoryy" class="text-light" asp-controller="home" asp-action="USservicehistory">Service History</a>
                 </li>
                 <li>
@@ -163,108 +168,13 @@
         <!-- -------------------All Tables List------------------- -->
         <div class="whole_tables">
 
-            <!-- ---------- Service History ---------- -->
-            <div id="serviceHistory" class="d-block">
-                <div class="titlee newSercviceHeader ac d-flex justify-content-between align-items-center ml-0 font-weight-bold">
-                    <div class="d-flex justify-content-left">
-                        <label for="paymentStatus" class="mt-2">Payment Status</label>
-                        <select name="paymentStatus" class="ac ml-2">
-                            <option value="all">All</option>
-                            <option value="completed">Completed</option>
-                            <option value="pending">Pending</option>
-                        </select>
-                    </div>
-                    <a href="#" id="exportBtn" class="btn form_btn rounded-pill text-decoration-none">
-                        Export
-                    </a>
-                </div>
-                <table class="table tablee1" id="tab4">
-                    <thead class="ac">
-                        <tr>
-                            <th scope="col" width="360">
-                                Service Id
-                            </th>
-                            <th scope="col" width="400" class="m-auto">
-                                Service Date
-                            </th>
-                            <th scope="col">
-                                Customer Details
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="ac">
-
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <th z-id="@item.ServiceRequestId" class="shispopup" scope="row">@item.ServiceId</th>
-                                <td class="datess">
-                                    <a data-toggle="modal" class="d-flex text-decoration-none font-weight-bold">
-                                        <img src="~/images/calendar2.png" alt="" height="19" width="16">
-                                        <p class="m-0">@item.ServiceStartDate.ToShortDateString()</p>
-                                    </a>
-                                    <a href="#servicesPop" data-toggle="modal" class="d-flex text-decoration-none">
-                                        <img src="~/images/layer-14.png" alt="" height="19" width="16">
-                                        <p class="m-0">12:00 - 18:00</p>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-decoration-none">
-                                        <p class="m-0">@item.FirstName @item.LastName</p>
-                                        <p class="m-0">
-                                            <span> <img src="~/images/layer-15.png" alt="" height="19" width="16"></span>
-                                            <span>
-                                                @item.AddressLine2 , @item.AddressLine1 <br />
-                                                @item.City @item.PostalCode
-                                            </span>
-                                        </p>
-                                    </a>
-                                </td>
-                            </tr>
-
-                        }
-
-
-                    </tbody>
-                    <tfoot class="ac d-none">
-                        <tr>
-                            <th scope="col" width="360">
-                                Service Id
-                            </th>
-                            <th scope="col" width="400" class="m-auto">
-                                Service Date
-                            </th>
-                            <th scope="col">
-                                Customer Details
-                            </th>
-                        </tr>
-                    </tfoot>
-                </table>
-
-            </div>
-
+            <div id='calendar'></div>
 
 
         </div>
     </div>
 
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Service details</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body srdetail d-flex">
-
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
     <!-- ............Footer Section....... -->
@@ -350,86 +260,24 @@
         }
     </script>
 
-
-
-    <script type="text/javascript">
-        $('#tab1').DataTable({
-            "aaSorting": [],
-            columnDefs: [{
-                orderable: false,
-                targets: [1, 3]
-            }]
-        });
-        $('#tab2').DataTable({
-            "aaSorting": [],
-            columnDefs: [{
-                orderable: false,
-                targets: [1, 3, 5]
-            }]
-        });
-        $('#tab3').DataTable({
-            "aaSorting": [],
-            columnDefs: [{
-                orderable: false,
-                targets: [4]
-            }]
-        });
-        $('#tab4').DataTable({
-            "aaSorting": [],
-            columnDefs: [{
-                orderable: false,
-                targets: [1, 2]
-            }]
-        });
-
-        $(document).on("click",".shispopup", function () {
-            var x = $(this).attr("z-id");
-            console.log(x);
-
-             $.ajax({
-                url: '@Url.Action("_upcomingshpopup", "home")',
-                type: 'get',
-                dataType: 'html',
-                contentType: 'application/html',
-                data: {id:x},
-
-
-                success: function (resp) {
-                    $("#exampleModal .modal-body").html(resp);
-                    $("#exampleModal").modal('show');
-                },
-                error: function (err) {
-                    alert("Error while inserting data");
-                }
-
-            });
-        });
-
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 
     <script>
-        $(function () {
-            $("#exportBtn").click(function (e) {
-                console.log("hii");
-                var table = $("#serviceHistory");
-                console.log(table);
-                if (table && table.length) {
-                    $(table).table2excel({
-                        exclude: ".noExl",
-                        name: "Excel Document Name",
-                        filename: "ServiceHistory" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-                        fileext: ".xls",
-                        exclude_img: true,
-                        exclude_links: true,
-                        exclude_inputs: true,
-                        preserveColors: false
-                    });
-                }
-            });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: 'http://localhost:23691/home/calenderapi'
+            });
+            calendar.render();
         });
+
+
     </script>
+
+
 </body>
 
 </html>
+

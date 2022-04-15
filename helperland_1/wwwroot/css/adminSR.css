@@ -33,7 +33,16 @@ a{
         font-size: 20px;
         color: white;
     }
-
+.refundPopModal .modal-dialog {
+    max-width: 600px;
+}
+.updateBtn {
+    color: white;
+    background-color: #1fb6ff;
+}
+.va {
+    color: grey;
+}
 .main-admin {
     background-color: #0000001A;
 }

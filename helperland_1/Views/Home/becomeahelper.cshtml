@@ -115,12 +115,12 @@
                     <h4>Register now!</h4>
                     <form asp-controller="Home" asp-action="becomeahelper" class="form1" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
-                        <input type="text" name="Firstname" placeholder="First name" id="Firstname" asp-for="FirstName"><br>
-                        <input type="text" name="Lastname" placeholder="Lastname" id="Lastname" asp-for="LastName"><br>
-                        <input type="email" name="Email" placeholder="E-mail" id="Email" asp-for="Email"><br>
-                        <input type="number" name="Mobile" placeholder="phone number" id="Mobile" asp-for="Mobile"><br>
-                        <input type="password" name="Password" placeholder="password" id=Password asp-for="Password"><br>
-                        <input type="password" name="Confirmpassword" placeholder="confirm-password" id="confirm-password" asp-for=" Confirmpassword"><br>
+                        <input type="text"  placeholder="First name" id="Firstname" asp-for="FirstName" required><br>
+                        <input type="text"  placeholder="Lastname" id="Lastname" asp-for="LastName" required><br>
+                        <input type="email" placeholder="E-mail" id="Email" asp-for="Email" required><br>
+                        <input type="number"  placeholder="phone number" id="Mobile" asp-for="Mobile" required><br>
+                        <input type="password"  placeholder="password" id=Password asp-for="Password" required><br>
+                        <input type="password"  placeholder="confirm-password" id="confirm-password" asp-for=" Confirmpassword"><br>
                         <input type="checkbox" id="option-a" required>
                         <label for="option-a"> Send me newsletters from Helperland</label><br>
                         <input type="checkbox" id="option-b" required>

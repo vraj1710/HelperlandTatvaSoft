@@ -718,12 +718,9 @@
                 success: function (resp) {
                     $("#vraj").html(resp);
                     $("#successmodal").trigger("click");
-                    setTimeout(
-                        function () {
-                            window.location.reload(true);
-                        }, 2000);
-
-
+                    $('#success').on('hidden.bs.modal', function () {
+                        location.reload();
+                    });
                 },
                 error: function (err) {
                     alert("Error while inserting data");

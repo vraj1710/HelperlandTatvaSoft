@@ -23,6 +23,15 @@
     <title>Service Provider-Upcoming Service</title>
 </head>
 <body class="m-0 p-0">
+    <style>
+        #mySidenav a{
+            color:grey;
+        }
+        .sidebar ul .active {
+            background-color: #115664;
+        }
+    </style>
+
     <div class="header1" id="topheader">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #525252;" id="navbar11">
             <div class="container-fluid">
@@ -49,7 +58,7 @@
                         <a>Dashboard</a>
                         <a asp-controller="home" asp-action="upcomingservice">New Service Request</a>
                         <a asp-controller="home" asp-action="upcomingservicetab">Upcoming services</a>
-                        <a>Service Schedule</a>
+                        <a asp-controller="home" asp-action="calender">Service Schedule</a>
                         <a asp-controller="home" asp-action="USservicehistory">Service History</a>
                         <a asp-controller="home" asp-action="blockcustomer">My Ratings</a>
                         <a>Invoices</a>
@@ -127,14 +136,14 @@
                 <li>
                     <a class="text-light" aria-current="page" id="dashBoard">Dashboard</a>
                 </li>
-                <li>
+                <li  class="active">
                     <a class="text-light" id="NewService" asp-controller="home" asp-action="upcomingservice">New Service Requests</a>
                 </li>
                 <li>
                     <a class="text-light" id="Upcomingg" asp-controller="home" asp-action="upcomingservicetab">Upcoming Services</a>
                 </li>
                 <li>
-                    <a id="serviceSchedulee" class="text-light">Service Schedule</a>
+                    <a id="serviceSchedulee" class="text-light" asp-controller="home" asp-action="calender">Service Schedule</a>
                 </li>
                 <li>
                     <a id="serviceHistoryy" class="text-light" asp-controller="home" asp-action="USservicehistory">Service History</a>
@@ -226,7 +235,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <p class="m-0 text-center">@item.SubTotal</p>
+                                    <p class="m-0 text-center">$ @item.SubTotal</p>
                                 </td>
                                 <td>
                                     <p class="m-0 text-center">15km</p>

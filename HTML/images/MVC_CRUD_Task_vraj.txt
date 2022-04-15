@@ -1,0 +1,29 @@
+MVC CRUD Task
+
+-- Add-update user Page 
+
+Firstname - text
+Lastname - text
+Dateofbirth - datepicker
+Age - number
+Gender - radio button
+Country - main dropdown
+State - based on country
+City - based on state
+Address - text area
+Phoneno - number
+
+-- List page 
+
+Full name (firstname + last name)
+date of birth (yyyy-mm-dd) format
+cityName
+phonenumber
+Action - Edit -delete
+
+-- delete user with alert confirmation popup
+
+
+
+
+

@@ -33,13 +33,14 @@ namespace helperland_1.Models
         public string Email { get; set; }
 
         [NotMapped]
+       
         public string extraEmail { get; set; }
 
         [Required]
         public string Password { get; set; }
 
         [NotMapped]
-        [Required]
+        
         public string Newpassword { get; set; }
 
         [NotMapped]
@@ -47,6 +48,7 @@ namespace helperland_1.Models
         public string Confirmpassword { get; set; }
 
         [Required]
+        [RegularExpression("^[6789][0-9]{9}$", ErrorMessage = "Enter a valid mobile number")]
         public string Mobile { get; set; }
        
         public DateTime? CreatedDate { get; set; }
